@@ -1,5 +1,5 @@
 import { Modal, Form, Input, InputNumber, Row, Col } from 'antd'
-
+import { RiyalSymbol } from 'riyal/react'
 export default function SupplierModal({ open, onCancel, onSave }) {
   const [form] = Form.useForm()
 
@@ -76,7 +76,7 @@ export default function SupplierModal({ open, onCancel, onSave }) {
                 style={{ width: '100%' }}
                 placeholder="0.00"
                 step={0.01}
-                addonAfter="ر.س"
+                addonAfter={<RiyalSymbol />}
               />
             </Form.Item>
           </Col>

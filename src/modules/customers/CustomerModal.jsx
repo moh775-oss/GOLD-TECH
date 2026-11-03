@@ -1,5 +1,5 @@
 import { Modal, Form, Input, InputNumber, Row, Col } from 'antd'
-
+import { RiyalSymbol } from 'riyal/react'
 export default function CustomerModal({ open, onCancel, onSave }) {
   const [form] = Form.useForm()
 
