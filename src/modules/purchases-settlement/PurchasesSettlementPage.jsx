@@ -3,7 +3,7 @@ import {
   Card, Form, Input, Select, InputNumber, Button, Row, Col, Space,
   DatePicker, Divider, Statistic, message,
 } from 'antd'
-import { ShopOutlined } from '@ant-design/icons'
+import { UserAddOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import { RiyalSymbol } from 'riyal/react'
 import SupplierModal from '../suppliers/SupplierModal'
@@ -68,7 +68,7 @@ export default function PurchasesSettlementPage() {
                 style={{ width: '100%' }}
                 placeholder="اختر المورد أو أضف جديداً"
                 suffix={
-                  <ShopOutlined
+                  <UserAddOutlined
                     style={{ cursor: 'pointer', color: '#d4a017', fontSize: 18 }}
                     onClick={() => setSupplierModalOpen(true)}
                   />
