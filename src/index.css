@@ -1,0 +1,217 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: inherit;
+}
+
+/* ===== كاردات الرئيسية ===== */
+.home-card {
+  position: relative;
+  display: block;
+  height: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  transition: border-color .35s ease, transform .35s ease, box-shadow .35s ease;
+}
+
+/* الطبقة الذهبية المتدرجة من فوق لتحت */
+.home-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #b8860b 0%, #7a5c08 55%, transparent 100%);
+  opacity: 0;
+  transform: translateY(-30%);
+  transition: opacity .4s ease, transform .4s ease;
+  z-index: 0;
+}
+
+.home-card:hover::before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-card:hover {
+  border-color: #d4a017;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(184, 134, 11, 0.25);
+}
+
+.home-card-inner {
+  position: relative;
+  z-index: 1;
+  padding: 28px 20px;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.home-card-icon {
+  font-size: 44px;
+  color: #b8860b;
+  transition: color .35s ease, transform .35s ease;
+}
+
+.home-card:hover .home-card-icon {
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.home-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
+  transition: color .35s ease;
+}
+
+.home-card:hover .home-card-title {
+  color: #ffffff;
+}
+
+.home-card-desc {
+  font-size: 13px;
+  color: #666666;
+  transition: color .35s ease;
+}
+
+.home-card:hover .home-card-desc {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ===== Navbar ===== */
+.app-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 24px;
+  background: #0f0f0f;
+  border-bottom: 1px solid #2a2a2a;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.app-brand-icon {
+  font-size: 26px;
+  color: #d4a017;
+  transition: transform .3s ease, color .3s ease;
+}
+
+.app-brand:hover .app-brand-icon {
+  transform: rotate(-12deg) scale(1.1);
+  color: #f0c040;
+}
+
+.app-brand-name {
+  font-size: 24px;
+  font-weight: 900;
+  background: linear-gradient(90deg, #d4a017, #f0c040, #b8860b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.app-account {
+  cursor: pointer;
+}
+
+.app-account .ant-avatar {
+  transition: border-color .3s ease, box-shadow .3s ease;
+}
+
+.app-account:hover .ant-avatar {
+  border-color: #f0c040 !important;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.2);
+}
+
+.app-brand-logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  transition: transform .3s ease;
+}
+
+.app-brand:hover .app-brand-logo {
+  transform: scale(1.06);
+}
+
+/* ===== الحقول تأخذ العرض الكامل ===== */
+.ant-form-item,
+.ant-form-item-control,
+.ant-form-item-control-input,
+.ant-form-item-control-input-content {
+  width: 100%;
+  min-width: 0;
+}
+
+.ant-input-number,
+.ant-input-number-group-wrapper,
+.ant-input-number-affix-wrapper {
+  width: 100% !important;
+  min-width: 0;
+}
+
+.ant-input-number-group-wrapper {
+  display: block !important;
+}
+
+.ant-input-number-group {
+  display: flex !important;
+  width: 100% !important;
+}
+
+.ant-input-number-group .ant-input-number {
+  flex: 1 !important;
+  width: 0 !important;
+  min-width: 0 !important;
+}
+
+.ant-select,
+.ant-picker,
+.ant-input {
+  width: 100%;
+}
+
+.ant-space-compact:has(> .ant-input-number) {
+  display: flex !important;
+  width: 100% !important;
+}
+
+.ant-space-compact:has(> .ant-input-number) > .ant-input-number {
+  flex: 1 1 0% !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.ant-space-compact:has(> .ant-input-number) > * {
+  flex-shrink: 0;
+}
