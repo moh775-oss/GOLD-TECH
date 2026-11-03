@@ -76,7 +76,7 @@ export default function CustomerModal({ open, onCancel, onSave }) {
                 style={{ width: '100%' }}
                 placeholder="0.00"
                 step={0.01}
-                addonAfter="ر.س"
+                addonAfter={<RiyalSymbol />}
               />
             </Form.Item>
           </Col>
