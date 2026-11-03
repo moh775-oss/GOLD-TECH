@@ -70,7 +70,7 @@ export default function SupplierModal({ open, onCancel, onSave }) {
             </Form.Item>
           </Col>
 
-          <Col span={12}>
+          <Col span={24}>
             <Form.Item label="الرصيد الافتتاحي" name="openingBalance">
               <InputNumber
                 style={{ width: '100%' }}
