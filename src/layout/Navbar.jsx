@@ -32,7 +32,7 @@ export default function Navbar() {
       {/* يمين: الشعار + الاسم */}
       <Link to="/" className="app-brand">
         <img src={logo} alt="جولد تاك" className="app-brand-logo" />
-        <span className="app-brand-name">جولد تاك</span>
+        <span className="app-brand-name"> اشرف التميمي</span>
       </Link>
 
       {/* يسار: الحساب */}
