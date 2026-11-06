@@ -5,6 +5,7 @@ import {
   TruckOutlined,
   FileTextOutlined,
   SettingOutlined,
+  BookOutlined,
 } from '@ant-design/icons'
 
 export const homeCards = [
@@ -13,5 +14,6 @@ export const homeCards = [
   { path: '/customers', title: 'العملاء', desc: 'إدارة بيانات العملاء', icon: <TeamOutlined /> },
   { path: '/suppliers', title: 'الموردين', desc: 'إدارة بيانات الموردين', icon: <TruckOutlined /> },
   { path: '/statement', title: 'كشف حساب', desc: 'عرض حركة الحساب', icon: <FileTextOutlined /> },
+  { path: '/accounts', title: 'دليل الحسابات', desc: 'إدارة دليل الحسابات', icon: <BookOutlined /> },
   { path: '/settings', title: 'الإعدادات', desc: 'إعدادات النظام', icon: <SettingOutlined /> },
 ]
