@@ -6,7 +6,8 @@ import {
   TruckOutlined,
   FileTextOutlined,
   SettingOutlined,
-  BgColorsOutlined ,
+  BgColorsOutlined,
+  BookOutlined,
 } from '@ant-design/icons'
 
 import DashboardPage from '../modules/dashboard/DashboardPage'
@@ -16,6 +17,7 @@ import CustomersPage from '../modules/customers/CustomersPage'
 import SuppliersPage from '../modules/suppliers/SuppliersPage'
 import StatementPage from '../modules/statement/StatementPage'
 import SettingsPage from '../modules/settings/SettingsPage'
+import AccountsPage from '../modules/accounts'
 import ThemePage from '../theme/ThemePage'
 
 export const ROUTES = [
@@ -76,11 +78,19 @@ export const ROUTES = [
     showInMenu: true,
   },
   {
-  path: '/theme',
-  key: 'theme',
-  label: 'الألوان',
-  icon: <BgColorsOutlined />,
-  component: ThemePage,
-  showInMenu: false,
-},
+    path: '/theme',
+    key: 'theme',
+    label: 'الألوان',
+    icon: <BgColorsOutlined />,
+    component: ThemePage,
+    showInMenu: false,
+  },
+  {
+    path: '/accounts',
+    key: 'accounts',
+    label: 'دليل الحسابات',
+    icon: <BookOutlined />,
+    component: AccountsPage,
+    showInMenu: true,
+  },
 ]
