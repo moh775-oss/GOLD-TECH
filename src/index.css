@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  direction: rtl !important;
 }
 
 html, body, #root {
@@ -214,4 +215,495 @@ a:hover {
 
 .ant-space-compact:has(> .ant-input-number) > * {
   flex-shrink: 0;
+}
+
+
+
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-input-number,
+.ant-input-number-affix-wrapper,
+.ant-select .ant-select-selector,
+.ant-picker,
+.ant-input-password {
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 4px 10px !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #e5e5e5 !important;
+  font-size: 13px !important;
+  transition: border-color .2s ease, box-shadow .2s ease !important;
+}
+
+.ant-input-lg,
+.ant-input-affix-wrapper-lg,
+.ant-select-lg .ant-select-selector,
+.ant-picker-lg {
+  height: 40px !important;
+  min-height: 40px !important;
+  font-size: 14px !important;
+}
+
+.ant-input-sm,
+.ant-input-affix-wrapper-sm,
+.ant-select-sm .ant-select-selector,
+.ant-picker-sm {
+  height: 24px !important;
+  min-height: 24px !important;
+  font-size: 12px !important;
+  padding: 0 8px !important;
+}
+
+.ant-input:hover,
+.ant-input-affix-wrapper:hover,
+.ant-input-number:hover,
+.ant-select:hover .ant-select-selector,
+.ant-picker:hover {
+  border-color: #d4a017 !important;
+}
+
+.ant-input:focus,
+.ant-input-focused,
+.ant-input-affix-wrapper-focused,
+.ant-input-number-focused,
+.ant-select-focused .ant-select-selector,
+.ant-picker-focused {
+  border-color: #d4a017 !important;
+  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.15) !important;
+}
+
+.ant-input-affix-wrapper > input.ant-input {
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* TextArea */
+.ant-input-textarea textarea.ant-input {
+  height: auto !important;
+  min-height: 60px !important;
+  padding: 6px 10px !important;
+}
+
+/* ===================== Select Dropdown ===================== */
+.ant-select-dropdown {
+  border-radius: 10px !important;
+  padding: 6px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.ant-select-item {
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  font-size: 13px !important;
+}
+
+.ant-select-item-option-selected {
+  background: #fdf6e3 !important;
+  color: #b8860b !important;
+  font-weight: 600;
+}
+
+.ant-select-item-option-active {
+  background: #fafafa !important;
+}
+
+/* ===================== DatePicker Dropdown ===================== */
+.ant-picker-dropdown {
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.ant-picker-cell-selected .ant-picker-cell-inner {
+  background: #d4a017 !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+}
+
+.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border-color: #d4a017 !important;
+}
+
+.ant-picker-cell:hover .ant-picker-cell-inner {
+  background: #fdf9ef !important;
+}
+
+/* ===================== الأزرار ===================== */
+.ant-btn {
+  height: 32px !important;
+  padding: 4px 14px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  transition: all .2s ease !important;
+}
+
+.ant-btn-lg {
+  height: 40px !important;
+  padding: 6px 18px !important;
+  font-size: 14px !important;
+}
+
+.ant-btn-sm {
+  height: 24px !important;
+  padding: 0 10px !important;
+  font-size: 12px !important;
+}
+
+.ant-btn-primary {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  border: none !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(184, 134, 11, 0.28) !important;
+}
+
+.ant-btn-primary:hover {
+  background: linear-gradient(135deg, #f0c040, #d4a017) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(184, 134, 11, 0.38) !important;
+}
+
+.ant-btn-primary:active {
+  transform: translateY(0);
+}
+
+.ant-btn-default {
+  border: 1.5px solid #e5e5e5 !important;
+  color: #1a1a1a !important;
+}
+
+.ant-btn-default:hover {
+  border-color: #d4a017 !important;
+  color: #b8860b !important;
+}
+
+.ant-btn-dangerous {
+  background: #ff4d4f !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.ant-btn-dangerous:hover {
+  background: #ff7875 !important;
+}
+
+.ant-btn-link {
+  color: #b8860b !important;
+}
+
+.ant-btn-link:hover {
+  color: #d4a017 !important;
+}
+
+/* ===================== Form ===================== */
+.ant-form-item {
+  margin-bottom: 16px !important;
+}
+
+.ant-form-item-label > label {
+  font-weight: 600 !important;
+  color: #1a1a1a !important;
+  font-size: 13px !important;
+  height: 26px !important;
+}
+
+.ant-form-item-explain-error {
+  font-size: 12px !important;
+  margin-top: 4px !important;
+}
+
+.ant-form-item,
+.ant-form-item-control,
+.ant-form-item-control-input,
+.ant-form-item-control-input-content {
+  width: 100%;
+  min-width: 0;
+}
+
+.ant-input-number,
+.ant-input-number-group-wrapper,
+.ant-input-number-affix-wrapper {
+  width: 100% !important;
+  min-width: 0;
+}
+
+.ant-select,
+.ant-picker,
+.ant-input {
+  width: 100%;
+}
+
+/* ===================== Layout ===================== */
+.ant-layout {
+  background: #f5f5f5 !important;
+}
+
+.ant-layout-header {
+  height: 56px !important;
+  line-height: 56px !important;
+  padding: 0 20px !important;
+  background: #0f0f0f !important;
+  border-bottom: 1px solid #2a2a2a !important;
+}
+
+.ant-layout-sider {
+  background: #0f0f0f !important;
+}
+
+.ant-layout-sider-trigger {
+  background: #1a1a1a !important;
+  color: #d4a017 !important;
+}
+
+/* ===================== Menu ===================== */
+.ant-menu-dark {
+  background: #0f0f0f !important;
+}
+
+.ant-menu-dark .ant-menu-item {
+  border-radius: 8px !important;
+  margin: 4px 8px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  font-weight: 600 !important;
+}
+
+.ant-menu-dark .ant-menu-item-selected {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  color: #fff !important;
+}
+
+.ant-menu-dark .ant-menu-item-selected::after {
+  display: none !important;
+}
+
+.ant-menu-dark .ant-menu-item:hover {
+  background: rgba(212, 160, 23, 0.12) !important;
+  color: #f0c040 !important;
+}
+
+.ant-menu-dark .ant-menu-submenu-title {
+  border-radius: 8px !important;
+  margin: 4px 8px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+}
+
+/* ===================== Card ===================== */
+.ant-card {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid #f0f0f0 !important;
+}
+
+.ant-card-head {
+  border-bottom: 2px solid #f0f0f0 !important;
+  font-weight: 700 !important;
+  min-height: 48px !important;
+  padding: 0 20px !important;
+}
+
+.ant-card-head-title {
+  font-size: 15px !important;
+  color: #1a1a1a !important;
+}
+
+.ant-card-body {
+  padding: 20px !important;
+}
+
+/* ===================== Table ===================== */
+.ant-table {
+  border-radius: 10px !important;
+  overflow: hidden;
+  font-size: 13px !important;
+}
+
+.ant-table-thead > tr > th {
+  background: #fafafa !important;
+  color: #b8860b !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  border-bottom: 2px solid #f0f0f0 !important;
+  padding: 8px 12px !important;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding: 8px 12px !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: #fdf9ef !important;
+}
+
+.ant-table-pagination.ant-pagination {
+  margin: 16px 0 0 !important;
+}
+
+/* ===================== Modal ===================== */
+.ant-modal-content {
+  border-radius: 14px !important;
+  padding: 20px !important;
+}
+
+.ant-modal-header {
+  border-bottom: 1px solid #f0f0f0 !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 16px !important;
+}
+
+.ant-modal-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #1a1a1a !important;
+}
+
+.ant-modal-footer {
+  border-top: 1px solid #f0f0f0 !important;
+  padding-top: 12px !important;
+  margin-top: 16px !important;
+}
+
+/* ===================== Tabs ===================== */
+.ant-tabs-tab {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  padding: 8px 0 !important;
+}
+
+.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #b8860b !important;
+}
+
+.ant-tabs-ink-bar {
+  background: #d4a017 !important;
+}
+
+/* ===================== Pagination ===================== */
+.ant-pagination-item {
+  border-radius: 8px !important;
+  min-width: 30px !important;
+  height: 30px !important;
+  line-height: 28px !important;
+}
+
+.ant-pagination-item-active {
+  background: #d4a017 !important;
+  border-color: #d4a017 !important;
+}
+
+.ant-pagination-item-active a {
+  color: #fff !important;
+}
+
+/* ===================== Tag ===================== */
+.ant-tag {
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  padding: 2px 8px !important;
+  margin: 0 !important;
+}
+
+/* ===================== Checkbox / Radio / Switch ===================== */
+.ant-checkbox-checked .ant-checkbox-inner {
+  background: #d4a017 !important;
+  border-color: #d4a017 !important;
+}
+
+.ant-checkbox-inner {
+  border-radius: 4px !important;
+}
+
+.ant-radio-checked .ant-radio-inner {
+  border-color: #d4a017 !important;
+}
+
+.ant-radio-checked .ant-radio-inner::after {
+  background: #d4a017 !important;
+}
+
+.ant-switch-checked {
+  background: #d4a017 !important;
+}
+
+/* ===================== Dropdown ===================== */
+.ant-dropdown-menu {
+  border-radius: 10px !important;
+  padding: 6px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.ant-dropdown-menu-item {
+  border-radius: 6px !important;
+  padding: 6px 12px !important;
+  font-size: 13px !important;
+}
+
+.ant-dropdown-menu-item:hover {
+  background: #fdf9ef !important;
+}
+
+.ant-dropdown-menu-item-selected {
+  color: #b8860b !important;
+  font-weight: 600;
+}
+
+/* ===================== Tooltip ===================== */
+.ant-tooltip-inner {
+  border-radius: 8px !important;
+  padding: 6px 10px !important;
+  font-size: 12px !important;
+}
+
+/* ===================== Alert ===================== */
+.ant-alert {
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+}
+
+/* ===================== Badge ===================== */
+.ant-badge-count {
+  font-size: 11px !important;
+  height: 18px !important;
+  line-height: 18px !important;
+  min-width: 18px !important;
+  padding: 0 6px !important;
+}
+
+/* ===================== Scrollbar ===================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4a017;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8860b;
+}
+
+/* ===================== Utility ===================== */
+.ant-divider {
+  border-color: #f0f0f0 !important;
+}
+
+.ant-space {
+  gap: 8px !important;
+}
+
+.ant-empty-description {
+  font-size: 13px !important;
+  color: #999 !important;
 }

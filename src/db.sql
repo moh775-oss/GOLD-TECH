@@ -232,15 +232,6 @@ CREATE TABLE company_info (
 
 
 
-
-
-
-
-
-
-
-
-
 CREATE TABLE accounts (
     id             BIGINT       NOT NULL AUTO_INCREMENT,
     company_id     BIGINT       NOT NULL,
@@ -262,6 +253,94 @@ CREATE TABLE accounts (
     KEY idx_accounts_accno (company_id, branch_id, acc_no),
     KEY idx_accounts_father (father_acc_no)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+
+CREATE TABLE document_types (
+    id                BIGINT       NOT NULL AUTO_INCREMENT,
+    company_id        BIGINT       NULL,
+    type_code         VARCHAR(40)  NOT NULL,
+    trans_code        VARCHAR(10)  NULL,
+    name              VARCHAR(100) NOT NULL,
+    name_en           VARCHAR(100) NULL,
+    trans_rest_type   VARCHAR(20)  NULL,
+    system_id         INT          NULL,
+    op_calc           TINYINT      NULL,
+    sort_order        INT          NOT NULL DEFAULT 0,
+    is_active         TINYINT(1)   NOT NULL DEFAULT 1,
+    user_id           BIGINT       NULL,
+    created_at        DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at        DATETIME     NULL ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY idx_document_types_company (company_id),
+    KEY idx_document_types_code (company_id, type_code),
+    KEY idx_document_types_trans_code (trans_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+
+
+
+
+
+INSERT INTO document_types
+(type_code, trans_code, name, name_en, trans_rest_type, system_id, op_calc, sort_order) VALUES
+('PURCHASE',           '01', 'مشتريات',                  'Purches',                      NULL, 2,    1,  1),
+('SALE',               '02', 'مبيعات',                   'sales',                        NULL, 1,   -1,  2),
+('PURCHASE_RETURN',    '11', 'مرتجع مشتريات',            'Purches Retuern',              NULL, 2,   -1,  3),
+('SALE_RETURN',        '12', 'مرتجع مبيعات',             'Sales Return',                 NULL, 1,    1,  4),
+('RECEIPT_VOUCHER',    '5',  'سند قبض',                  'accounts',                     NULL, NULL, 1,  5),
+('PAYMENT_VOUCHER',    '6',  'سند صرف',                  'accounts',                     NULL, NULL, 1,  6),
+('RECEIPT_INTERNAL',   '7',  'سند قبض داخلي',            'accounts',                     NULL, NULL, 1,  7),
+('PAYMENT_INTERNAL',   '8',  'سند صرف داخلي',            'accounts',                     NULL, NULL,-1,  8),
+('FIRST_STOCK',        '22', 'مخزون اول المده',          'First Stock',                  NULL, 3,    1,  9),
+('JOURNAL_ENTRY',      '33', 'قيود اليومية',             'daily restrictions',           NULL, NULL, 1, 10),
+('OPENING_BALANCE',    '28', 'رصيد افتتاحي',             'Opening balance',              NULL, NULL,NULL,11),
+('SALE_REPLACE',       '13', 'استبدال مبيعات',           'Sales Replace',                NULL, 1,    1, 13),
+('SHIFT_MATCHING',     '14', 'مطابقة الورديات',          'Shift Matching',               NULL, 1,    1, 14),
+('PURCHASE_REPLACE',   '15', 'استبدال مشتريات',          'Purches Replace',              NULL, 2,   -1, 15),
+('RECEIPT_MULTI',      '17', 'سند قبض متعدد',            'accounts',                     NULL, NULL, 1, 17),
+('PAYMENT_MULTI',      '18', 'سند صرف متعدد',            'accounts',                     NULL, NULL, 1, 18),
+('STOCK_SUPPLY',       '23', 'توريد مخزني',              'Tawwreed Stock',               NULL, 3,    1, 23),
+('STOCK_ISSUE',        '24', 'صرف مخزني',                'safr Stock',                   NULL, 3,   -1, 24),
+('STOCK_TRANSFER',     '25', 'تحويل مخزني',              'tahweel Stock',                NULL, NULL,-1, 25),
+('STOCK_RECEIVE',      '26', 'استلام مخزني',             'istilam Stock',                NULL, NULL, 1, 26),
+('STOCK_ADJUST',       '27', 'تسوية مخزون',              'Taswiya Stock',                NULL, NULL, 1, 27),
+('CASH_RENT_1',        '35', 'فاتورة قبض 1',             'catsh Rent 1',                 NULL, NULL, 0, 35),
+('SPEND_RENT_1',       '36', 'فاتورة صرف 1',             'Spend Rent 1',                 NULL, NULL, 1, 36),
+('ACCOUNT_TRANSFER',   '37', 'تحويل عملات',              'Account Transfer',             NULL, NULL, 1, 37),
+('STOCK_SUPPLY_1',     '43', 'توريد مخزني1',             'Tawreed1',                     NULL, NULL,NULL,43),
+('STOCK_ISSUE_1',      '44', 'صرف مخزني 1',              'Spend1',                       NULL, NULL,NULL,44),
+('INVENTORY_COUNT',    '45', 'إدخال قوائم جرد المخزون',  'InventoryGard',                NULL, NULL,NULL,45),
+('CASHIER_SALE',       '46', 'بيع كاشير',                'Sale Casher',                  NULL, NULL,NULL,46),
+('CASHIER_SALE_RET',   '47', 'مرتجع بيع كاشير',          'ReturnSale Casher',            NULL, NULL,NULL,47),
+('CASHIER_SALE_PAY',   '48', 'مدفوعات بيع كاشير',        'TotalSaleCasher',              NULL, NULL,NULL,48),
+('CASHIER_RET_PAY',    '49', 'مدفوعات مرتجع بيع كاشير',  'TotalReSaleCasher',            NULL, NULL,NULL,49),
+('OFFER_PRICE',        '50', 'فاتوره عرض سعر',           'OfferPrice',                   NULL, NULL,NULL,50),
+('SERVICE_SALE',       '51', 'فاتورة بيع خدمه',          'serviceInvoiceSall',           NULL, NULL,NULL,51),
+('SERVICE_SALE_RET',   '52', 'فاتورة مرتجع بيع خدمه',    'serviceInvoiceReturnSall',     NULL, NULL,NULL,52),
+('DEBIT_NOTE',         '53', 'اشعار مدين',               'MadinPoems',                   NULL, NULL,NULL,53),
+('CASHIER_CLOSE',      '54', 'إغلاق سجلات الكاشير',      'CashierRecordClose',           NULL, NULL,NULL,54),
+('SHIFT_OPEN',         NULL, 'فتح الوردية',              'Shift Open',                   NULL, NULL,NULL,55);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -633,22 +712,6 @@ CREATE TABLE banks (
 
 
 
-
-
-
-
-
-
-
-
-CREATE TABLE document_types (
-    id         BIGINT       NOT NULL AUTO_INCREMENT,
-    company_id BIGINT       NULL,
-    type_code  VARCHAR(40)  NOT NULL,
-    name       VARCHAR(100) NOT NULL,
-    PRIMARY KEY (id),
-    KEY idx_document_types_code (company_id, type_code)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
@@ -2206,5 +2269,50 @@ CREATE TABLE gold_fixings (
 
 
 
+CREATE TABLE cost_centers (
+    id            BIGINT        NOT NULL AUTO_INCREMENT,
+    company_id    BIGINT        NOT NULL,
+    branch_id     BIGINT        NULL,
+    parent_id     BIGINT        NULL,              -- مركز أب (هرمي)
+    code          VARCHAR(50)   NOT NULL,          -- رمز مركز التكلفة
+    name          VARCHAR(200)  NOT NULL,          -- اسم مركز التكلفة
+    name_en       VARCHAR(200)  NULL,
+    center_type   VARCHAR(30)   NULL DEFAULT 'general', -- general / department / project / branch / activity
+    account_id    BIGINT        NULL,              -- ربط بحساب محاسبي (اختياري)
+    manager_id    BIGINT        NULL,              -- مدير مركز التكلفة
+    budget_amount DECIMAL(18,2) NOT NULL DEFAULT 0, -- الموازنة التقديرية
+    opening_balance DECIMAL(18,2) NOT NULL DEFAULT 0, -- رصيد افتتاحي
+    is_active     TINYINT(1)    NOT NULL DEFAULT 1,
+    notes         VARCHAR(1000) NULL,
+    user_id       BIGINT        NULL,
+    created_at    DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at    DATETIME      NULL ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY idx_cc_company (company_id),
+    KEY idx_cc_branch (company_id, branch_id),
+    KEY idx_cc_code (company_id, code),
+    KEY idx_cc_parent (parent_id),
+    KEY idx_cc_type (company_id, center_type),
+    KEY idx_cc_account (account_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+
+
+ALTER TABLE journal_entry_details
+    ADD COLUMN cost_center_id BIGINT NULL AFTER account_id,
+    ADD KEY idx_jed_cost_center (company_id, cost_center_id);
+
+
+
+
+    ALTER TABLE sales_invoices          ADD COLUMN cost_center_id BIGINT NULL AFTER contact_id;
+ALTER TABLE purchase_invoices       ADD COLUMN cost_center_id BIGINT NULL AFTER contact_id;
+ALTER TABLE sales_returns           ADD COLUMN cost_center_id BIGINT NULL AFTER contact_id;
+ALTER TABLE purchase_returns        ADD COLUMN cost_center_id BIGINT NULL AFTER contact_id;
+ALTER TABLE sales_wages             ADD COLUMN cost_center_id BIGINT NULL AFTER contact_id;
+ALTER TABLE purchase_wages          ADD COLUMN cost_center_id BIGINT NULL AFTER contact_id;
+ALTER TABLE receipt_vouchers        ADD COLUMN cost_center_id BIGINT NULL AFTER contact_id;
+ALTER TABLE payment_vouchers        ADD COLUMN cost_center_id BIGINT NULL AFTER contact_id;
+ALTER TABLE expenses                ADD COLUMN cost_center_id BIGINT NULL AFTER category_id;
 
