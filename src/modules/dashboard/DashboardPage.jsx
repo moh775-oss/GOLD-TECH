@@ -1,14 +1,12 @@
-import { Row, Col} from 'antd'
+import { Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import { homeCards } from './data'
+import BottomBar from '../../layout/BottomBar'
 
 export default function DashboardPage() {
-
-
   return (
     <>
-
-      <Row gutter={[20, 20]}>
+      <Row gutter={[20, 20]} style={{ paddingBottom: 80 }}>
         {homeCards.map((item) => (
           <Col xs={12} sm={12} lg={8} key={item.path}>
             <Link to={item.path} className="home-card">
@@ -21,8 +19,7 @@ export default function DashboardPage() {
           </Col>
         ))}
       </Row>
-
-      
+      <BottomBar />
     </>
   )
 }

@@ -1,0 +1,214 @@
+
+/* ====== Navbar ====== */
+.app-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 20px;
+  background: #0f0f0f !important;
+  border-bottom: 1px solid #2a2a2a;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.app-brand-logo {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  transition: transform .3s ease;
+}
+
+.app-brand:hover .app-brand-logo {
+  transform: scale(1.06);
+}
+
+.app-brand-name {
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(90deg, #d4a017, #f0c040, #b8860b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* زر الهامبرغر — يظهر فقط على الشاشات الصغيرة */
+.app-burger {
+  display: none;
+  padding: 0 8px;
+}
+
+@media (max-width: 991px) {
+  .app-burger {
+    display: inline-flex;
+  }
+  .app-sider {
+    display: none !important;
+  }
+}
+
+/* ====== Drawer ====== */
+.app-drawer .ant-drawer-content {
+  background: #0f0f0f;
+}
+
+.app-drawer .ant-menu-dark {
+  background: #0f0f0f;
+}
+
+.app-drawer .ant-menu-dark .ant-menu-submenu-title,
+.app-drawer .ant-menu-dark .ant-menu-item {
+  border-radius: 8px;
+  margin: 4px 8px;
+}
+
+.app-drawer .ant-menu-dark .ant-menu-item-selected,
+.app-drawer .ant-menu-dark .ant-menu-submenu-selected {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  color: #fff !important;
+}
+
+.app-drawer .ant-menu-dark .ant-menu-item-selected::after {
+  display: none;
+}
+
+/* ====== Sidebar ====== */
+.app-sider .ant-menu-dark .ant-menu-item-selected,
+.app-sider .ant-menu-dark .ant-menu-submenu-selected {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  color: #fff !important;
+}
+
+.app-sider .ant-menu-dark .ant-menu-item-selected::after {
+  display: none;
+}
+
+.app-sider .ant-menu-dark .ant-menu-item,
+.app-sider .ant-menu-dark .ant-menu-submenu-title {
+  border-radius: 8px;
+  margin: 4px 8px;
+}
+
+/* ====== Bottom Bar ====== */
+.app-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 12px;
+  padding: 0 20px;
+  background: linear-gradient(90deg, #0f0f0f, #1a1a1a);
+  border-top: 1px solid #2a2a2a;
+  color: #d4d4d4;
+  font-size: 13px;
+  z-index: 90;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.app-bottom-bar b { color: #d4a017; }
+
+@media (max-width: 768px) {
+  .app-bottom-bar {
+    font-size: 11px;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+}
+
+.app-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 48px;
+  padding: 8px 20px;
+  border-top: 1px solid var(--border-color, #e8e8e8);
+  background: var(--bg-container, #fff);
+  color: var(--text-color, #333);
+  font-size: 13px;
+}
+
+.bottom-bar-company,
+.bottom-bar-user,
+.bottom-bar-details,
+.bottom-bar-details > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.bottom-bar-company {
+  flex: 1;
+}
+
+.bottom-bar-company b,
+.bottom-bar-user span,
+.bottom-bar-details span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bottom-bar-details {
+  gap: 20px;
+}
+
+.bottom-bar-more {
+  display: none;
+}
+
+.bottom-bar-more-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.bottom-bar-more-button:hover {
+  background: rgba(128, 128, 128, 0.12);
+}
+
+@media (max-width: 650px) {
+  .app-bottom-bar {
+    gap: 10px;
+    padding: 8px 12px;
+  }
+
+  .bottom-bar-company {
+    flex: 1;
+  }
+
+  .bottom-bar-user {
+    max-width: 35%;
+  }
+
+  .bottom-bar-details {
+    display: none;
+  }
+
+  .bottom-bar-more {
+    display: flex;
+  }
+}
