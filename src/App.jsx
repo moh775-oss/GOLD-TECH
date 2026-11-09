@@ -5,13 +5,14 @@ import { ROUTES } from './config/routes'
 import AppLayout from './layout/AppLayout'
 
 function Protected() {
-  const { user } = useAuth()
-  if (!user) return <Navigate to="/login" replace />
+  const { isAuthenticated, loading } = useAuth()
+  if (loading) return null
+  if (!isAuthenticated) return <Navigate to="/login" replace />
   return <AppLayout />
 }
 
 export default function App() {
-  const publicRoutes = ROUTES.filter((r) => r.public)
+  const publicRoutes  = ROUTES.filter((r) => r.public)
   const privateRoutes = ROUTES.filter((r) => !r.public)
 
   return (
