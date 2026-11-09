@@ -18,6 +18,7 @@ import {
 import DashboardPage from '../modules/dashboard/DashboardPage'
 import RegisterPage from '../modules/auth/RegisterPage'
 import LoginPage from '../modules/auth/LoginPage'
+import CompanyPage from '../modules/companies/CompaniesPage'
 
 
 // import SalesSettlementPage from '../modules/sales-settlement/SalesSettlementPage'
@@ -38,7 +39,8 @@ import LoginPage from '../modules/auth/LoginPage'
 export const ROUTES = [
   { path: '/login', key: 'login', label: 'تسجيل الدخول', icon: null, component: LoginPage, showInMenu: false, public: true },
   { path: '/', key: 'dashboard', label: 'الرئيسية', icon: <DashboardOutlined />, component: DashboardPage, showInMenu: true },
-{ path: '/register', key: 'register', label: 'إنشاء حساب', icon: null, component: RegisterPage, showInMenu: false, public: true },
+  { path: '/register', key: 'register', label: 'إنشاء حساب', icon: null, component: RegisterPage, showInMenu: false, public: true },
+  { path: '/company', key: 'company', label: 'إدارة الشركات', icon: null, component: CompanyPage , showInMenu: false, public: true },
 
 
 
