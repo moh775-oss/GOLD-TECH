@@ -228,8 +228,8 @@ export const antdTheme = {
       colorBorderSecondary: colors.surface.border,
       headerBg: colors.surface.card,
       headerFontSize: 16,
-      borderRadiusLG: 12,
-      paddingLG: 24,
+      borderRadiusLG: 5,
+      paddingLG: 10,
     },
 
     // ===== Tabs =====

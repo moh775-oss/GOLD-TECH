@@ -1,5 +1,6 @@
 import {
   DashboardOutlined,
+  BookOutlined,
   // DollarOutlined,
   // ShoppingCartOutlined,
   // TeamOutlined,
@@ -19,6 +20,7 @@ import DashboardPage from '../modules/dashboard/DashboardPage'
 import RegisterPage from '../modules/auth/RegisterPage'
 import LoginPage from '../modules/auth/LoginPage'
 import CompanyPage from '../modules/companies/CompaniesPage'
+import AccountsPage from '../modules/accounts/ChartOfAccounts'
 
 
 // import SalesSettlementPage from '../modules/sales-settlement/SalesSettlementPage'
@@ -37,11 +39,12 @@ import CompanyPage from '../modules/companies/CompaniesPage'
 // import CostCentersPage from '../modules/cost-centers/CostCentersPage'
 
 export const ROUTES = [
-  { path: '/login', key: 'login', label: 'تسجيل الدخول', icon: null, component: LoginPage, showInMenu: false, public: true },
-  { path: '/', key: 'dashboard', label: 'الرئيسية', icon: <DashboardOutlined />, component: DashboardPage, showInMenu: true },
-  { path: '/register', key: 'register', label: 'إنشاء حساب', icon: null, component: RegisterPage, showInMenu: false, public: true },
-  { path: '/company', key: 'company', label: 'إدارة الشركات', icon: null, component: CompanyPage , showInMenu: false, public: true },
-
+  { path: '/login', key: 'login', label: 'تسجيل الدخول', icon: null, component: LoginPage, showInMenu: false, public: true , withLayout: false },
+  { path: '/', key: 'dashboard', label: 'الرئيسية', icon: <DashboardOutlined />, component: DashboardPage, showInMenu: true, public: false, withLayout: true },
+  { path: '/register', key: 'register', label: 'إنشاء حساب', icon: null, component: RegisterPage, showInMenu: false, public: true , withLayout: false },
+  { path: '/company', key: 'company', label: 'إدارة الشركات', icon: null, component: CompanyPage , showInMenu: false, public: false, withLayout: false,  },
+  { path: '/accounts', key: 'accounts', label: 'دليل الحسابات', icon: <BookOutlined />, component: AccountsPage, showInMenu: true , public: false, withLayout: false,  },
+  
 
 
   // { path: '/sales', key: 'sales', label: 'تسكير مبيعات', icon: <DollarOutlined />, component: SalesSettlementPage, showInMenu: true },
@@ -51,6 +54,7 @@ export const ROUTES = [
   // { path: '/contacts', key: 'contacts', label: 'العملاء والموردون', icon: <TeamOutlined />, component: ContactsPage, showInMenu: true },
   // { path: '/journal-entries', key: 'journal-entries', label: 'القيود', icon: <CalculatorOutlined />, component: JournalEntriesPage, showInMenu: true },
   // { path: '/accounts', key: 'accounts', label: 'دليل الحسابات', icon: <BookOutlined />, component: AccountsPage, showInMenu: true },
+  
   // { path: '/cost-centers', key: 'cost-centers', label: 'مراكز التكلفة', icon: <ApartmentOutlined />, component: CostCentersPage, showInMenu: true },
   // { path: '/safes', key: 'safes', label: 'الصناديق', icon: <ShopOutlined />, component: SafesPage, showInMenu: true },
   // { path: '/banks', key: 'banks', label: 'البنوك', icon: <BankOutlined />, component: BanksPage, showInMenu: true },

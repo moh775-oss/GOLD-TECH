@@ -1,0 +1,552 @@
+/* ================= REPORT GENERATOR ================= */
+.report-generator {
+  width: 100%;
+  direction: rtl;
+  font-family: 'Cairo', 'Tajawal', 'Segoe UI', sans-serif;
+}
+
+/* ================= TOOLBAR ================= */
+.rg-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 5px 5px;
+  background: #ffffff;
+  border: 1px solid #eef0f3;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  margin-bottom: 6px;
+  direction: rtl;
+}
+
+.rg-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  order: 2;
+  justify-content: flex-start;
+}
+
+.rg-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  order: 1;
+  justify-content: flex-end;
+}
+
+.rg-search {
+  width: 200px;
+}
+
+.rg-search .ant-input-affix-wrapper {
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+  height: 38px;
+}
+
+.rg-search .ant-input-affix-wrapper:hover {
+  border-color: #d4a017;
+}
+
+.rg-search .ant-input-affix-wrapper-focused {
+  border-color: #d4a017;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.12);
+}
+
+.rg-search .anticon-search {
+  color: #9aa4bb;
+}
+
+/* ===== أزرار الأيقونات ===== */
+.rg-icon-btn {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  border: 1px solid #e5e7eb !important;
+  background: #ffffff !important;
+  color: #6b7280 !important;
+  transition: all 0.25s ease !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  padding: 0 !important;
+}
+
+.rg-icon-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+.rg-icon-btn .anticon {
+  font-size: 17px !important;
+}
+
+/* زر التصدير — ذهبي */
+.rg-icon-btn.rg-export-btn {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(212, 160, 23, 0.35) !important;
+}
+
+.rg-icon-btn.rg-export-btn:hover {
+  background: linear-gradient(135deg, #e0b028, #c89510) !important;
+  box-shadow: 0 8px 20px rgba(212, 160, 23, 0.5) !important;
+  color: #ffffff !important;
+}
+
+/* زر التحديث — أزرق */
+.rg-icon-btn.rg-refresh-btn {
+  color: #197fdd !important;
+  border-color: #d0e3f7 !important;
+  background: #f0f7ff !important;
+}
+
+.rg-icon-btn.rg-refresh-btn:hover {
+  background: #e0efff !important;
+  border-color: #197fdd !important;
+  color: #1565c0 !important;
+}
+
+/* ===== عدد الصفوف + الإجمالي ===== */
+.rg-rows-label {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.rg-rows-select {
+  width: 70px !important;
+}
+
+.rg-rows-select .ant-select-selector {
+  border-radius: 8px !important;
+  border: 1px solid #e5e7eb !important;
+  height: 30px !important;
+  align-items: center;
+}
+
+.rg-rows-select .ant-select-selector:hover {
+  border-color: #d4a017 !important;
+}
+
+.rg-rows-select.ant-select-focused .ant-select-selector {
+  border-color: #d4a017 !important;
+  box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.12) !important;
+}
+
+.rg-total {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: #fdf9ef;
+  border: 1px solid #f5e8c8;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #8a6d1f;
+  font-weight: 600;
+  white-space: nowrap;
+  height: 30px;
+}
+
+.rg-total strong {
+  color: #b8860b;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* ================= TABLE CARD ================= */
+.rg-table-card {
+  background: #ffffff;
+  border: 1px solid #eef0f3;
+  border-radius: 5px;
+  padding: 0px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.rg-table-card .ant-table {
+  background: transparent;
+}
+
+
+.rg-table-card .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 13px;
+  border-bottom: none !important;
+  padding: 3px 2px !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.rg-table-card .ant-table-container {
+  border-radius: 5px !important;
+  overflow: hidden !important;
+}
+
+
+.rg-table-card .ant-table-thead {
+  border-radius: 5px 5px 0 0 !important;
+}
+
+.rg-table-card .ant-table-thead > tr > th .ant-table-column-sorters {
+  color: #ffffff !important;
+}
+
+.rg-table-card .ant-table-thead > tr > th .anticon {
+  color: #ffffff !important;
+}
+
+/* سهم الترتيب */
+.rg-table-card .ant-table-thead > tr > th .ant-table-column-sorter-up.active,
+.rg-table-card .ant-table-thead > tr > th .ant-table-column-sorter-down.active {
+  color: #ffffff !important;
+}
+
+.rg-table-card .ant-table-thead > tr > th .ant-table-column-sorter-up,
+.rg-table-card .ant-table-thead > tr > th .ant-table-column-sorter-down {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.rg-table-card .ant-table-body::-webkit-scrollbar,
+.rg-table-card .ant-table-content::-webkit-scrollbar,
+.rg-table-card .ant-table-container::-webkit-scrollbar {
+  width: 6px;      /* ← عمودي */
+  height: 6px;     /* ← أفقي */
+}
+
+.rg-table-card .ant-table-body::-webkit-scrollbar-track,
+.rg-table-card .ant-table-content::-webkit-scrollbar-track,
+.rg-table-card .ant-table-container::-webkit-scrollbar-track {
+  background: transparent;   /* ← شفاف */
+  border-radius: 10px;
+}
+
+.rg-table-card .ant-table-body::-webkit-scrollbar-thumb,
+.rg-table-card .ant-table-content::-webkit-scrollbar-thumb,
+.rg-table-card .ant-table-container::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.5);   /* ← ذهبي شفاف */
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.rg-table-card .ant-table-body::-webkit-scrollbar-thumb:hover,
+.rg-table-card .ant-table-content::-webkit-scrollbar-thumb:hover,
+.rg-table-card .ant-table-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 160, 23, 0.85);  /* ← ذهبي أوضح عند المرور */
+}
+
+/* شيل زوايا السكرول (الزاوية اللي بين الأفقي والعمودي) */
+.rg-table-card .ant-table-body::-webkit-scrollbar-corner,
+.rg-table-card .ant-table-content::-webkit-scrollbar-corner,
+.rg-table-card .ant-table-container::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+.rg-table-card .ant-table-body,
+.rg-table-card .ant-table-content,
+.rg-table-card .ant-table-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 160, 23, 0.5) transparent;
+}
+/* زوايا الرأس — مدورة */
+.rg-table-card .ant-table-thead > tr > th:first-child {
+  border-top-right-radius: 5px !important;
+}
+
+.rg-table-card .ant-table-thead > tr > th:last-child {
+  border-top-left-radius: 5px !important;
+}
+
+
+
+/* صفوف الجسم */
+.rg-table-card .ant-table-tbody > tr > td {
+  font-size: 13px;
+  padding: 5px !important;
+  border-bottom: 1px solid #f3f4f6 !important;
+}
+
+.rg-table-card .ant-table-tbody > tr:hover > td {
+  background: #fdf9ef !important;
+}
+
+.rg-table-card .ant-table-tbody > tr.ant-table-row-selected > td {
+  background: rgba(212, 160, 23, 0.08) !important;
+}
+
+
+
+
+.rg-table-card .ant-table-cell-fix-start {
+  background: #ffffff !important;
+  z-index: 2;
+}
+
+.rg-table-card .ant-table-cell-fix-start::after {
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.06) !important;
+}
+
+.rg-table-card .ant-table-thead .ant-table-cell-fix-start {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+}
+
+.rg-table-card .ant-table-tbody > tr:hover .ant-table-cell-fix-start {
+  background: #fdf9ef !important;
+}
+
+/* ================= PAGINATION ================= */
+.rg-pagination-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.rg-pagination-wrap .ant-pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rg-pagination-wrap .ant-pagination-item,
+.rg-pagination-wrap .ant-pagination-prev,
+.rg-pagination-wrap .ant-pagination-next {
+  min-width: 36px;
+  height: 36px;
+  line-height: 34px;
+  border-radius: 5px !important;
+  border: 1px solid #e5e7eb !important;
+  background: #ffffff !important;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.rg-pagination-wrap .ant-pagination-item:hover,
+.rg-pagination-wrap .ant-pagination-prev:hover .ant-pagination-item-link,
+.rg-pagination-wrap .ant-pagination-next:hover .ant-pagination-item-link {
+  border-color: #d4a017 !important;
+  color: #b8860b !important;
+  background: #fdf9ef !important;
+}
+
+.rg-pagination-wrap .ant-pagination-item-active {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  border-color: #d4a017 !important;
+}
+
+.rg-pagination-wrap .ant-pagination-item-active a {
+  color: #ffffff !important;
+}
+
+.rg-pagination-wrap .ant-pagination-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ================= MODAL EXPORT ================= */
+.rg-export-modal .ant-modal-content {
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* ✅ رأس المودال بدون لون */
+.rg-export-modal .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 20px;
+  background: #ffffff !important;
+}
+
+.rg-export-modal .ant-modal-title {
+  font-weight: 800;
+  color: #1a1a1a;
+  font-size: 16px;
+}
+
+.rg-columns-box {
+  border: 1px solid #eef0f3;
+  border-radius: 5px;
+  padding: 14px;
+  max-height: 340px;
+  overflow-y: auto;
+  background: #fafbfc;
+}
+
+.rg-columns-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.rg-columns-box::-webkit-scrollbar-thumb {
+  background: #d4a017;
+  border-radius: 5px;
+}
+
+.rg-columns-box::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.rg-columns-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.rg-columns-header .ant-checkbox-wrapper {
+  font-weight: 700;
+}
+
+.rg-columns-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.rg-column-item {
+  display: flex;
+  align-items: center;
+  padding: 5px 5px;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.rg-column-item:hover {
+  background: #fdf9ef;
+}
+
+.rg-column-item .ant-checkbox-wrapper {
+  width: 100%;
+}
+
+.rg-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.rg-modal-actions .ant-btn {
+  border-radius: 10px;
+  height: 38px;
+  padding: 0 18px;
+  font-weight: 600;
+}
+
+.rg-btn-excel {
+  background: #f0fdf4 !important;
+  border: 1px solid #bbf7d0 !important;
+  color: #16a34a !important;
+}
+
+.rg-btn-excel:hover {
+  background: #dcfce7 !important;
+  border-color: #16a34a !important;
+}
+
+.rg-btn-print {
+  background: linear-gradient(135deg, #197fdd, #1565c0) !important;
+  border: none !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(25, 127, 221, 0.3) !important;
+}
+
+.rg-btn-print:hover {
+  background: linear-gradient(135deg, #2a90ea, #1976d2) !important;
+  box-shadow: 0 6px 18px rgba(25, 127, 221, 0.4) !important;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .rg-toolbar {
+    padding: 12px;
+    gap: 10px;
+  }
+  .rg-toolbar-left,
+  .rg-toolbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .rg-search {
+    flex: 1;
+    width: auto;
+  }
+  .rg-total {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}
+
+/* ================= DARK MODE ================= */
+.dark-mode .rg-toolbar,
+.dark-mode .rg-table-card {
+  background: #131a2c;
+  border-color: #1f2a45;
+}
+
+.dark-mode .rg-rows-label {
+  color: #9aa4bb;
+}
+
+.dark-mode .rg-total {
+  background: rgba(212, 160, 23, 0.1);
+  border-color: rgba(212, 160, 23, 0.3);
+  color: #f0c040;
+}
+
+.dark-mode .rg-total strong {
+  color: #f0c040;
+}
+
+.dark-mode .rg-table-card .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #b8860b, #8a6d1f) !important;
+  color: #ffffff !important;
+  border-bottom: none !important;
+}
+
+.dark-mode .rg-table-card .ant-table-tbody > tr > td {
+  color: #e8ecf4;
+  border-bottom-color: #1f2a45 !important;
+}
+
+.dark-mode .rg-table-card .ant-table-tbody > tr:hover > td {
+  background: rgba(212, 160, 23, 0.08) !important;
+}
+
+.dark-mode .rg-pagination-wrap .ant-pagination-item {
+  background: #131a2c !important;
+  border-color: #1f2a45 !important;
+  color: #e8ecf4;
+}
+
+.dark-mode .rg-pagination-wrap .ant-pagination-item-active {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  border-color: #d4a017 !important;
+}
+
+/* Dark mode — رأس المودال */
+.dark-mode .rg-export-modal .ant-modal-header {
+  background: #131a2c !important;
+  border-bottom-color: #1f2a45 !important;
+}
+
+.dark-mode .rg-export-modal .ant-modal-title {
+  color: #e8ecf4 !important;
+}

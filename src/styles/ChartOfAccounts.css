@@ -1,0 +1,294 @@
+.coa-page { padding: 12px; }
+
+.coa-toolbar {
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #f0f0f0;
+}
+
+.coa-tree-card,
+.coa-form-card {
+  border-radius: 12px;
+  height: calc(100vh - 180px);
+}
+
+.coa-tree-card {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.coa-tree-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+  min-height: 44px;
+}
+
+.coa-tree-card .ant-card-head-title {
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.coa-tree-card .ant-card-body {
+  padding: 0;
+  height: calc(100% - 44px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.coa-form-card {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.coa-form-card .ant-card-head {
+  border-bottom: 1px solid #f0f0f0;
+  min-height: 44px;
+}
+
+.coa-form-card .ant-card-head-title {
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.coa-form-card .ant-card-body {
+  padding: 12px;
+  height: calc(100% - 44px);
+  overflow-y: auto;
+}
+
+.coa-form-card .ant-card-body::-webkit-scrollbar { width: 6px; }
+.coa-form-card .ant-card-body::-webkit-scrollbar-track { background: transparent; }
+.coa-form-card .ant-card-body::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.5);
+  border-radius: 10px;
+}
+.coa-form-card .ant-card-body::-webkit-scrollbar-thumb:hover { background: #d4a017; }
+
+.coa-search {
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.coa-tree-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px;
+}
+
+.coa-tree-wrapper::-webkit-scrollbar { width: 6px; height: 6px; }
+.coa-tree-wrapper::-webkit-scrollbar-track { background: transparent; }
+.coa-tree-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.5);
+  border-radius: 10px;
+}
+.coa-tree-wrapper::-webkit-scrollbar-thumb:hover { background: #d4a017; }
+
+.coa-tree {
+  font-size: 13px;
+  background: transparent;
+  color: #1a1a1a;
+}
+
+.coa-tree .ant-tree-treenode { padding: 2px 0; }
+
+.coa-tree .ant-tree-node-content-wrapper {
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  color: #1a1a1a;
+}
+
+.coa-tree .ant-tree-node-content-wrapper:hover {
+  background: rgba(212, 160, 23, 0.1);
+}
+
+.coa-tree .ant-tree-treenode-selected .ant-tree-node-content-wrapper {
+  background: rgba(212, 160, 23, 0.2) !important;
+  color: #b8860b !important;
+}
+
+.coa-tree .ant-tree-switcher { color: #888; }
+
+.acc-node {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 2px 0;
+  position: relative;
+}
+
+.acc-node-parent {
+  border-right: 3px solid #d4a017;
+  padding-right: 6px;
+  margin-right: -6px;
+}
+
+.acc-node-parent .acc-name {
+  color: #b8860b;
+  font-weight: 700;
+}
+
+.acc-node-parent .acc-code {
+  background: #d4a017;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(212, 160, 23, 0.3);
+}
+
+.acc-node-leaf {
+  border-right: 3px solid #b8860b;
+  padding-right: 6px;
+  margin-right: -6px;
+  background: linear-gradient(90deg, transparent 0%, rgba(184, 134, 11, 0.05) 100%);
+  border-radius: 4px;
+}
+
+.acc-node-leaf .acc-name {
+  color: #7a5c08;
+  font-weight: 500;
+}
+
+.acc-node-leaf .acc-code {
+  background: linear-gradient(135deg, #b8860b, #7a5c08);
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(184, 134, 11, 0.3);
+}
+
+.acc-code {
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  min-width: 66px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.acc-name {
+  flex: 1;
+  font-weight: 500;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.acc-add-btn {
+  opacity: 0.6;
+  color: #d4a017;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.acc-node-leaf .acc-add-btn {
+  color: #b8860b;
+}
+
+.acc-node:hover .acc-add-btn {
+  opacity: 1;
+  background: rgba(212, 160, 23, 0.15) !important;
+}
+
+.acc-node-leaf:hover .acc-add-btn {
+  background: rgba(184, 134, 11, 0.15) !important;
+}
+
+.acc-add-btn:hover { transform: scale(1.15); }
+
+.coa-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #888;
+  gap: 12px;
+}
+
+.coa-empty p { font-size: 14px; margin: 0; }
+
+.coa-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.coa-form-card .ant-form-item { margin-bottom: 8px; }
+.coa-form-card .ant-form-item-label { padding-bottom: 2px; }
+.coa-form-card .ant-form-item-label > label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.w-full { width: 100%; }
+
+@media (max-width: 992px) {
+  .coa-tree-card,
+  .coa-form-card {
+    height: auto;
+    max-height: 500px;
+    margin-bottom: 12px;
+  }
+}
+
+
+/* أزرار الإضافة في Popconfirm — متساوية */
+.acc-add-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-width: 180px;
+}
+
+.acc-add-choice {
+  width: 100% !important;
+  height: 36px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 14px !important;
+  font-size: 13px !important;
+}
+
+/* الزر الرئيسي (حساب فرعي) — ذهبي */
+.acc-add-choice.ant-btn-primary {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  border: none !important;
+  color: #fff !important;
+  box-shadow: 0 3px 8px rgba(212, 160, 23, 0.3) !important;
+}
+
+.acc-add-choice.ant-btn-primary:hover {
+  background: linear-gradient(135deg, #e0b028, #c89510) !important;
+  box-shadow: 0 5px 14px rgba(212, 160, 23, 0.45) !important;
+  transform: translateY(-1px);
+}
+
+/* الزر الثانوي (حساب رئيسي) — أبيض بحدود ذهبية */
+.acc-add-choice:not(.ant-btn-primary) {
+  background: #ffffff !important;
+  border: 1px solid #d4a017 !important;
+  color: #b8860b !important;
+}
+
+.acc-add-choice:not(.ant-btn-primary):hover {
+  background: #fdf9ef !important;
+  border-color: #b8860b !important;
+  color: #8a6d1f !important;
+  transform: translateY(-1px);
+}

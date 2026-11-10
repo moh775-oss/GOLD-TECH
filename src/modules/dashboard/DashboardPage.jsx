@@ -6,7 +6,7 @@ import BottomBar from '../../layout/BottomBar'
 export default function DashboardPage() {
   return (
     <>
-      <Row gutter={[20, 20]} style={{ paddingBottom: 80 }}>
+      <Row gutter={[20, 20]} style={{ paddingBottom: 90 }}>
         {homeCards.map((item) => (
           <Col xs={12} sm={12} lg={8} key={item.path}>
             <Link to={item.path} className="home-card">
@@ -19,7 +19,7 @@ export default function DashboardPage() {
           </Col>
         ))}
       </Row>
-      <BottomBar />
+      {/* <BottomBar /> */}
     </>
   )
 }

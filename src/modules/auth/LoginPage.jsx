@@ -3,7 +3,7 @@ import { Button, Form, Input, Select, Space, Typography } from 'antd'
 import { PhoneOutlined, LockOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
-import { useNotification } from '../../contexts/NotificationContext'
+import notify from '../../lib/notify'
 import '../../styles/auth.css'
 import logo from '../../assets/Logo.png'
 
@@ -11,7 +11,7 @@ const { Text } = Typography
 
 export default function LoginPage() {
   const { checkCredentials, login } = useAuth()
-  const notify = useNotification()
+  
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
@@ -32,8 +32,8 @@ export default function LoginPage() {
       setFiscalYears(data.fiscal_years)
       setCredentials(values)
 
-      if (!data.branches.length)      return notify.error('لا توجد فروع مفعلة')
-      if (!data.fiscal_years.length)  return notify.error('لا توجد سنوات مالية مفعلة')
+      if (!data.branches.length) return notify.error('لا توجد فروع مفعلة')
+      if (!data.fiscal_years.length) return notify.error('لا توجد سنوات مالية مفعلة')
 
       // اختيار تلقائي: آخر سنة مالية + أول فرع
       const lastFiscal = [...data.fiscal_years].sort((a, b) => {

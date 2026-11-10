@@ -98,117 +98,297 @@
 }
 
 /* ====== Bottom Bar ====== */
+
+
 .app-bottom-bar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 12px;
-  padding: 0 20px;
-  background: linear-gradient(90deg, #0f0f0f, #1a1a1a);
-  border-top: 1px solid #2a2a2a;
-  color: #d4d4d4;
-  font-size: 13px;
-  z-index: 90;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.app-bottom-bar b { color: #d4a017; }
-
-@media (max-width: 768px) {
-  .app-bottom-bar {
-    font-size: 11px;
-    gap: 8px;
-    justify-content: flex-start;
-  }
-}
-
-.app-bottom-bar {
+  height: 54px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  min-height: 48px;
-  padding: 8px 20px;
-  border-top: 1px solid var(--border-color, #e8e8e8);
-  background: var(--bg-container, #fff);
-  color: var(--text-color, #333);
-  font-size: 13px;
+  padding: 0 20px;
+  background: linear-gradient(90deg, #0f0f0f, #1a1a1a);
+  border-top: 1px solid #2a2a2a;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.35);
+  z-index: 90;
+  gap: 12px;
 }
 
-.bottom-bar-company,
-.bottom-bar-user,
-.bottom-bar-details,
-.bottom-bar-details > div {
+.bb-right,
+.bb-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 14px;
   min-width: 0;
 }
 
-.bottom-bar-company {
-  flex: 1;
+.bb-icon {
+  color: #d4a017;
+  font-size: 17px;
 }
 
-.bottom-bar-company b,
-.bottom-bar-user span,
-.bottom-bar-details span {
+.bb-company {
+  color: #f0c040;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.bb-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #e0e0e0;
+  font-size: 13px;
   white-space: nowrap;
 }
 
-.bottom-bar-details {
-  gap: 20px;
+.bb-time {
+  color: #d4a017;
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  min-width: 78px;
+  text-align: center;
 }
 
-.bottom-bar-more {
-  display: none;
+.bb-divider {
+  width: 1px;
+  height: 24px;
+  background: #2a2a2a;
 }
 
-.bottom-bar-more-button {
+.bb-more-btn {
+  width: 42px;
+  height: 42px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border: none;
+  background: transparent !important;
+  border: none !important;
   border-radius: 8px;
-  background: transparent;
-  color: inherit;
-  font-size: 20px;
-  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.bottom-bar-more-button:hover {
-  background: rgba(128, 128, 128, 0.12);
+.bb-more-btn:hover {
+  background: rgba(212, 160, 23, 0.15) !important;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 768px) {
   .app-bottom-bar {
-    gap: 10px;
-    padding: 8px 12px;
+    height: 50px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+  .bb-company {
+    font-size: 12.5px;
+  }
+  .bb-icon {
+    font-size: 15px;
+  }
+  .bb-item {
+    font-size: 12px;
+  }
+  .bb-more-btn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-bottom-bar {
+    height: 48px;
+    padding: 0 10px;
+  }
+  .bb-company {
+    font-size: 11.5px;
+  }
+  .bb-icon {
+    font-size: 14px;
+  }
+}
+
+
+
+
+.ant-modal .ant-modal-content {
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 40px);
+  padding: 0;
+}
+
+/* ===== الرأس ===== */
+.ant-modal .ant-modal-header {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 20px;
+  background: #ffffff;
+  flex-shrink: 0;
+  margin: 0;
+  border-radius: 14px 14px 0 0;
+}
+
+.ant-modal .ant-modal-title {
+  font-weight: 800;
+  color: #1a1a1a;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* ===== زر الإغلاق ===== */
+.ant-modal .ant-modal-close {
+  top: 14px;
+  inset-inline-end: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.ant-modal .ant-modal-close:hover {
+  background: #fdf9ef;
+  color: #b8860b;
+}
+
+/* ===== البودي — يسكرول ===== */
+.ant-modal .ant-modal-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: none;
+}
+
+.ant-modal .ant-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ant-modal .ant-modal-body::-webkit-scrollbar-thumb {
+  background: #d4a017;
+  border-radius: 10px;
+}
+
+.ant-modal .ant-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===== الفوتر — ثابت تحت ===== */
+.ant-modal .ant-modal-footer {
+  flex-shrink: 0;
+  border-top: 1px solid #f0f0f0;
+  padding: 12px 20px;
+  margin: 0;
+  background: #ffffff;
+  border-radius: 0 0 14px 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.ant-modal .ant-modal-footer .ant-btn {
+  border-radius: 10px;
+  height: 38px;
+  padding: 0 18px;
+  font-weight: 600;
+}
+
+/* ===== توسيط المودال عمودياً — بدون فراغ كبير فوق ===== */
+.ant-modal-wrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.ant-modal {
+  top: 0;
+  padding-bottom: 0;
+  margin: 0 auto;
+}
+
+/* ================= أحجام المودال ================= */
+
+/* صغير */
+.ant-modal.modal-sm .ant-modal-content {
+  height: auto;
+  max-height: calc(100vh - 40px);
+}
+
+.ant-modal.modal-sm {
+  max-width: 420px;
+  width: 100% !important;
+}
+
+/* وسط (افتراضي) */
+.ant-modal.modal-md .ant-modal-content {
+  height: 80vh;
+  max-height: calc(100vh - 40px);
+}
+
+.ant-modal.modal-md {
+  max-width: 640px;
+  width: 100% !important;
+}
+
+/* كبير — مليان الشاشة ناقص شوية */
+.ant-modal.modal-lg .ant-modal-content {
+  height: calc(100vh - 40px);
+  max-height: calc(100vh - 40px);
+}
+
+.ant-modal.modal-lg {
+  max-width: 95vw;
+  width: 95vw !important;
+}
+
+/* ================= Dark Mode ================= */
+.dark-mode .ant-modal .ant-modal-header {
+  background: #131a2c;
+  border-bottom-color: #1f2a45;
+}
+
+.dark-mode .ant-modal .ant-modal-title {
+  color: #e8ecf4;
+}
+
+.dark-mode .ant-modal .ant-modal-footer {
+  background: #131a2c;
+  border-top-color: #1f2a45;
+}
+
+.dark-mode .ant-modal .ant-modal-close:hover {
+  background: rgba(212, 160, 23, 0.12);
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 768px) {
+  .ant-modal.modal-sm,
+  .ant-modal.modal-md,
+  .ant-modal.modal-lg {
+    max-width: calc(100vw - 24px);
+    width: calc(100vw - 24px) !important;
   }
 
-  .bottom-bar-company {
-    flex: 1;
+  .ant-modal.modal-lg .ant-modal-content {
+    height: calc(100vh - 24px);
   }
 
-  .bottom-bar-user {
-    max-width: 35%;
+  .ant-modal-wrap {
+    padding: 12px 0;
   }
 
-  .bottom-bar-details {
-    display: none;
+  .ant-modal .ant-modal-body {
+    padding: 12px 14px;
   }
 
-  .bottom-bar-more {
-    display: flex;
+  .ant-modal .ant-modal-header,
+  .ant-modal .ant-modal-footer {
+    padding: 12px 14px;
   }
 }

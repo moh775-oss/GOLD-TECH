@@ -1,5 +1,5 @@
 import { Button, Space } from 'antd'
-import { useNotification } from '../../contexts/NotificationContext'
+import { useNotification } from '../../lib/notify'
 
 export default function DemoPage() {
   const notify = useNotification()

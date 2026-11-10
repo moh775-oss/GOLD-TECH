@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { Button, Form, Input } from 'antd'
-import {  ShopOutlined, PhoneOutlined, LockOutlined } from '@ant-design/icons'
+import { ShopOutlined, PhoneOutlined, LockOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../../lib/api'
-import { useNotification } from '../../contexts/NotificationContext'
+import notify from '../../lib/notify'
 import '../../styles/auth.css'
 import logo from '../../assets/Logo.png'
 
 export default function RegisterPage() {
-  const notify = useNotification()
+
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
 
@@ -38,7 +38,7 @@ export default function RegisterPage() {
     <div className="auth-wrapper" dir="rtl">
       <div className="auth-card">
         <div className="auth-logo">
-            <img src={logo} alt="شعار النظام" className="auth-logo-img" />
+          <img src={logo} alt="شعار النظام" className="auth-logo-img" />
         </div>
         <h1 className="auth-title">إنشاء حساب جديد</h1>
         <p className="auth-subtitle">سجّل مؤسستك وابدأ باستخدام النظام</p>
