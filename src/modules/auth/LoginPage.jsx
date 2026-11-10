@@ -161,16 +161,24 @@ export default function LoginPage() {
               </Form.Item>
 
               <Space style={{ width: '100%', marginTop: 6 }} size="middle">
+                
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  size="large"
+                  className="auth-btn"
+                  style={{ flex: '0 0 80%' }}
+                  loading={loading}
+                >
+                  دخول
+                </Button>
                 <Button
                   size="large"
                   className="auth-btn-secondary"
-                  style={{ flex: 1 }}
+                  style={{ flex: '0 0 20%' }}
                   onClick={() => { setCheckedUser(null); setBranches([]); setFiscalYears([]) }}
                 >
                   رجوع
-                </Button>
-                <Button type="primary" htmlType="submit" size="large" className="auth-btn" style={{ flex: 2 }} loading={loading}>
-                  دخول
                 </Button>
               </Space>
             </Form>
