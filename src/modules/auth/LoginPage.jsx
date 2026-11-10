@@ -167,7 +167,7 @@ export default function LoginPage() {
                   htmlType="submit"
                   size="large"
                   className="auth-btn"
-                  style={{ flex: '0 0 80%' }}
+                  style={{ flex: '0 0 80%' , width: '80%' }}
                   loading={loading}
                 >
                   دخول
@@ -175,7 +175,7 @@ export default function LoginPage() {
                 <Button
                   size="large"
                   className="auth-btn-secondary"
-                  style={{ flex: '0 0 20%' }}
+                  style={{ flex: '0 0 20%' , width: '20%' }}
                   onClick={() => { setCheckedUser(null); setBranches([]); setFiscalYears([]) }}
                 >
                   رجوع
