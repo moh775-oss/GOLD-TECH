@@ -79,7 +79,7 @@ export default function LoginPage() {
         <div className="auth-logo">
           <img src={logo} alt="شعار النظام" className="auth-logo-img" />
         </div>
-        <h1 className="auth-title">نظام الذهب</h1>
+        <h1 className="auth-title"> جولد تاك</h1>
         <p className="auth-subtitle">تسجيل الدخول إلى حسابك</p>
 
         {!checkedUser ? (
