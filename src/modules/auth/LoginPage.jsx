@@ -3,7 +3,7 @@ import { Button, Form, Input, Select, Space, Typography } from 'antd'
 import { PhoneOutlined, LockOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
-import notify from '../../lib/notify'
+import notify from '../../lib/notify.jsx'
 import '../../styles/auth.css'
 import logo from '../../assets/Logo.png'
 

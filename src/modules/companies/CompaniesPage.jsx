@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button, Card, Space, Tag, Typography } from 'antd'
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import DataTable from '../../components/ReportGenerator'
-import notify from '../../lib/notify'
+import notify from '../../lib/notify.jsx'
 
 const { Title } = Typography
 

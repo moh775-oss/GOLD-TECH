@@ -11,7 +11,7 @@ import {
 import api from '../../lib/api'
 import { useAuth } from '../../contexts/AuthContext'
 
-import notify from '../../lib/notify'
+import notify from '../../lib/notify.jsx'
 import dayjs from 'dayjs'
 import '../../styles/ChartOfAccounts.css'
 
