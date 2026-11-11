@@ -21,13 +21,33 @@ export const MENU_GROUPS = [
     label: 'التهيئة',
     icon: <BuildOutlined />,
     items: [
-      { key: '/companies',   label: 'الشركات',       icon: <HomeOutlined /> },
-      { key: '/branches',    label: 'الفروع',        icon: <ApartmentOutlined /> },
-      { key: '/users',       label: 'المستخدمون',    icon: <UserOutlined /> },
-      { key: '/accounts',    label: 'دليل الحسابات', icon: <BookOutlined /> },
-      { key: '/contacts',    label: 'العملاء والموردون', icon: <TeamOutlined /> },
-      { key: '/items',       label: 'الأصناف',       icon: <AppstoreOutlined /> },
-      { key: '/karats',      label: 'العيارات',      icon: <DollarOutlined /> },
+      // ===== البيانات الأساسية (submenu) =====
+      {
+        key: 'setup_basic',
+        label: 'البيانات الأساسية',
+        icon: <BookOutlined />,
+        children: [
+          // الأساسيات
+          { key: '/companies',    label: 'الشركات',           icon: <HomeOutlined /> },
+          { key: '/branches',     label: 'الفروع',            icon: <ApartmentOutlined /> },
+          { key: '/users',        label: 'المستخدمون',        icon: <UserOutlined /> },
+          { key: '/accounts',     label: 'دليل الحسابات',     icon: <BookOutlined /> },
+          { key: '/contacts',     label: 'العملاء والموردون', icon: <TeamOutlined /> },
+          { key: '/items',        label: 'الأصناف',           icon: <AppstoreOutlined /> },
+          { key: '/karats',       label: 'العيارات',          icon: <DollarOutlined /> },
+
+          // الخزائن والبنوك
+          { key: '/safes',        label: 'الصناديق',          icon: <ShopOutlined /> },
+          { key: '/banks',        label: 'البنوك',            icon: <BankOutlined /> },
+
+          // الضرائب والعملات
+          { key: '/taxes',        label: 'الضرائب',           icon: <CalculatorOutlined /> },
+          { key: '/currencies',   label: 'العملات',           icon: <DollarOutlined /> },
+
+          // مراكز التكلفة
+          { key: '/cost-centers', label: 'مراكز التكلفة',     icon: <ApartmentOutlined /> },
+        ],
+      },
     ],
   },
   {
@@ -45,22 +65,11 @@ export const MENU_GROUPS = [
     label: 'العمليات',
     icon: <ShoppingCartOutlined />,
     items: [
-      { key: '/sales',       label: 'تسكير مبيعات',     icon: <DollarOutlined /> },
-      { key: '/purchases',   label: 'تسكير مشتريات',    icon: <ShoppingCartOutlined /> },
-      { key: '/journal-entries', label: 'القيود',        icon: <CalculatorOutlined /> },
-      { key: '/receipts',    label: 'سندات القبض',       icon: <WalletOutlined /> },
-      { key: '/payments',    label: 'سندات الصرف',       icon: <WalletOutlined /> },
-    ],
-  },
-  {
-    key: 'finance',
-    label: 'العمليات المالية',
-    icon: <WalletOutlined />,
-    items: [
-      { key: '/safes',         label: 'الصناديق',      icon: <ShopOutlined /> },
-      { key: '/banks',         label: 'البنوك',        icon: <BankOutlined /> },
-      { key: '/cost-centers',  label: 'مراكز التكلفة', icon: <ApartmentOutlined /> },
-      { key: '/expenses',      label: 'المصروفات',     icon: <WalletOutlined /> },
+      { key: '/sales',           label: 'تسكير مبيعات',  icon: <DollarOutlined /> },
+      { key: '/purchases',       label: 'تسكير مشتريات', icon: <ShoppingCartOutlined /> },
+      { key: '/journal-entries', label: 'القيود',         icon: <CalculatorOutlined /> },
+      { key: '/receipts',        label: 'سندات القبض',    icon: <WalletOutlined /> },
+      { key: '/payments',        label: 'سندات الصرف',    icon: <WalletOutlined /> },
     ],
   },
   {
@@ -68,8 +77,8 @@ export const MENU_GROUPS = [
     label: 'التقارير',
     icon: <BarChartOutlined />,
     items: [
-      { key: '/reports/statement',  label: 'كشف حساب',   icon: <FileTextOutlined /> },
-      { key: '/reports/balance',    label: 'الميزانية',  icon: <BarChartOutlined /> },
+      { key: '/reports/statement',   label: 'كشف حساب',       icon: <FileTextOutlined /> },
+      { key: '/reports/balance',     label: 'الميزانية',      icon: <BarChartOutlined /> },
       { key: '/reports/profit-loss', label: 'الأرباح والخسائر', icon: <BarChartOutlined /> },
     ],
   },
@@ -78,9 +87,9 @@ export const MENU_GROUPS = [
     label: 'الإعدادات',
     icon: <SettingOutlined />,
     items: [
-      { key: '/settings',    label: 'الإعدادات',   icon: <SettingOutlined /> },
-      { key: '/audit-logs',  label: 'سجل التدقيق', icon: <AuditOutlined /> },
-      { key: '/theme',       label: 'الألوان',     icon: <SettingOutlined /> },
+      { key: '/settings',    label: 'الإعدادات',    icon: <SettingOutlined /> },
+      { key: '/audit-logs',  label: 'سجل التدقيق',  icon: <AuditOutlined /> },
+      { key: '/theme',       label: 'الألوان',      icon: <SettingOutlined /> },
     ],
   },
   {

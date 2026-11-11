@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   Card, Tree, Form, Input, Select, Button, Row, Col, Space, Switch,
   Tag, Divider, Spin, Popconfirm, InputNumber, DatePicker, Empty, Tooltip,
@@ -10,7 +10,6 @@ import {
 } from '@ant-design/icons'
 import api from '../../lib/api'
 import { useAuth } from '../../contexts/AuthContext'
-
 import notify from '../../lib/notify.jsx'
 import dayjs from 'dayjs'
 import '../../styles/ChartOfAccounts.css'
@@ -20,7 +19,6 @@ const NATURE_LABEL = { debit: 'مدين', credit: 'دائن' }
 
 export default function ChartOfAccounts() {
   const { session } = useAuth()
-
   const [form] = Form.useForm()
 
   const [allAccounts, setAllAccounts] = useState([])
@@ -33,6 +31,7 @@ export default function ChartOfAccounts() {
   const [autoExpandParent, setAutoExpandParent] = useState(true)
   const [isNewMode, setIsNewMode] = useState(false)
 
+  const addingRef = useRef(false)
   const branchId = session?.branch_id
 
   useEffect(() => { loadAccounts() }, [branchId])
@@ -88,6 +87,7 @@ export default function ChartOfAccounts() {
   const collapseAll = () => { setExpandedKeys([]); setAutoExpandParent(false) }
 
   const handleSelect = async (keys) => {
+    if (addingRef.current) return
     if (!keys.length) return
     const accNo = keys[0]
     try {
@@ -100,7 +100,7 @@ export default function ChartOfAccounts() {
           acc_no: acc.acc_no,
           name: acc.name,
           father_acc_no: acc.father_acc_no,
-          account_nature: acc.account_nature,
+          account_nature: acc.account_nature === 'credit' ? 'credit' : 'debit',
           final_account: acc.final_account,
           account_level: acc.account_level,
           is_active: acc.is_active === 1 || acc.is_active === true,
@@ -112,27 +112,6 @@ export default function ChartOfAccounts() {
     }
   }
 
-  const handleAddRoot = () => {
-    const maxRootLevel = allAccounts
-      .filter((a) => !a.father_acc_no || a.father_acc_no === '0')
-      .reduce((m, a) => Math.max(m, Number(a.account_level) || 1), 0)
-    if (maxRootLevel + 1 > 3) {
-      notify.error('لا يمكن إضافة حساب رئيسي في المستوى الرابع أو أعمق')
-      return
-    }
-    setIsNewMode(true)
-    setSelectedAccount(null)
-    form.resetFields()
-    form.setFieldsValue({
-      father_acc_no: '0',
-      account_nature: 'debit',
-      final_account: 'الميزانية العمومية',
-      account_level: maxRootLevel + 1,
-      is_active: true,
-      acc_no: '',
-    })
-  }
-
   const handleAddChild = async (parentAccNo) => {
     try {
       const res = await api.get('/accounts/create', {
@@ -140,19 +119,76 @@ export default function ChartOfAccounts() {
       })
       if (!res.data.success) { notify.error(res.data.message); return }
       const info = res.data.data
-      if (info.level >= 4) {
-        notify.error('لا يمكن إضافة حساب فرعي في المستوى الرابع أو أعمق')
+      if (info.level > 4) {
+        notify.error('لا يمكن إضافة حساب في المستوى الخامس أو أعمق')
         return
       }
+
+      addingRef.current = true
+
       setIsNewMode(true)
       setSelectedAccount(null)
       form.resetFields()
       form.setFieldsValue({
         acc_no: info.acc_no,
         father_acc_no: parentAccNo,
-        account_nature: info.account_nature,
-        final_account: info.final_account,
+        account_nature: info.account_nature === 'credit' ? 'credit' : 'debit',
+        final_account: info.final_account === 'الأرباح والخسائر' ? 'الأرباح والخسائر' : 'الميزانية العمومية',
         account_level: info.level,
+        is_active: true,
+      })
+    } catch (e) {
+      notify.error(e.response?.data?.message || 'فشل توليد رقم الحساب')
+    }
+  }
+
+  const handleAddRoot = async (parentAccNo) => {
+    try {
+      let newLevel = 1
+      let nature = 'debit'
+      let finalAcc = 'الميزانية العمومية'
+
+      if (parentAccNo && parentAccNo !== '0') {
+        const parent = allAccounts.find((a) => a.acc_no === parentAccNo)
+        if (!parent) {
+          notify.error('الحساب الأب غير موجود')
+          return
+        }
+        newLevel = (Number(parent.account_level) || 1) + 1
+        nature = parent.account_nature === 'credit' ? 'credit' : 'debit'
+        finalAcc = parent.final_account === 'الأرباح والخسائر' ? 'الأرباح والخسائر' : 'الميزانية العمومية'
+      } else {
+        const maxRootLevel = allAccounts
+          .filter((a) => !a.father_acc_no || a.father_acc_no === '0')
+          .reduce((m, a) => Math.max(m, Number(a.account_level) || 1), 0)
+        newLevel = maxRootLevel + 1
+      }
+
+      if (newLevel > 3) {
+        notify.error('لا يمكن إضافة حساب رئيسي في المستوى الرابع أو أعمق')
+        return
+      }
+
+      const res = await api.get('/accounts/create', {
+        params: { father_acc_no: parentAccNo || '0', branch_id: branchId },
+      })
+
+      let accNo = ''
+      if (res.data.success) {
+        accNo = res.data.data.acc_no
+      }
+
+      addingRef.current = true
+
+      setIsNewMode(true)
+      setSelectedAccount(null)
+      form.resetFields()
+      form.setFieldsValue({
+        acc_no: accNo,
+        father_acc_no: parentAccNo || '0',
+        account_nature: nature,
+        final_account: finalAcc,
+        account_level: newLevel,
         is_active: true,
       })
     } catch (e) {
@@ -169,18 +205,29 @@ export default function ChartOfAccounts() {
         acc_no: values.acc_no,
         name: values.name,
         father_acc_no: values.father_acc_no || '0',
-        account_nature: values.account_nature,
-        final_account: values.final_account,
+        account_nature: values.account_nature === 'credit' ? 'credit' : 'debit',
+        final_account: values.final_account || 'الميزانية العمومية',
         is_active: values.is_active ? 1 : 0,
         notes: values.notes || null,
       }
       const res = isNewMode
         ? await api.post('/accounts', payload)
         : await api.put(`/accounts/${selectedAccount.id}`, payload)
+
       if (res.data.success) {
         notify.success(res.data.message)
+
+        addingRef.current = false
+
+        setSelectedAccount(null)
+        setIsNewMode(false)
+        form.resetFields()
+
         await loadAccounts()
-        if (isNewMode) { setIsNewMode(false); setSelectedAccount(null); form.resetFields() }
+
+        setSelectedAccount(null)
+        setIsNewMode(false)
+        form.resetFields()
       } else {
         notify.error(res.data.message)
       }
@@ -198,9 +245,11 @@ export default function ChartOfAccounts() {
       const res = await api.delete(`/accounts/${selectedAccount.id}`)
       if (res.data.success) {
         notify.success(res.data.message)
-        await loadAccounts()
+        addingRef.current = false
         setSelectedAccount(null)
+        setIsNewMode(false)
         form.resetFields()
+        await loadAccounts()
       } else {
         notify.error(res.data.message)
       }
@@ -211,42 +260,61 @@ export default function ChartOfAccounts() {
     }
   }
 
-  const renderTreeTitle = (node) => (
-    <div className={`acc-node ${node.account_type === 'رئيسي' ? 'acc-node-parent' : 'acc-node-leaf'}`}>
+  const renderTreeTitle = (node) => {
+    const level = Number(node.account_level) || 1
+    const canAddRoot = level >= 1 && level <= 2
+    const canAddChild = level === 3
+
+    return (
+      <div className={`acc-node ${node.account_type === 'رئيسي' ? 'acc-node-parent' : 'acc-node-leaf'}`}>
         <span className="acc-code">{node.acc_no}</span>
         <span className="acc-name">{node.name}</span>
         <Tag color={node.account_nature === 'debit' ? 'red' : 'green'} style={{ fontSize: 10, margin: 0 }}>
-        {NATURE_LABEL[node.account_nature] || node.account_nature}
+          {NATURE_LABEL[node.account_nature] || node.account_nature}
         </Tag>
-        <Popconfirm
-        title="إضافة حساب"
-        description={
-            <div className="acc-add-buttons">
+
+        {(canAddChild || canAddRoot) && (
+          <Popconfirm
+            title="إضافة حساب"
+            description={
+              <div className="acc-add-buttons">
+                {canAddChild && (
+                  <Button
+                    size="small"
+                    type="primary"
+                    className="acc-add-choice"
+                    onClick={(e) => { e.stopPropagation(); handleAddChild(node.acc_no) }}
+                  >
+                    حساب فرعي
+                  </Button>
+                )}
+                {canAddRoot && (
+                  <Button
+                    size="small"
+                    className="acc-add-choice"
+                    onClick={(e) => { e.stopPropagation(); handleAddRoot(node.acc_no) }}
+                  >
+                    حساب رئيسي
+                  </Button>
+                )}
+              </div>
+            }
+            okButtonProps={{ style: { display: 'none' } }}
+            cancelText="إلغاء"
+            icon={null}
+          >
             <Button
-                size="small"
-                type="primary"
-                className="acc-add-choice"
-                onClick={() => handleAddChild(node.acc_no)}
-            >
-                حساب فرعي
-            </Button>
-            <Button
-                size="small"
-                className="acc-add-choice"
-                onClick={handleAddRoot}
-            >
-                حساب رئيسي جديد
-            </Button>
-            </div>
-        }
-        okButtonProps={{ style: { display: 'none' } }}
-        cancelText="إلغاء"
-        icon={null}
-        >
-        <Button type="text" size="small" className="acc-add-btn" icon={<PlusOutlined />} onClick={(e) => e.stopPropagation()} />
-        </Popconfirm>
-    </div>
+              type="text"
+              size="small"
+              className="acc-add-btn"
+              icon={<PlusOutlined />}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </Popconfirm>
+        )}
+      </div>
     )
+  }
 
   return (
     <div className="coa-page">

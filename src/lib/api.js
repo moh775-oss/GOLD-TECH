@@ -10,7 +10,7 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 })
 
-// ✅ قراءة التوكن من auth_session (JSON)
+
 const getToken = () => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
@@ -28,7 +28,7 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-// ✅ استثناء auth endpoints من الـ redirect
+
 const AUTH_ENDPOINTS = ['/auth/check', '/auth/login', '/auth/register']
 
 api.interceptors.response.use(

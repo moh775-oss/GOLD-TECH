@@ -12,6 +12,27 @@ import '../styles/nav.css'
 
 const { Header } = Layout
 
+// ✅ تحويل العناصر لروابط <Link>
+const buildMenuItems = (items) => {
+  return items.map((it) => {
+    // لو العنصر عنده children → submenu (مش رابط)
+    if (it.children && it.children.length > 0) {
+      return {
+        key: it.key,
+        icon: it.icon,
+        label: it.label,
+        children: buildMenuItems(it.children),
+      }
+    }
+    // لو العنصر رابط → <Link>
+    return {
+      key: it.key,
+      icon: it.icon,
+      label: <Link to={it.key}>{it.label}</Link>,
+    }
+  })
+}
+
 export default function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
@@ -26,15 +47,12 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
+  // ✅ menuItems recursively + روابط
   const menuItems = MENU_GROUPS.map((g) => ({
     key: g.key,
     icon: g.icon,
     label: g.label,
-    children: g.items.map((it) => ({
-      key: it.key,
-      icon: it.icon,
-      label: it.label,
-    })),
+    children: buildMenuItems(g.items),
   }))
 
   const firstLetter = (session?.name || '').trim().charAt(0)
@@ -72,13 +90,6 @@ export default function Navbar() {
     },
   }
 
-  const handleMenuClick = ({ key }) => {
-    if (key?.startsWith('/')) {
-      navigate(key)
-      setOpenKeys([])
-    }
-  }
-
   return (
     <>
       <Header className="erp-header">
@@ -102,7 +113,6 @@ export default function Navbar() {
                 triggerSubMenuAction="click"
                 openKeys={openKeys}
                 onOpenChange={setOpenKeys}
-                onClick={handleMenuClick}
                 selectedKeys={[location.pathname]}
                 overflowedIndicator={<MoreOutlined />}
               />
@@ -129,7 +139,7 @@ export default function Navbar() {
               />
 
               <Link to="/" className="mobile-brand">
-                <span className="mobile-company-name"> جولد تاك</span>
+                <span className="mobile-company-name">جولد تاك</span>
               </Link>
 
               <Dropdown menu={accountMenu} placement="bottomLeft" trigger={['click']}>

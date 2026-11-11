@@ -288,6 +288,18 @@
 }
 
 
+.rg-toolbar-extra {
+  flex-basis: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
 
 
 .rg-table-card .ant-table-cell-fix-start {
@@ -549,4 +561,15 @@
 
 .dark-mode .rg-export-modal .ant-modal-title {
   color: #e8ecf4 !important;
+}
+
+.rg-table-card .ant-table-body {
+  min-height: 250px !important;
+  max-height: 45vh !important;
+  overflow-y: auto !important;
+}
+
+/* لو البيانات أقل من الارتفاع، يفضل فاضي بس الجدول كبير */
+.rg-table-card .ant-table-tbody {
+  min-height: 250px;
 }

@@ -431,6 +431,11 @@ const ReportGenerator = ({
     return (
       <div className={`rg-toolbar ${toolbarClassName}`}>
         {/* اليسار: بحث + تصدير + رفرش */}
+         {extraActions && (
+        <div className="rg-toolbar-extra">
+          {extraActions}
+        </div>
+      )}
         <div className="rg-toolbar-left">
           <Tooltip title="تحديث">
             <Button
@@ -502,7 +507,7 @@ const ReportGenerator = ({
             </div>
           )}
 
-          {extraActions}
+          
         </div>
 
         {/* اليمين: عدد الصفوف + الإجمالي */}

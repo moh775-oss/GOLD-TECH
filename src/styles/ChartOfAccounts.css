@@ -1,4 +1,7 @@
-.coa-page { padding: 12px; }
+/* ================= COA PAGE ================= */
+.coa-page {
+  padding: 12px;
+}
 
 .coa-toolbar {
   border-radius: 12px;
@@ -6,97 +9,141 @@
   border: 1px solid #f0f0f0;
 }
 
+/* ================= CARDS ================= */
 .coa-tree-card,
 .coa-form-card {
   border-radius: 12px;
   height: calc(100vh - 180px);
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
 .coa-tree-card {
-  background: #fff;
-  border: 1px solid #f0f0f0;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-}
-
-.coa-tree-card .ant-card-head {
-  border-bottom: 1px solid #f0f0f0;
-  min-height: 44px;
-}
-
-.coa-tree-card .ant-card-head-title {
-  color: #1a1a1a;
-  font-weight: 600;
-  font-size: 14px;
-}
-
-.coa-tree-card .ant-card-body {
-  padding: 0;
-  height: calc(100% - 44px);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
 .coa-form-card {
-  background: #fff;
-  border: 1px solid #f0f0f0;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
+.coa-tree-card .ant-card-head,
 .coa-form-card .ant-card-head {
   border-bottom: 1px solid #f0f0f0;
   min-height: 44px;
+  flex-shrink: 0;
 }
 
+.coa-tree-card .ant-card-head-title,
 .coa-form-card .ant-card-head-title {
   color: #1a1a1a;
   font-weight: 600;
   font-size: 14px;
 }
 
-.coa-form-card .ant-card-body {
-  padding: 12px;
-  height: calc(100% - 44px);
-  overflow-y: auto;
+/* ================= TREE BODY ================= */
+.coa-tree-card .ant-card-body {
+  padding: 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
-
-.coa-form-card .ant-card-body::-webkit-scrollbar { width: 6px; }
-.coa-form-card .ant-card-body::-webkit-scrollbar-track { background: transparent; }
-.coa-form-card .ant-card-body::-webkit-scrollbar-thumb {
-  background: rgba(212, 160, 23, 0.5);
-  border-radius: 10px;
-}
-.coa-form-card .ant-card-body::-webkit-scrollbar-thumb:hover { background: #d4a017; }
 
 .coa-search {
   padding: 10px;
   border-bottom: 1px solid #f0f0f0;
+  flex-shrink: 0;
 }
 
+/* ✅ سكرول عمودي + أفقي */
 .coa-tree-wrapper {
-  flex: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: auto;
   padding: 8px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 160, 23, 0.5) transparent;
 }
 
-.coa-tree-wrapper::-webkit-scrollbar { width: 6px; height: 6px; }
-.coa-tree-wrapper::-webkit-scrollbar-track { background: transparent; }
+.coa-tree-wrapper::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.coa-tree-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .coa-tree-wrapper::-webkit-scrollbar-thumb {
   background: rgba(212, 160, 23, 0.5);
   border-radius: 10px;
 }
-.coa-tree-wrapper::-webkit-scrollbar-thumb:hover { background: #d4a017; }
 
+.coa-tree-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #d4a017;
+}
+
+.coa-tree-wrapper::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ✅ الشجرة تاخد عرضها الطبيعي */
+.coa-tree-wrapper .ant-tree {
+  min-width: max-content;
+  width: 100%;
+}
+
+.coa-tree-wrapper .ant-tree-node-content-wrapper {
+  display: flex;
+  align-items: center;
+  min-width: max-content;
+  white-space: nowrap;
+}
+
+/* ================= FORM BODY ================= */
+.coa-form-card .ant-card-body {
+  padding: 12px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212, 160, 23, 0.5) transparent;
+}
+
+.coa-form-card .ant-card-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.coa-form-card .ant-card-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.coa-form-card .ant-card-body::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.5);
+  border-radius: 10px;
+}
+
+.coa-form-card .ant-card-body::-webkit-scrollbar-thumb:hover {
+  background: #d4a017;
+}
+
+/* ================= TREE ================= */
 .coa-tree {
   font-size: 13px;
   background: transparent;
   color: #1a1a1a;
 }
 
-.coa-tree .ant-tree-treenode { padding: 2px 0; }
+.coa-tree .ant-tree-treenode {
+  padding: 2px 0;
+}
 
 .coa-tree .ant-tree-node-content-wrapper {
   padding: 2px 6px;
@@ -114,15 +161,18 @@
   color: #b8860b !important;
 }
 
-.coa-tree .ant-tree-switcher { color: #888; }
+.coa-tree .ant-tree-switcher {
+  color: #888;
+}
 
+/* ================= NODE ================= */
 .acc-node {
   display: flex;
   align-items: center;
-  gap: 6px;
-  width: 100%;
-  padding: 2px 0;
-  position: relative;
+  gap: 8px;
+  min-width: max-content;
+  white-space: nowrap;
+  padding: 2px 4px;
 }
 
 .acc-node-parent {
@@ -174,12 +224,10 @@
 }
 
 .acc-name {
-  flex: 1;
+  flex-shrink: 0;
   font-weight: 500;
   color: #1a1a1a;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .acc-add-btn {
@@ -202,8 +250,11 @@
   background: rgba(184, 134, 11, 0.15) !important;
 }
 
-.acc-add-btn:hover { transform: scale(1.15); }
+.acc-add-btn:hover {
+  transform: scale(1.15);
+}
 
+/* ================= EMPTY / LOADING ================= */
 .coa-empty {
   display: flex;
   flex-direction: column;
@@ -214,36 +265,40 @@
   gap: 12px;
 }
 
-.coa-empty p { font-size: 14px; margin: 0; }
+.coa-empty p {
+  font-size: 14px;
+  margin: 0;
+}
 
 .coa-loading {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 200px;
+  flex: 1;
+  padding: 40px;
 }
 
-.coa-form-card .ant-form-item { margin-bottom: 8px; }
-.coa-form-card .ant-form-item-label { padding-bottom: 2px; }
+/* ================= FORM ================= */
+.coa-form-card .ant-form-item {
+  margin-bottom: 8px;
+}
+
+.coa-form-card .ant-form-item-label {
+  padding-bottom: 2px;
+}
+
 .coa-form-card .ant-form-item-label > label {
   font-size: 12px;
   font-weight: 600;
   color: #1a1a1a;
 }
 
-.w-full { width: 100%; }
-
-@media (max-width: 992px) {
-  .coa-tree-card,
-  .coa-form-card {
-    height: auto;
-    max-height: 500px;
-    margin-bottom: 12px;
-  }
+.w-full {
+  width: 100%;
 }
 
-
-/* أزرار الإضافة في Popconfirm — متساوية */
+/* ================= POPCONFIRM BUTTONS ================= */
 .acc-add-buttons {
   display: flex;
   flex-direction: column;
@@ -265,7 +320,6 @@
   font-size: 13px !important;
 }
 
-/* الزر الرئيسي (حساب فرعي) — ذهبي */
 .acc-add-choice.ant-btn-primary {
   background: linear-gradient(135deg, #d4a017, #b8860b) !important;
   border: none !important;
@@ -279,7 +333,6 @@
   transform: translateY(-1px);
 }
 
-/* الزر الثانوي (حساب رئيسي) — أبيض بحدود ذهبية */
 .acc-add-choice:not(.ant-btn-primary) {
   background: #ffffff !important;
   border: 1px solid #d4a017 !important;
@@ -291,4 +344,26 @@
   border-color: #b8860b !important;
   color: #8a6d1f !important;
   transform: translateY(-1px);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+  .coa-tree-card,
+  .coa-form-card {
+    height: auto;
+    max-height: 500px;
+    margin-bottom: 12px;
+  }
+
+  .coa-tree-wrapper {
+    max-height: 380px;
+  }
+
+  .acc-node {
+    gap: 6px;
+  }
+
+  .acc-name {
+    font-size: 12px;
+  }
 }

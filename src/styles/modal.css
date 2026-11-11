@@ -1,0 +1,109 @@
+/* ================= GLOBAL MODAL ================= */
+
+.ant-modal .ant-modal-content {
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: calc(100vh - 40px) !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  border-radius: 14px !important;
+}
+
+.ant-modal .ant-modal-header {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 16px 20px !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  background: #ffffff !important;
+  border-radius: 14px 14px 0 0 !important;
+}
+
+.ant-modal .ant-modal-body {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 16px 20px !important;
+}
+
+.ant-modal .ant-modal-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.ant-modal .ant-modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ant-modal .ant-modal-body::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.5);
+  border-radius: 10px;
+}
+
+.ant-modal .ant-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #d4a017;
+}
+
+.ant-modal .ant-modal-footer {
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  padding: 12px 20px !important;
+  border-top: 1px solid #f0f0f0 !important;
+  background: #ffffff !important;
+  border-radius: 0 0 14px 14px !important;
+}
+
+/* ================= أحجام ================= */
+
+.ant-modal.modal-sm .ant-modal-content {
+  height: auto !important;
+  max-height: calc(100vh - 40px) !important;
+}
+
+.ant-modal.modal-sm {
+  max-width: 420px !important;
+  width: 100% !important;
+}
+
+.ant-modal.modal-md .ant-modal-content {
+  height: 80vh !important;
+  max-height: calc(100vh - 40px) !important;
+}
+
+.ant-modal.modal-md {
+  max-width: 640px !important;
+  width: 100% !important;
+}
+
+.ant-modal.modal-lg .ant-modal-content {
+  height: calc(100vh - 40px) !important;
+  max-height: calc(100vh - 40px) !important;
+}
+
+.ant-modal.modal-lg {
+  max-width: 95vw !important;
+  width: 95vw !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ant-modal.modal-sm,
+  .ant-modal.modal-md,
+  .ant-modal.modal-lg {
+    max-width: calc(100vw - 24px) !important;
+    width: calc(100vw - 24px) !important;
+  }
+
+  .ant-modal.modal-lg .ant-modal-content {
+    height: calc(100vh - 24px) !important;
+  }
+
+  .ant-modal .ant-modal-body {
+    padding: 12px 14px !important;
+  }
+
+  .ant-modal .ant-modal-header,
+  .ant-modal .ant-modal-footer {
+    padding: 12px 14px !important;
+  }
+}

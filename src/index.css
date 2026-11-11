@@ -3,7 +3,7 @@
   direction: rtl !important;
   font-family: 'Tajawal', sans-serif;
 }
-
+/* Select */
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -232,7 +232,7 @@ a:hover {
   min-height: 32px !important;
   padding: 4px 10px !important;
   border-radius: 8px !important;
-  border: 1.5px solid #e5e5e5 !important;
+  
   font-size: 13px !important;
   transition: border-color .2s ease, box-shadow .2s ease !important;
 }
@@ -293,13 +293,16 @@ a:hover {
 .ant-select-dropdown {
   border-radius: 10px !important;
   padding: 6px !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  border-color: #d4a017 !important;
+  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.15) !important;
 }
 
 .ant-select-item {
   border-radius: 6px !important;
   padding: 6px 10px !important;
   font-size: 13px !important;
+    border-color: #d4a017 !important;
+  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.15) !important;
 }
 
 .ant-select-item-option-selected {
@@ -308,9 +311,7 @@ a:hover {
   font-weight: 600;
 }
 
-.ant-select-item-option-active {
-  background: #fafafa !important;
-}
+
 
 /* ===================== DatePicker Dropdown ===================== */
 .ant-picker-dropdown {
@@ -332,6 +333,97 @@ a:hover {
   background: #fdf9ef !important;
 }
 
+/* ===================== Select = Input ===================== */
+.ant-select .ant-select-selector {
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 4px 10px !important;
+  border-radius: 8px !important;
+  border: 1.5px solid #e5e5e5 !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  font-size: 13px !important;
+  transition: border-color .2s ease, box-shadow .2s ease !important;
+}
+
+.ant-select:hover .ant-select-selector {
+  border-color: #d4a017 !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: #d4a017 !important;
+  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.15) !important;
+}
+
+.ant-select-selection-item {
+  line-height: 22px !important;
+  font-size: 13px !important;
+  color: #1a1a1a !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.ant-select-selection-placeholder {
+  line-height: 22px !important;
+  font-size: 13px !important;
+  color: #bfbfbf !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.ant-select-arrow {
+  color: #bfbfbf !important;
+  font-size: 11px !important;
+  height: 22px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Select sizes */
+.ant-select-lg .ant-select-selector {
+  height: 40px !important;
+  min-height: 40px !important;
+  padding: 6px 12px !important;
+  font-size: 14px !important;
+}
+
+.ant-select-sm .ant-select-selector {
+  height: 24px !important;
+  min-height: 24px !important;
+  padding: 0 8px !important;
+  font-size: 12px !important;
+}
+
+.ant-select-sm .ant-select-selection-item,
+.ant-select-sm .ant-select-selection-placeholder {
+  line-height: 22px !important;
+}
+
+/* شيل الخلفية الرمادية من الـ selector */
+.ant-select-single .ant-select-selector .ant-select-selection-search-input {
+  height: 22px !important;
+}
+
+/* ===== Select في الـ Dark Mode ===== */
+.dark-mode .ant-select .ant-select-selector {
+  background: #131a2c !important;
+  border-color: #1f2a45 !important;
+  color: #e8ecf4 !important;
+}
+
+.dark-mode .ant-select-selection-item {
+  color: #e8ecf4 !important;
+}
+
+.dark-mode .ant-select-selection-placeholder {
+  color: #6b7280 !important;
+}
+
+.dark-mode .ant-select:hover .ant-select-selector {
+  border-color: #d4a017 !important;
+}
 /* ===================== الأزرار ===================== */
 .ant-btn {
   height: 32px !important;
@@ -545,29 +637,7 @@ a:hover {
   margin: 16px 0 0 !important;
 }
 
-/* ===================== Modal ===================== */
-.ant-modal-content {
-  border-radius: 14px !important;
-  padding: 20px !important;
-}
 
-.ant-modal-header {
-  border-bottom: 1px solid #f0f0f0 !important;
-  padding-bottom: 12px !important;
-  margin-bottom: 16px !important;
-}
-
-.ant-modal-title {
-  font-size: 16px !important;
-  font-weight: 700 !important;
-  color: #1a1a1a !important;
-}
-
-.ant-modal-footer {
-  border-top: 1px solid #f0f0f0 !important;
-  padding-top: 12px !important;
-  margin-top: 16px !important;
-}
 
 /* ===================== Tabs ===================== */
 .ant-tabs-tab {

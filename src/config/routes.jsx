@@ -3,8 +3,8 @@ import {
   BookOutlined,
   // DollarOutlined,
   // ShoppingCartOutlined,
-  // TeamOutlined,
-  // TruckOutlined,
+  TeamOutlined,
+  TruckOutlined,
   // FileTextOutlined,
   // SettingOutlined,
   // BgColorsOutlined,
@@ -21,12 +21,16 @@ import RegisterPage from '../modules/auth/RegisterPage'
 import LoginPage from '../modules/auth/LoginPage'
 import CompanyPage from '../modules/companies/CompaniesPage'
 import AccountsPage from '../modules/accounts/ChartOfAccounts'
-
+import CustomersPage from '../modules/contacts/CustomersPage'
+import SuppliersPage from '../modules/contacts/SuppliersPage'
+import SafesPage from '../modules/safes/SafesPage'
+import BanksPage from '../modules/banks/BanksPage'
+import TaxesPage from '../modules/taxes/TaxesPage'
+import CurrenciesPage from '../modules/currencies/CurrenciesPage'
 
 // import SalesSettlementPage from '../modules/sales-settlement/SalesSettlementPage'
 // import PurchasesSettlementPage from '../modules/purchases-settlement/PurchasesSettlementPage'
-// import CustomersPage from '../modules/customers/CustomersPage'
-// import SuppliersPage from '../modules/suppliers/SuppliersPage'
+
 // import StatementPage from '../modules/statement/StatementPage'
 // import SettingsPage from '../modules/settings/SettingsPage'
 // import AccountsPage from '../modules/accounts'
@@ -44,7 +48,12 @@ export const ROUTES = [
   { path: '/register', key: 'register', label: 'إنشاء حساب', icon: null, component: RegisterPage, showInMenu: false, public: true , withLayout: false },
   { path: '/company', key: 'company', label: 'إدارة الشركات', icon: null, component: CompanyPage , showInMenu: false, public: false, withLayout: false,  },
   { path: '/accounts', key: 'accounts', label: 'دليل الحسابات', icon: <BookOutlined />, component: AccountsPage, showInMenu: true , public: false, withLayout: false,  },
-  
+  { path: '/customers', key: 'customers', label: 'العملاء', icon: <TeamOutlined />, component: CustomersPage, showInMenu: true , public: false, withLayout: false,  },
+  { path: '/suppliers', key: 'suppliers', label: 'الموردين', icon: <TruckOutlined />, component: SuppliersPage, showInMenu: true , public: false, withLayout: false,  },
+  { path: '/safes',      key: 'safes',      label: 'الصناديق', icon: null, component: SafesPage,      showInMenu: true, public: false , withLayout: false,  },
+  { path: '/banks',      key: 'banks',      label: 'البنوك',   icon: null, component: BanksPage,      showInMenu: true, public: false, withLayout: false,  },
+  { path: '/taxes',      key: 'taxes',      label: 'الضرائب',  icon: null, component: TaxesPage,      showInMenu: true, public: false, withLayout: false },
+  { path: '/currencies', key: 'currencies', label: 'العملات',  icon: null, component: CurrenciesPage, showInMenu: true, public: false, withLayout: false },
 
 
   // { path: '/sales', key: 'sales', label: 'تسكير مبيعات', icon: <DollarOutlined />, component: SalesSettlementPage, showInMenu: true },

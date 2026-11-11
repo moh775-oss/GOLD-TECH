@@ -1,30 +1,74 @@
-import { Drawer, Menu, Button } from 'antd'
+import { Drawer, Menu, Button, Dropdown } from 'antd'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { CloseOutlined } from '@ant-design/icons'
 import { MENU_GROUPS } from '../config/menu'
 import { useAuth } from '../contexts/AuthContext'
+import logo from '../assets/Logo.png'
+import '../styles/nav.css'
+
+// ✅ تحويل العناصر لروابط <Link>
+const buildMenuItems = (items) => {
+  return items.map((it) => {
+    if (it.children && it.children.length > 0) {
+      return {
+        key: it.key,
+        icon: it.icon,
+        label: it.label,
+        children: buildMenuItems(it.children),
+      }
+    }
+    return {
+      key: it.key,
+      icon: it.icon,
+      label: <Link to={it.key} onClick={(e) => e.stopPropagation()}>{it.label}</Link>,
+    }
+  })
+}
 
 export default function DrawerMenu({ open, onClose }) {
   const navigate = useNavigate()
   const location = useLocation()
-  const { session } = useAuth()
+  const { session, logout } = useAuth()
 
   const items = MENU_GROUPS.map((g) => ({
     key: g.key,
     icon: g.icon,
     label: g.label,
-    children: g.items.map((it) => ({
-      key: it.key,
-      icon: it.icon,
-      label: it.label,
-    })),
+    children: buildMenuItems(g.items),
   }))
 
-  const handleClick = ({ key }) => {
-    if (key.startsWith('/')) {
-      navigate(key)
-      onClose()
-    }
+  const firstLetter = (session?.name || 'م').trim().charAt(0)
+
+  const accountMenu = {
+    items: [
+      {
+        key: 'header',
+        disabled: true,
+        label: (
+          <div style={{ padding: '6px 4px', minWidth: 170 }}>
+            <div style={{ fontWeight: 700, color: '#1a1a1a' }}>
+              {session?.name || 'مستخدم'}
+            </div>
+            <div style={{ fontSize: 12, color: '#888', marginTop: 2 }}>
+              {session?.mobile || ''}
+            </div>
+          </div>
+        ),
+      },
+      { type: 'divider' },
+      { key: 'settings', label: 'الإعدادات' },
+      { type: 'divider' },
+      { key: 'logout', label: 'تسجيل الخروج', danger: true },
+    ],
+    onClick: async ({ key }) => {
+      if (key === 'settings') { navigate('/settings'); onClose() }
+      if (key === 'logout') {
+        try { await logout() } catch {}
+        navigate('/login')
+        onClose()
+      }
+    },
   }
 
   return (
@@ -40,7 +84,7 @@ export default function DrawerMenu({ open, onClose }) {
       }}
       rootClassName="app-drawer"
     >
-      {/* رأس الدروار: اسم الشركة + زر إغلاق */}
+      {/* رأس الدروار */}
       <div
         style={{
           display: 'flex',
@@ -79,7 +123,13 @@ export default function DrawerMenu({ open, onClose }) {
         mode="inline"
         selectedKeys={[location.pathname]}
         items={items}
-        onClick={handleClick}
+        onClick={({ key }) => {
+          // لو العنصر مش رابط (submenu)، مفيش حاجة
+          // لو رابط، <Link> هيتولى الأمر
+          if (key.startsWith('/')) {
+            onClose()
+          }
+        }}
         style={{ background: '#0f0f0f', borderInlineEnd: 'none' }}
       />
     </Drawer>

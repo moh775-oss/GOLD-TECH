@@ -19,7 +19,7 @@ export default function DashboardPage() {
           </Col>
         ))}
       </Row>
-      {/* <BottomBar /> */}
+      <BottomBar />
     </>
   )
 }

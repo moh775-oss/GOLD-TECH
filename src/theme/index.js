@@ -160,6 +160,8 @@ export const antdTheme = {
       colorBorder: colors.surface.border,
       colorText: colors.text.primary,
       colorTextPlaceholder: colors.text.disabled,
+      activeBorderColor: colors.gold[600],
+      hoverBorderColor: colors.gold[500],
       optionSelectedBg: '#fafafa',
       optionSelectedColor: colors.gold[700],
       optionActiveBg: '#f5f5f5',
@@ -213,6 +215,8 @@ export const antdTheme = {
       colorBgMask: 'rgba(0, 0, 0, 0.45)',
       borderRadiusLG: 12,
       titleFontSize: 18,
+      paddingContentHorizontalLG: 20,
+      paddingMD: 16,
     },
 
     // ===== Drawer =====

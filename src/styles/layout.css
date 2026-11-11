@@ -392,3 +392,167 @@
     padding: 12px 14px;
   }
 }
+
+/* ================= GLOBAL CARD FIXES ================= */
+
+/* ===== الكارد — يمنع خروج المحتوى ===== */
+.ant-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ant-card .ant-card-head {
+  flex-shrink: 0;
+  min-height: auto;
+  flex-wrap: wrap;              /* ← يسمح بالالتفاف */
+  gap: 8px;
+}
+
+.ant-card .ant-card-head-wrapper {
+  flex-wrap: wrap;              /* ← الـ title + extra يلفوا */
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.ant-card .ant-card-head-title {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ant-card .ant-card-extra {
+  flex-shrink: 0;
+  margin-inline-start: 0;
+}
+
+/* ===== البودي — سكرول داخلي لو المحتوى كتير ===== */
+.ant-card .ant-card-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  min-height: 0;
+  max-height: 100%;
+  padding: 16px;
+}
+
+/* سكرول أنيق */
+.ant-card .ant-card-body::-webkit-scrollbar {
+  width: 6px;
+}
+.ant-card .ant-card-body::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.5);
+  border-radius: 10px;
+}
+.ant-card .ant-card-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 160, 23, 0.85);
+}
+.ant-card .ant-card-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===== Responsive — الموبايل ===== */
+@media (max-width: 768px) {
+  .ant-card .ant-card-head {
+    padding: 10px 12px;
+  }
+
+  .ant-card .ant-card-head-wrapper {
+    flex-direction: column;       /* ← title فوق، extra تحت */
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .ant-card .ant-card-head-title {
+    font-size: 14px;
+  }
+
+  .ant-card .ant-card-extra {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .ant-card .ant-card-extra .ant-btn {
+    padding: 0 10px;
+    font-size: 12px;
+    height: 30px;
+  }
+
+  .ant-card .ant-card-body {
+    padding: 10px;
+  }
+}
+
+.ant-modal-confirm {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  padding-bottom: 0 !important;
+  margin: 0 auto !important;
+}
+
+/* الـ wrapper — توسيط أفقي + عمودي */
+.ant-modal-confirm-wrap,
+.ant-modal-confirm-confirm {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* المحتوى */
+.ant-modal-confirm .ant-modal-content {
+  border-radius: 14px !important;
+  padding: 20px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* الرأس */
+.ant-modal-confirm-title {
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  color: #1a1a1a !important;
+}
+
+/* المحتوى */
+.ant-modal-confirm-content {
+  font-size: 14px !important;
+  color: #4b5563 !important;
+  margin-top: 8px !important;
+}
+
+/* الفوتر (الأزرار) */
+.ant-modal-confirm-btns {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  margin-top: 20px !important;
+}
+
+.ant-modal-confirm-btns .ant-btn {
+  border-radius: 8px !important;
+  height: 36px !important;
+  padding: 0 18px !important;
+  font-weight: 600 !important;
+}
+
+/* زر التأكيد الأحمر */
+.ant-modal-confirm-btns .ant-btn-dangerous {
+  background: #ff4d4f !important;
+  border-color: #ff4d4f !important;
+  color: #fff !important;
+}
+
+.ant-modal-confirm-btns .ant-btn-dangerous:hover {
+  background: #ff7875 !important;
+  border-color: #ff7875 !important;
+}
+
+/* الأيقونة */
+.ant-modal-confirm-body .anticon {
+  font-size: 22px !important;
+}
