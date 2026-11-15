@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react'
-import { Layout, Menu, Dropdown, Button } from 'antd'
+import { Layout, Menu, Dropdown, Button, Tooltip } from 'antd'
 import {
   MenuOutlined, LogoutOutlined, SettingOutlined, MoreOutlined,
+  SearchOutlined,
 } from '@ant-design/icons'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { usePermission } from '../hooks/usePermission'
 import { MENU_GROUPS } from '../config/menu'
 import DrawerMenu from './DrawerMenu'
+import SearchModal from './SearchModal'
 import logo from '../assets/Logo.png'
 import '../styles/nav.css'
+import '../styles/SearchModal.css'
 
 const { Header } = Layout
 
@@ -19,6 +22,7 @@ export default function Navbar() {
   const { session, logout } = useAuth()
   const { has } = usePermission()
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000)
   const [openKeys, setOpenKeys] = useState([])
 
@@ -26,6 +30,18 @@ export default function Navbar() {
     const onResize = () => setIsMobile(window.innerWidth <= 1000)
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  // ✅ Ctrl+K / Cmd+K لفتح البحث
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault()
+        setSearchOpen(true)
+      }
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
   }, [])
 
   const canSee = (permission) => !permission || has(permission)
@@ -61,12 +77,8 @@ export default function Navbar() {
         key: 'header',
         label: (
           <div style={{ padding: '6px 4px', minWidth: 180 }}>
-            <div style={{ fontWeight: 700, color: '#1a1a1a' }}>
-              {session?.name || 'مستخدم'}
-            </div>
-            <div style={{ fontSize: 12, color: '#888', marginTop: 2 }}>
-              {session?.mobile || ''}
-            </div>
+            <div style={{ fontWeight: 700, color: '#1a1a1a' }}>{session?.name || 'مستخدم'}</div>
+            <div style={{ fontSize: 12, color: '#888', marginTop: 2 }}>{session?.mobile || ''}</div>
             <div style={{ fontSize: 11, color: '#aaa', marginTop: 2 }}>
               {session?.branch_name} — {session?.fiscal_year}
             </div>
@@ -77,7 +89,7 @@ export default function Navbar() {
       { type: 'divider' },
       { key: 'settings', icon: <SettingOutlined />, label: 'الإعدادات' },
       { type: 'divider' },
-      { key: 'logout', icon: <LogoutOutlined />, label: 'تسجيل الخروج',  className: 'logout-menu-item', danger: true },
+      { key: 'logout', icon: <LogoutOutlined />, label: 'تسجيل الخروج', className: 'logout-menu-item', danger: true },
     ],
     onClick: async ({ key }) => {
       if (key === 'settings') navigate('/settings')
@@ -96,9 +108,7 @@ export default function Navbar() {
             <div className="company-section">
               <Link to="/" className="company-name">
                 <img src={logo} alt="logo" className="company-logo" />
-                <span className="company-text">
-                  {session?.company_name || 'جولد تاك'}
-                </span>
+                <span className="company-text">{session?.company_name || 'جولد تاك'}</span>
               </Link>
             </div>
 
@@ -117,11 +127,21 @@ export default function Navbar() {
             </div>
 
             <div className="icons-section">
-              <Dropdown menu={accountMenu} placement="bottomLeft" trigger={['click']}>
-                <div className="avatar-btn" title={session?.name}>
-                  {firstLetter}
-                </div>
-              </Dropdown>
+              <div className="icons-container">
+                {/* ✅ أيقونة البحث */}
+                <Tooltip title="بحث (Ctrl+K)">
+                  <button className="icon-btn search-btn" onClick={() => setSearchOpen(true)}>
+                    <SearchOutlined />
+                  </button>
+                </Tooltip>
+
+                {/* أيقونة المستخدم */}
+                <Dropdown menu={accountMenu} placement="bottomLeft" trigger={['click']}>
+                  <div className="avatar-btn" title={session?.name}>
+                    {firstLetter}
+                  </div>
+                </Dropdown>
+              </div>
             </div>
           </div>
         )}
@@ -140,17 +160,24 @@ export default function Navbar() {
                 <span className="mobile-company-name">جولد تاك</span>
               </Link>
 
-              <Dropdown menu={accountMenu} placement="bottomLeft" trigger={['click']}>
-                <div className="avatar-btn avatar-sm" title={session?.name}>
-                  {firstLetter}
-                </div>
-              </Dropdown>
+              <div className="mobile-icons">
+                <button className="mobile-icon-btn" onClick={() => setSearchOpen(true)}>
+                  <SearchOutlined />
+                </button>
+
+                <Dropdown menu={accountMenu} placement="bottomLeft" trigger={['click']}>
+                  <div className="avatar-btn avatar-sm" title={session?.name}>
+                    {firstLetter}
+                  </div>
+                </Dropdown>
+              </div>
             </div>
           </div>
         )}
       </Header>
 
       <DrawerMenu open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   )
 }

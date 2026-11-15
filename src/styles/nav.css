@@ -580,3 +580,73 @@
 .ant-dropdown-menu .logout-menu-item:hover .ant-dropdown-menu-item-icon {
   color: #ff4d4f !important;
 }
+
+
+
+/* ===== أيقونة البحث ===== */
+.icons-section {
+  display: flex;
+  align-items: center;
+}
+
+.icons-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* ✅ أيقونة البحث — جنب البروفايل */
+.search-btn {
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg, rgba(212,160,23,0.12), rgba(184,134,11,0.12)) !important;
+  border: 1px solid rgba(212,160,23,0.35) !important;
+  color: #d4a017 !important;
+  font-size: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer;
+  transition: all .25s ease !important;
+}
+
+.search-btn:hover {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  border-color: #d4a017 !important;
+  color: #0B0F1A !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(212,160,23,0.45);
+}
+
+.search-btn .anticon {
+  font-size: 18px !important;
+}
+
+/* ✅ موبايل — أيقونة بحث */
+.mobile-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-icon-btn {
+  width: 38px !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(212,160,23,0.1) !important;
+  border: 1px solid rgba(212,160,23,0.35) !important;
+  border-radius: 10px !important;
+  color: #d4a017 !important;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all .22s ease !important;
+}
+
+.mobile-icon-btn:hover {
+  background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+  border-color: #d4a017 !important;
+  color: #0B0F1A !important;
+}
