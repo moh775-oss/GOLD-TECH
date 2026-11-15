@@ -23,6 +23,8 @@ export const MENU_GROUPS = [
       { key: '/company', label: 'الشركات', icon: <ApartmentOutlined />, permission: 'companies.view' },
       { key: '/branches',     label: 'الفروع',         icon: <ApartmentOutlined />, permission: 'branches.view' },
       { key: '/users',        label: 'المستخدمون',     icon: <UserOutlined />,      permission: 'users.view' },
+      { key: '/permissions',        label: 'صلاحية المستخدمين',     icon: <SafetyOutlined />,      permission: 'roles.view' },
+    
       { key: '/accounts',     label: 'دليل الحسابات',  icon: <BookOutlined />,      permission: 'accounts.view' },
       { key: '/customers',    label: 'العملاء',        icon: <TeamOutlined />,      permission: 'contacts.view' },
       { key: '/suppliers',    label: 'الموردون',       icon: <TeamOutlined />,      permission: 'contacts.view' },
