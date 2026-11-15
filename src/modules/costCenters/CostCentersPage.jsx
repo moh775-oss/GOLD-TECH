@@ -60,7 +60,7 @@ export default function CostCentersPage() {
           onReload={fetchData}
           extraActions={
             <button onClick={openCreate} style={{ background: 'linear-gradient(135deg, #d4a017, #b8860b)', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', fontWeight: 600, cursor: 'pointer', boxShadow: '0 4px 12px rgba(212, 160, 23, 0.35)' }}>
-              + إضافة مركز
+               إضافة مركز تكلفة
             </button>
           }
         />

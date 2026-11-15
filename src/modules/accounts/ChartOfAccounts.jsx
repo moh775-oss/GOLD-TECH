@@ -329,6 +329,7 @@ export default function ChartOfAccounts() {
                 <Space size={4}>
                   <Tooltip title="توسيع الكل"><Button size="small" icon={<NodeExpandOutlined />} onClick={expandAll} /></Tooltip>
                   <Tooltip title="طي الكل"><Button size="small" icon={<NodeCollapseOutlined />} onClick={collapseAll} /></Tooltip>
+                  
                   <Tooltip title="تحديث"><Button size="small" icon={<ReloadOutlined />} onClick={loadAccounts} /></Tooltip>
                 </Space>
               }

@@ -6,9 +6,9 @@ const STORAGE_KEY = 'auth_session'
 
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null)
+  const [permissions, setPermissions] = useState([])
   const [loading, setLoading] = useState(true)
 
-  // تحميل الجلسة من localStorage عند بدء التطبيق
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY)
@@ -16,6 +16,7 @@ export function AuthProvider({ children }) {
         const parsed = JSON.parse(saved)
         if (parsed?.token && parsed?.user_id && parsed?.company_id) {
           setSession(parsed)
+          setPermissions(parsed.permissions || [])
         } else {
           localStorage.removeItem(STORAGE_KEY)
         }
@@ -27,14 +28,21 @@ export function AuthProvider({ children }) {
     }
   }, [])
 
-  // الخطوة 1: التحقق من الجوال والباسورد (لجلب الفروع والسنوات المالية)
+  // ✅ فحص الرقم فقط (بدون باسورد) — لجلب الفروع والسنوات
+  const checkMobile = async (mobile) => {
+    const res = await api.post('/auth/check-mobile', { mobile })
+    if (!res.data.success) throw new Error(res.data.message || 'الرقم غير مسجل')
+    return res.data.data
+  }
+
+  // ✅ فحص الرقم + الباسورد معاً
   const checkCredentials = async (mobile, password) => {
     const res = await api.post('/auth/check', { mobile, password })
     if (!res.data.success) throw new Error(res.data.message || 'بيانات غير صحيحة')
     return res.data.data
   }
 
-  // الخطوة 2: تسجيل الدخول النهائي وحفظ الجلسة
+  // ✅ تسجيل الدخول النهائي
   const login = async (mobile, password, branchId, fiscalYearId) => {
     const res = await api.post('/auth/login', {
       mobile,
@@ -44,7 +52,7 @@ export function AuthProvider({ children }) {
     })
     if (!res.data.success) throw new Error(res.data.message || 'فشل تسجيل الدخول')
 
-    const { token, user } = res.data.data
+    const { token, user, permissions: perms } = res.data.data
     const sessionData = {
       token,
       user_id:        user.id,
@@ -53,26 +61,29 @@ export function AuthProvider({ children }) {
       email:          user.email,
       role:           user.role,
       company_id:     user.company_id,
+      company_name:   user.company_name,
       branch_id:      user.branch_id,
       branch_name:    user.branch_name,
       fiscal_year_id: user.fiscal_year_id,
       fiscal_year:    user.fiscal_year,
-      company_name:   user.company_name,
+      permissions:    perms || [],
     }
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(sessionData))
     setSession(sessionData)
+    setPermissions(perms || [])
     return sessionData
   }
 
-  // الخروج
+  // ✅ الخروج
   const logout = async () => {
     try { await api.post('/auth/logout') } catch {}
     localStorage.removeItem(STORAGE_KEY)
     setSession(null)
+    setPermissions([])
   }
 
-  // تحديث الفرع (لتبديل الفرع لاحقاً)
+  // ✅ تحديث الفرع
   const setBranch = (branchId, branchName) => {
     if (!session) return
     const updated = { ...session, branch_id: branchId, branch_name: branchName }
@@ -80,12 +91,26 @@ export function AuthProvider({ children }) {
     setSession(updated)
   }
 
-  // تحديث السنة المالية
+  // ✅ تحديث السنة المالية
   const setFiscalYear = (id, name) => {
     if (!session) return
     const updated = { ...session, fiscal_year_id: id, fiscal_year: name }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
     setSession(updated)
+  }
+
+  // ✅ تحديث الصلاحيات
+  const refreshPermissions = async () => {
+    try {
+      const res = await api.get('/auth/me')
+      if (res.data.success) {
+        const perms = res.data.data.permissions || []
+        const updated = { ...session, permissions: perms }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
+        setSession(updated)
+        setPermissions(perms)
+      }
+    } catch {}
   }
 
   const isAuthenticated = Boolean(session?.token && session?.user_id && session?.company_id)
@@ -94,14 +119,17 @@ export function AuthProvider({ children }) {
     <AuthContext.Provider
       value={{
         session,
-        user: session,             // للتوافق مع الكود القديم
+        user: session,
+        permissions,
         isAuthenticated,
         loading,
+        checkMobile,          // ✅ ضيفها
         checkCredentials,
         login,
         logout,
         setBranch,
         setFiscalYear,
+        refreshPermissions,
       }}
     >
       {children}

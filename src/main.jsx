@@ -5,6 +5,7 @@ import App from './App'
 import './index.css'
 import './styles/layout.css'
 import './styles/modal.css'
+import './styles/utilities.css'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -1,9 +1,9 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { Card, Modal } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import DataTable from '../../components/ReportGenerator'
+import DataTable from '../../components/ReportGenerator.jsx'
 import notify from '../../lib/notify.jsx'
-import { useAuth } from '../../contexts/AuthContext'
+import { useAuth } from '../../contexts/AuthContext.jsx'
 import { safesApi } from './safesApi.jsx'
 import SafeFormModal from './SafeFormModal.jsx'
 import SafeViewModal from './SafeViewModal.jsx'
@@ -85,7 +85,7 @@ export default function SafesPage() {
                 boxShadow: '0 4px 12px rgba(212, 160, 23, 0.35)',
               }}
             >
-              + إضافة صندوق
+               إضافة صندوق
             </button>
           }
         />

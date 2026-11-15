@@ -1,0 +1,182 @@
+/* ============================================================
+   Utility Classes — نصوص
+   ============================================================ */
+
+/* أحادية اللون */
+.text-primary    { color: #1a1a1a !important; }
+.text-secondary  { color: #666666 !important; }
+.text-tertiary   { color: #999999 !important; }
+.text-disabled   { color: #bfbfbf !important; }
+.text-white      { color: #ffffff !important; }
+.text-black      { color: #000000 !important; }
+.text-inherit    { color: inherit !important; }
+
+/* الذهبي (هوية النظام) */
+.text-gold       { color: #d4a017 !important; }
+.text-gold-dark  { color: #b8860b !important; }
+.text-gold-light { color: #f0c040 !important; }
+
+/* الحالات */
+.text-success    { color: #52c41a !important; }
+.text-danger     { color: #ff4d4f !important; }
+.text-warning    { color: #faad14 !important; }
+.text-info       { color: #1677ff !important; }
+
+/* الألوان المساعدة */
+.text-green      { color: #389e0d !important; }
+.text-red        { color: #cf1322 !important; }
+.text-orange     { color: #fa8c16 !important; }
+.text-blue       { color: #1890ff !important; }
+.text-purple     { color: #722ed1 !important; }
+.text-cyan       { color: #13c2c2 !important; }
+.text-pink       { color: #eb2f96 !important; }
+.text-magenta    { color: #c41d7f !important; }
+
+/* ============================================================
+   أحجام الخطوط
+   ============================================================ */
+
+.text-xs    { font-size: 11px !important; }
+.text-sm    { font-size: 12px !important; }
+.text-base  { font-size: 14px !important; }
+.text-md    { font-size: 15px !important; }
+.text-lg    { font-size: 16px !important; }
+.text-xl    { font-size: 18px !important; }
+.text-2xl   { font-size: 20px !important; }
+.text-3xl   { font-size: 24px !important; }
+.text-4xl   { font-size: 28px !important; }
+
+/* ============================================================
+   أوزان الخطوط
+   ============================================================ */
+
+.font-thin       { font-weight: 100 !important; }
+.font-light      { font-weight: 300 !important; }
+.font-normal     { font-weight: 400 !important; }
+.font-medium     { font-weight: 500 !important; }
+.font-semibold   { font-weight: 600 !important; }
+.font-bold       { font-weight: 700 !important; }
+.font-extrabold  { font-weight: 800 !important; }
+.font-black      { font-weight: 900 !important; }
+
+/* ============================================================
+   محاذاة النص
+   ============================================================ */
+
+.text-center { text-align: center !important; }
+.text-right  { text-align: right !important; }
+.text-left   { text-align: left !important; }
+.text-justify{ text-align: justify !important; }
+
+/* ============================================================
+   تحويل النص
+   ============================================================ */
+
+.text-uppercase  { text-transform: uppercase !important; }
+.text-lowercase  { text-transform: lowercase !important; }
+.text-capitalize { text-transform: capitalize !important; }
+
+/* ============================================================
+   قطع النص
+   ============================================================ */
+
+.text-truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.text-nowrap { white-space: nowrap !important; }
+.text-wrap   { white-space: normal !important; }
+.text-break  { word-break: break-all !important; }
+
+/* ============================================================
+   ديكور النص
+   ============================================================ */
+
+.text-underline   { text-decoration: underline !important; }
+.text-line-through{ text-decoration: line-through !important; }
+.text-no-underline{ text-decoration: none !important; }
+
+.text-italic      { font-style: italic !important; }
+.text-not-italic  { font-style: normal !important; }
+
+/* ============================================================
+   أحجام الخطوط المشتركة مع الألوان (جمع)
+   ============================================================ */
+
+/* عنوان ذهبي كبير */
+.title-gold {
+  color: #b8860b !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+}
+
+/* عنوان صغير رمادي */
+.label-gray {
+  color: #8a7a55 !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+/* قيمة ذهبية كبيرة */
+.value-gold {
+  color: #d4a017 !important;
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  font-family: 'Courier New', monospace !important;
+}
+
+/* قيمة خضراء (بيع) */
+.value-green {
+  color: #389e0d !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  font-family: 'Courier New', monospace !important;
+}
+
+/* قيمة زرقاء (شراء) */
+.value-blue {
+  color: #1890ff !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  font-family: 'Courier New', monospace !important;
+}
+
+/* ============================================================
+   خطوط monospace (للأرقام والباركود)
+   ============================================================ */
+
+.font-mono {
+  font-family: 'Courier New', monospace !important;
+}
+
+.font-cairo {
+  font-family: 'Cairo', 'Segoe UI', sans-serif !important;
+}
+
+/* ============================================================
+   Utilities مساعدة
+   ============================================================ */
+
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.text-shadow-gold {
+  text-shadow: 0 2px 8px rgba(212, 160, 23, 0.3) !important;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .text-4xl { font-size: 22px !important; }
+  .text-3xl { font-size: 20px !important; }
+  .text-2xl { font-size: 17px !important; }
+}

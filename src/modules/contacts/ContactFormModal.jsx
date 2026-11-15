@@ -11,20 +11,22 @@ export default function ContactFormModal({ open, onClose, contact, type, onSaved
   const [saving, setSaving] = useState(false)
 
   useEffect(() => {
-    if (!open) return
-    if (contact) {
-      form.setFieldsValue({
-        ...contact,
-        is_active: contact.is_active === 1 || contact.is_active === true,
-      })
-    } else {
-      form.resetFields()
-      form.setFieldsValue({
-        contact_type: type || 'customer',
-        is_active: true,
-      })
-    }
-  }, [open, contact, type, form])
+  if (!open) return
+
+  if (contact) {
+    form.setFieldsValue({
+      ...contact,
+      contact_type: type || contact.contact_type,
+      is_active: contact.is_active === 1 || contact.is_active === true,
+    })
+  } else {
+    form.resetFields()
+    form.setFieldsValue({
+      contact_type: type || 'customer',
+      is_active: true,
+    })
+  }
+}, [open, contact, type, form])
 
   const handleOk = async () => {
     let values
@@ -38,6 +40,7 @@ export default function ContactFormModal({ open, onClose, contact, type, onSaved
     try {
       const payload = {
         ...values,
+        contact_type: type || 'customer',
         branch_id: session?.branch_id,
         is_active: values.is_active ? 1 : 0,
       }
@@ -74,42 +77,61 @@ export default function ContactFormModal({ open, onClose, contact, type, onSaved
     >
       <Form form={form} layout="vertical" dir="rtl">
         <Row gutter={12}>
-          <Col xs={24} md={8}>
-            <Form.Item name="contact_type" label="النوع" rules={[{ required: true }]}>
-              <Select
-                options={[
-                  { value: 'customer', label: 'عميل' },
-                  { value: 'supplier', label: 'مورد' },
-                  { value: 'both', label: 'عميل ومورد' },
-                ]}
-              />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={8}>
+          
+          <Col xs={24} md={12}>
             <Form.Item name="name" label="الاسم" rules={[{ required: true }]}>
               <Input placeholder="أدخل الاسم" />
             </Form.Item>
           </Col>
-          <Col xs={24} md={8}>
+          <Col xs={24} md={12}>
             <Form.Item name="name_en" label="الاسم بالإنجليزية">
               <Input placeholder="English name" />
             </Form.Item>
           </Col>
           <Col xs={24} md={8}>
-            <Form.Item name="tax_number" label="الرقم الضريبي">
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={8}>
-            <Form.Item name="commercial_register" label="السجل التجاري">
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col xs={24} md={8}>
-            <Form.Item name="national_id" label="الهوية الوطنية">
-              <Input />
-            </Form.Item>
-          </Col>
+          <Form.Item
+            name="tax_number"
+            label="الرقم الضريبي"
+            rules={[
+              {
+                pattern: /^3\d{13}3$/,
+                message: 'الرقم الضريبي يجب أن يتكون من 15 رقماً ويبدأ وينتهي بالرقم 3',
+              },
+            ]}
+          >
+            <Input inputMode="numeric" maxLength={15} />
+          </Form.Item>
+        </Col>
+
+        <Col xs={24} md={8}>
+          <Form.Item
+            name="commercial_register"
+            label="السجل التجاري"
+            rules={[
+              {
+                pattern: /^\d{10}$/,
+                message: 'يجب أن يتكون الرقم من 10 أرقام',
+              },
+            ]}
+          >
+            <Input inputMode="numeric" maxLength={10} />
+          </Form.Item>
+        </Col>
+
+        <Col xs={24} md={8}>
+          <Form.Item
+            name="national_id"
+            label="الهوية الوطنية"
+            rules={[
+              {
+                pattern: /^\d{10}$/,
+                message: 'رقم الهوية يجب أن يتكون من 10 أرقام',
+              },
+            ]}
+          >
+            <Input inputMode="numeric" maxLength={10} />
+          </Form.Item>
+        </Col>
           <Col xs={24} md={8}>
             <Form.Item name="mobile" label="الجوال">
               <Input placeholder="05xxxxxxxx" />
@@ -153,13 +175,32 @@ export default function ContactFormModal({ open, onClose, contact, type, onSaved
             </Form.Item>
           </Col>
           <Col xs={24} md={8}>
-            <Form.Item name="building_no" label="رقم المبنى">
-              <Input />
+            <Form.Item
+              name="building_no"
+              label="رقم المبنى"
+              rules={[
+                {
+                  pattern: /^\d{4}$/,
+                  message: 'رقم المبنى يجب أن يتكون من 4 أرقام',
+                },
+              ]}
+            >
+              <Input inputMode="numeric" maxLength={4} />
             </Form.Item>
           </Col>
+
           <Col xs={24} md={8}>
-            <Form.Item name="postal_code" label="الرمز البريدي">
-              <Input />
+            <Form.Item
+              name="postal_code"
+              label="الرمز البريدي"
+              rules={[
+                {
+                  pattern: /^\d{5}$/,
+                  message: 'الرمز البريدي يجب أن يتكون من 5 أرقام',
+                },
+              ]}
+            >
+              <Input inputMode="numeric" maxLength={5} />
             </Form.Item>
           </Col>
           <Col xs={24} md={8}>
@@ -168,13 +209,13 @@ export default function ContactFormModal({ open, onClose, contact, type, onSaved
             </Form.Item>
           </Col>
           <Col xs={24} md={8}>
-            <Form.Item name="credit_limit" label="حد الائتمان">
+            <Form.Item initialValue={1000000} name="credit_limit" label="حد الائتمان">
               <InputNumber style={{ width: '100%' }} min={0} />
             </Form.Item>
           </Col>
           <Col xs={24} md={8}>
-            <Form.Item name="opening_balance" label="الرصيد الافتتاحي">
-              <InputNumber style={{ width: '100%' }} />
+            <Form.Item initialValue={0} name="opening_balance" label="الرصيد الافتتاحي">
+              <InputNumber disabled style={{ width: '100%' }} />
             </Form.Item>
           </Col>
           <Col xs={24} md={8}>

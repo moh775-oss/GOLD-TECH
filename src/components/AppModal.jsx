@@ -13,6 +13,7 @@ export default function AppModal({ size = 'md', children, bodyStyle, ...props })
     <Modal
       width={cfg.width}
       style={{ top: 20 }}
+      
       styles={{
         body: {
           maxHeight: cfg.maxBodyHeight,

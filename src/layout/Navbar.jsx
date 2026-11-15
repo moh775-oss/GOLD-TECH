@@ -5,6 +5,7 @@ import {
 } from '@ant-design/icons'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
+import { usePermission } from '../hooks/usePermission'
 import { MENU_GROUPS } from '../config/menu'
 import DrawerMenu from './DrawerMenu'
 import logo from '../assets/Logo.png'
@@ -12,31 +13,11 @@ import '../styles/nav.css'
 
 const { Header } = Layout
 
-// ✅ تحويل العناصر لروابط <Link>
-const buildMenuItems = (items) => {
-  return items.map((it) => {
-    // لو العنصر عنده children → submenu (مش رابط)
-    if (it.children && it.children.length > 0) {
-      return {
-        key: it.key,
-        icon: it.icon,
-        label: it.label,
-        children: buildMenuItems(it.children),
-      }
-    }
-    // لو العنصر رابط → <Link>
-    return {
-      key: it.key,
-      icon: it.icon,
-      label: <Link to={it.key}>{it.label}</Link>,
-    }
-  })
-}
-
 export default function Navbar() {
   const navigate = useNavigate()
   const location = useLocation()
   const { session, logout } = useAuth()
+  const { has } = usePermission()
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000)
   const [openKeys, setOpenKeys] = useState([])
@@ -47,14 +28,31 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  // ✅ menuItems recursively + روابط
-  const menuItems = MENU_GROUPS.map((g) => ({
-    key: g.key,
-    icon: g.icon,
-    label: g.label,
-    children: buildMenuItems(g.items),
-  }))
+  const canSee = (permission) => !permission || has(permission)
 
+  const buildItems = (items) =>
+    (items || [])
+      .filter((it) => canSee(it.permission))
+      .map((it) => {
+        if (it.items && it.items.length > 0) {
+          const children = buildItems(it.items)
+          if (children.length === 0) return null
+          return {
+            key: it.key,
+            icon: it.icon,
+            label: <span className="menu-label-text">{it.label}</span>,
+            children,
+          }
+        }
+        return {
+          key: it.key,
+          icon: it.icon,
+          label: <Link to={it.key}>{it.label}</Link>,
+        }
+      })
+      .filter(Boolean)
+
+  const menuItems = buildItems(MENU_GROUPS)
   const firstLetter = (session?.name || '').trim().charAt(0)
 
   const accountMenu = {
@@ -79,7 +77,7 @@ export default function Navbar() {
       { type: 'divider' },
       { key: 'settings', icon: <SettingOutlined />, label: 'الإعدادات' },
       { type: 'divider' },
-      { key: 'logout', icon: <LogoutOutlined />, label: 'تسجيل الخروج', danger: true },
+      { key: 'logout', icon: <LogoutOutlined />, label: 'تسجيل الخروج',  className: 'logout-menu-item', danger: true },
     ],
     onClick: async ({ key }) => {
       if (key === 'settings') navigate('/settings')

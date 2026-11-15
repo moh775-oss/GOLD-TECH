@@ -1,4 +1,3 @@
-/* ================= RESET ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -14,7 +13,6 @@
   --nav-h: 64px;
 }
 
-/* ================= HEADER ================= */
 .erp-header {
   padding: 0 !important;
   margin: 0 !important;
@@ -33,7 +31,6 @@
   overflow: visible !important;
 }
 
-/* ================= DESKTOP ================= */
 .desktop-layout {
   display: flex;
   align-items: center;
@@ -44,7 +41,6 @@
   line-height: normal;
 }
 
-/* ===== اللوجو + اسم الشركة ===== */
 .company-section {
   flex: 0 0 auto;
   height: 100%;
@@ -61,7 +57,7 @@
   line-height: 1;
   transition: all .25s ease;
 }
-.company-name:hover { 
+.company-name:hover {
   background: linear-gradient(135deg, rgba(212,160,23,0.15), rgba(184,134,11,0.15));
 }
 .company-logo {
@@ -84,7 +80,6 @@
   text-shadow: 0 0 12px rgba(212,160,23,0.3);
 }
 
-/* ===== المنيو في الوسط ===== */
 .menu-center {
   position: relative;
   flex: 1;
@@ -105,9 +100,9 @@
   align-items: center !important;
   justify-content: space-around;
   border: none !important;
+    z-index: 10000 !important;
 }
 
-/* ===== عناصر القائمة الرئيسية ===== */
 .main-menu .ant-menu-item,
 .main-menu .ant-menu-submenu {
   height: var(--nav-h) !important;
@@ -119,6 +114,7 @@
   white-space: nowrap;
   border-radius: 0 !important;
   flex: 0 1 auto;
+  z-index: 10000 !important;
   background: transparent !important;
   border: none !important;
   border-bottom: 3px solid transparent !important;
@@ -134,9 +130,23 @@
   color: var(--nav-text-dim) !important;
   margin-inline-end: 6px;
   transition: all .25s ease;
+    z-index: 10000 !important;
 }
 
-/* hover — أصفر */
+.main-menu .ant-menu-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.main-menu .ant-menu-submenu-arrow {
+  display: none !important;
+}
+
+
+
+
+
 .main-menu .ant-menu-item:hover,
 .main-menu .ant-menu-submenu:hover > .ant-menu-submenu-title {
   color: var(--gold-light) !important;
@@ -148,7 +158,6 @@
   color: var(--gold-light) !important;
 }
 
-/* selected */
 .main-menu .ant-menu-item-selected,
 .main-menu .ant-menu-submenu-selected > .ant-menu-submenu-title {
   color: var(--gold) !important;
@@ -161,7 +170,6 @@
   color: var(--gold) !important;
 }
 
-/* ===== القوائم المنسدلة (Dropdown) ===== */
 .ant-menu-submenu-popup {
   border-radius: 12px !important;
   overflow: hidden;
@@ -200,7 +208,6 @@
   transition: all .2s ease;
 }
 
-/* hover — أصفر */
 .ant-menu-submenu-popup .ant-menu-item:hover {
   background: linear-gradient(135deg, rgba(212,160,23,0.18), rgba(184,134,11,0.12)) !important;
   color: var(--gold-light) !important;
@@ -210,14 +217,12 @@
   color: var(--gold-light) !important;
 }
 
-/* selected */
 .ant-menu-submenu-popup .ant-menu-item-selected {
   color: var(--gold) !important;
   background: linear-gradient(135deg, rgba(212,160,23,0.2), rgba(184,134,11,0.15)) !important;
   font-weight: 700;
 }
 
-/* submenu جوه submenu */
 .ant-menu-submenu-popup .ant-menu-submenu-title {
   color: var(--nav-text) !important;
   padding: 10px 14px !important;
@@ -243,7 +248,6 @@
   color: var(--gold-light) !important;
 }
 
-/* السهم */
 .ant-menu-submenu-popup .ant-menu-submenu-arrow,
 .ant-menu-submenu-popup .ant-menu-submenu-arrow::before,
 .ant-menu-submenu-popup .ant-menu-submenu-arrow::after {
@@ -255,7 +259,6 @@
   color: var(--gold-light) !important;
 }
 
-/* ===== زر المزيد ===== */
 .ant-menu-overflow-item-rest .ant-menu-submenu-title {
   background: transparent !important;
   border-radius: 8px !important;
@@ -279,7 +282,6 @@
   border-bottom: 3px solid var(--gold) !important;
 }
 
-/* ================= AVATAR ================= */
 .icons-section {
   flex: 0 0 auto;
   height: 100%;
@@ -315,7 +317,6 @@
   font-size: 15px !important;
 }
 
-/* ================= MOBILE NAVBAR ================= */
 .mobile-layout { display: none; height: 100%; width: 100%; }
 .mobile-header {
   display: flex;
@@ -362,15 +363,14 @@
   transform: scale(1.05);
 }
 
-/* ================= MEDIA QUERIES ================= */
 @media (max-width: 1000px) {
   .desktop-layout { display: none !important; }
   .mobile-layout  { display: block !important; }
-  .erp-header { 
-    height: 60px !important; 
-    min-height: 60px !important; 
-    max-height: 60px !important; 
-    line-height: 60px !important; 
+  .erp-header {
+    height: 60px !important;
+    min-height: 60px !important;
+    max-height: 60px !important;
+    line-height: 60px !important;
   }
 }
 @media (min-width: 1001px) {
@@ -378,7 +378,6 @@
   .mobile-layout  { display: none !important; }
 }
 
-/* ================= DRAWER ================= */
 .ant-drawer-content-wrapper {
   position: fixed !important;
   top: 0 !important; bottom: 0 !important;
@@ -409,190 +408,175 @@
   flex-direction: column !important;
 }
 
-/* ===== شريط علوي — ذهبي ===== */
-.drawer-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 2px solid #b8860b;
-  background: linear-gradient(135deg, #d4a017, #b8860b);
-  flex-shrink: 0 !important;
-  gap: 10px;
-  box-shadow: 0 2px 12px rgba(212,160,23,0.3);
-}
-.drawer-brand-name {
-  color: #0B0F1A;
-  font-weight: 800;
-  font-size: 18px;
-  font-family: 'Cairo', sans-serif;
-  line-height: 1;
-  flex: 1;
-  text-align: center;
-}
-
-/* ===== صندوق المستخدم ===== */
-.drawer-userbox {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 18px;
-  border-bottom: 1px solid #1f2a45;
-  background: linear-gradient(135deg, #1a2238, #131a2c);
-  flex-shrink: 0 !important;
-}
-.drawer-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #d4a017, #b8860b);
-  color: #0B0F1A;
-  font-weight: 800;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 14px rgba(212,160,23,0.4);
-  border: 2px solid rgba(212,160,23,0.5);
-}
-.drawer-user-name {
-  color: #e8ecf4;
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 1.3;
-}
-.drawer-user-sub {
-  color: #9aa4bb;
-  font-size: 12px;
-  margin-top: 2px;
-}
-.drawer-more-btn {
-  background: transparent;
-  border: none;
-  color: #d4a017;
-  font-size: 22px;
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: all .2s ease;
-}
-.drawer-more-btn:hover { 
-  background: rgba(212,160,23,0.2); 
-  color: #f0c040;
-}
-
-/* ===== القوائم ===== */
-.mobile-menu {
+.ant-drawer .ant-menu {
   background: #0B0F1A !important;
-  flex: 1 1 auto !important;
-  min-height: 0 !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  padding: 12px 0 20px !important;
   border-inline-end: none !important;
-  display: block !important;
+  padding: 8px 0 !important;
 }
 
-/* ===== العناصر العادية — خلفية رمادية داكنة ===== */
-.mobile-menu .ant-menu-item,
-.mobile-menu .ant-menu-submenu-title {
-  font-size: 14px;
-  font-weight: 600;
-  padding: 12px 18px !important;
-  margin: 6px 10px !important;
+.ant-drawer .ant-menu-item,
+.ant-drawer .ant-menu-submenu-title {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 10px 16px !important;
+  margin: 4px 8px !important;
   border-radius: 10px !important;
   background: #1a2238 !important;
   color: #e8ecf4 !important;
   border: 1px solid #1f2a45 !important;
   height: auto !important;
   line-height: 1.4 !important;
-  transition: all .25s ease !important;
-  position: relative;
-  overflow: hidden;
+  transition: all .2s ease !important;
+  width: auto !important;
 }
-.mobile-menu .ant-menu-item .anticon,
-.mobile-menu .ant-menu-submenu-title .anticon {
+.ant-drawer .ant-menu-item .anticon,
+.ant-drawer .ant-menu-submenu-title .anticon {
   color: #9aa4bb !important;
-  transition: all .25s ease;
+  font-size: 16px !important;
 }
 
-/* ✅ hover — خلفية ذهبية كاملة + نص أسود */
-.mobile-menu .ant-menu-item:hover,
-.mobile-menu .ant-menu-submenu-title:hover {
+.ant-drawer .ant-menu-item:hover,
+.ant-drawer .ant-menu-submenu-title:hover {
   background: linear-gradient(135deg, #d4a017, #b8860b) !important;
   color: #0B0F1A !important;
   border-color: #d4a017 !important;
-  transform: translateX(-4px) !important;
-  box-shadow: 0 4px 16px rgba(212,160,23,0.45) !important;
+  box-shadow: 0 4px 12px rgba(212,160,23,0.35) !important;
 }
-.mobile-menu .ant-menu-item:hover .anticon,
-.mobile-menu .ant-menu-submenu-title:hover .anticon {
-  color: #0B0F1A !important;
-}
-.mobile-menu .ant-menu-item:hover .ant-menu-submenu-arrow,
-.mobile-menu .ant-menu-submenu-title:hover .ant-menu-submenu-arrow {
+.ant-drawer .ant-menu-item:hover .anticon,
+.ant-drawer .ant-menu-submenu-title:hover .anticon,
+.ant-drawer .ant-menu-item:hover .ant-menu-submenu-arrow,
+.ant-drawer .ant-menu-submenu-title:hover .ant-menu-submenu-arrow {
   color: #0B0F1A !important;
 }
 
-/* ===== العناصر الفرعية ===== */
-.mobile-menu .ant-menu-sub .ant-menu-item {
+.ant-drawer .ant-menu-sub .ant-menu-item {
   background: #131a2c !important;
   border: 1px solid #1f2a45 !important;
   border-radius: 8px !important;
-  margin: 4px 10px !important;
-  padding: 10px 18px !important;
-  padding-right: 40px !important;
+  margin: 3px 8px !important;
+  padding: 9px 16px !important;
+  padding-right: 36px !important;
   color: #cfd6e4 !important;
-  font-size: 13px;
-  transition: all .25s ease !important;
-  position: relative;
+  font-size: 13px !important;
 }
-.mobile-menu .ant-menu-sub .ant-menu-item:hover {
+.ant-drawer .ant-menu-sub .ant-menu-item:hover {
   background: linear-gradient(135deg, #d4a017, #b8860b) !important;
   color: #0B0F1A !important;
   border-color: #d4a017 !important;
-  transform: translateX(-4px) !important;
-  box-shadow: 0 4px 16px rgba(212,160,23,0.45) !important;
+  box-shadow: 0 4px 12px rgba(212,160,23,0.35) !important;
 }
 
-/* ===== المحدد — ذهبي ===== */
-.mobile-menu .ant-menu-item-selected,
-.mobile-menu .ant-menu-submenu-selected > .ant-menu-submenu-title {
+.ant-drawer .ant-menu-item-selected,
+.ant-drawer .ant-menu-submenu-selected > .ant-menu-submenu-title {
   background: linear-gradient(135deg, #d4a017, #b8860b) !important;
   color: #0B0F1A !important;
   border-color: #d4a017 !important;
-  font-weight: 700;
-  box-shadow: 0 4px 16px rgba(212,160,23,0.45) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 12px rgba(212,160,23,0.35) !important;
 }
-.mobile-menu .ant-menu-item-selected .anticon,
-.mobile-menu .ant-menu-submenu-selected > .ant-menu-submenu-title .anticon {
+.ant-drawer .ant-menu-item-selected .anticon,
+.ant-drawer .ant-menu-submenu-selected > .ant-menu-submenu-title .anticon {
   color: #0B0F1A !important;
 }
 
-/* ===== السهم — ذهبي ===== */
-.mobile-menu .ant-menu-submenu-title .ant-menu-submenu-arrow {
+.ant-drawer .ant-menu-submenu-title .ant-menu-submenu-arrow {
   color: #d4a017 !important;
-  transition: all .25s ease !important;
+  transition: transform .2s ease !important;
 }
-.mobile-menu .ant-menu-submenu-open > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+.ant-drawer .ant-menu-submenu-open > .ant-menu-submenu-title .ant-menu-submenu-arrow {
   color: #0B0F1A !important;
-  transform: rotate(90deg) !important;
 }
 
-/* Scrollbar */
-.mobile-menu::-webkit-scrollbar { width: 5px; }
-.mobile-menu::-webkit-scrollbar-track { background: transparent; }
-.mobile-menu::-webkit-scrollbar-thumb { 
-  background: linear-gradient(180deg, #d4a017, #b8860b); 
-  border-radius: 10px; 
-}
-.mobile-menu::-webkit-scrollbar-thumb:hover { background: #f0c040; }
-
-/* إخفاء الدروار على الديسكتوب */
 @media (min-width: 1001px) {
   .ant-drawer,
   .ant-drawer-content-wrapper,
   .ant-drawer-mask,
   .ant-drawer-open { display: none !important; }
+}
+
+.ant-drawer .ant-drawer-body::-webkit-scrollbar,
+.ant-drawer .ant-menu::-webkit-scrollbar {
+  width: 3px !important;
+  height: 3px !important;
+}
+.ant-drawer .ant-drawer-body::-webkit-scrollbar-track,
+.ant-drawer .ant-menu::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+.ant-drawer .ant-drawer-body::-webkit-scrollbar-thumb,
+.ant-drawer .ant-menu::-webkit-scrollbar-thumb {
+  background: rgba(212,160,23,0.35) !important;
+  border-radius: 10px !important;
+}
+.ant-drawer .ant-drawer-body::-webkit-scrollbar-thumb:hover,
+.ant-drawer .ant-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(212,160,23,0.65) !important;
+}
+.ant-drawer .ant-drawer-body,
+.ant-drawer .ant-menu {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(212,160,23,0.35) transparent !important;
+}
+
+
+
+.main-menu .ant-menu-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.main-menu .ant-menu-submenu-title .ant-menu-title-content {
+  margin-inline-end: 8px !important;
+}
+
+
+
+.main-menu .ant-menu-submenu-title {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.main-menu .ant-menu-submenu-title .ant-menu-title-content {
+  margin-inline-end: 8px !important;
+}
+
+.main-menu .ant-menu-submenu-arrow {
+  position: static !important;
+  margin: 0 !important;
+  width: 10px !important;
+  height: 10px !important;
+  font-size: 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: rotate(90deg) !important;
+  transition: transform .2s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.main-menu .ant-menu-submenu-open > .ant-menu-submenu-title .ant-menu-submenu-arrow {
+  transform: rotate(-90deg) !important;
+}
+
+
+/* تسجيل الخروج */
+.logout-menu-item {
+  color: #ff4d4f !important;
+  font-weight: 600;
+}
+
+.logout-menu-item .ant-dropdown-menu-title-content,
+.logout-menu-item .ant-dropdown-menu-item-icon {
+  color: #ff4d4f !important;
+}
+
+/* عند تمرير الماوس */
+.ant-dropdown-menu .logout-menu-item:hover {
+  background-color: #fff1f0 !important;
+  color: #ff4d4f !important;
+}
+
+.ant-dropdown-menu .logout-menu-item:hover .ant-dropdown-menu-title-content,
+.ant-dropdown-menu .logout-menu-item:hover .ant-dropdown-menu-item-icon {
+  color: #ff4d4f !important;
 }

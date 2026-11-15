@@ -41,7 +41,7 @@ export default function BranchFormModal({ open, onClose, branch, onSaved }) {
   }
 
   return (
-    <AppModal open={open} onCancel={onClose} onOk={handleOk} title={branch ? 'تعديل فرع' : 'إضافة فرع'} size="lg" okText="حفظ" cancelText="إلغاء" confirmLoading={saving} okButtonProps={{ disabled: saving }}>
+    <AppModal open={open} onCancel={onClose} onOk={handleOk} title={branch ? 'تعديل فرع' : 'إضافة فرع'} size="md" okText="حفظ" cancelText="إلغاء" confirmLoading={saving} okButtonProps={{ disabled: saving }}>
       <Form form={form} layout="vertical" dir="rtl">
         <Row gutter={12}>
           <Col xs={24} md={12}>
@@ -69,11 +69,35 @@ export default function BranchFormModal({ open, onClose, branch, onSaved }) {
             <Form.Item name="street" label="الشارع"><Input /></Form.Item>
           </Col>
           <Col xs={24} md={12}>
-            <Form.Item name="building_no" label="رقم المبنى"><Input /></Form.Item>
+            <Form.Item
+              name="building_no"
+              label="رقم المبنى"
+              rules={[
+                {
+                  pattern: /^\d{4}$/,
+                  message: 'رقم المبنى يجب أن يتكون من 4 أرقام',
+                },
+              ]}
+            >
+              <Input inputMode="numeric" maxLength={4} />
+            </Form.Item>
           </Col>
+
           <Col xs={24} md={12}>
-            <Form.Item name="postal_code" label="الرمز البريدي"><Input /></Form.Item>
+            <Form.Item
+              name="postal_code"
+              label="الرمز البريدي"
+              rules={[
+                {
+                  pattern: /^\d{5}$/,
+                  message: 'الرمز البريدي يجب أن يتكون من 5 أرقام',
+                },
+              ]}
+            >
+              <Input inputMode="numeric" maxLength={5} />
+            </Form.Item>
           </Col>
+          
           <Col xs={24}>
             <Form.Item name="address" label="العنوان"><Input.TextArea rows={2} /></Form.Item>
           </Col>

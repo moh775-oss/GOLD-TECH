@@ -1,0 +1,262 @@
+.users-permissions-page {
+  padding: 16px;
+  height: calc(100vh - 100px);
+  overflow: hidden;
+}
+
+.users-permissions-container {
+  height: 100%;
+}
+
+.users-permissions-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+   height: calc(100vh - 64px); 
+  border-radius: 12px;
+  border: 1px solid #e6dcc4;
+  background: #fdfaf3;
+}
+
+.users-permissions-card .ant-card-head {
+  background: linear-gradient(135deg, #fdf3d6, #fffdf5);
+  border-bottom: 1px solid #e6dcc4;
+  min-height: 52px;
+  padding: 0 12px;
+  flex-shrink: 0;
+}
+
+.users-permissions-card .ant-card-head-title {
+  color: #b8860b;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 12px 0;
+}
+
+/* ✅ السكرول الداخلي للكارد */
+.users-permissions-card .ant-card-body {
+  flex: 1;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.up-permissions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ====== قائمة المستخدمين ====== */
+.up-users-search {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e6dcc4;
+  flex-shrink: 0;
+}
+
+.up-users-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+}
+
+.up-users-list::-webkit-scrollbar { width: 6px; }
+.up-users-list::-webkit-scrollbar-track { background: transparent; }
+.up-users-list::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.5);
+  border-radius: 10px;
+}
+.up-users-list::-webkit-scrollbar-thumb:hover { background: #d4a017; }
+
+.up-user-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid #f0e6cc;
+}
+
+.up-user-item:hover {
+  background: #fef8e7;
+  border-color: #d4a017;
+}
+
+.up-user-item-active {
+  background: #fef3d0 !important;
+  border-color: #d4a017 !important;
+  border-right: 3px solid #d4a017 !important;
+}
+
+.up-user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.up-user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.up-user-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.up-user-role {
+  font-size: 11px;
+  color: #8a7a55;
+  margin-top: 2px;
+}
+
+/* ====== الشجرة ====== */
+.up-tree-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 12px;
+  min-height: 0;
+}
+
+.up-tree-wrapper::-webkit-scrollbar { width: 6px; }
+.up-tree-wrapper::-webkit-scrollbar-track { background: transparent; }
+.up-tree-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.5);
+  border-radius: 10px;
+}
+.up-tree-wrapper::-webkit-scrollbar-thumb:hover { background: #d4a017; }
+
+.up-permissions-tree {
+  font-size: 13px;
+  background: transparent;
+}
+
+.up-permissions-tree .ant-tree-treenode {
+  padding: 3px 0;
+}
+
+.up-permissions-tree .ant-tree-node-content-wrapper {
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.up-permissions-tree .ant-tree-node-content-wrapper:hover {
+  background: rgba(212, 160, 23, 0.1);
+}
+
+/* ✅ إخفاء checkbox antd */
+.up-permissions-tree .ant-tree-checkbox {
+  display: none !important;
+}
+
+.perm-parent-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+}
+
+.perm-parent-name {
+  font-size: 13px;
+  font-weight: 800;
+  color: #b8860b;
+}
+
+.perm-parent-count {
+  font-size: 10px;
+  color: #8a7a55;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  padding: 0 6px;
+  background: #fdf3d6;
+  border-radius: 4px;
+}
+
+.perm-node {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+  width: 100%;
+}
+
+.perm-name {
+  font-size: 13px;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.rg-native-check-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  padding: 2px 0;
+}
+
+.rg-native-check {
+  width: 16px;
+  height: 16px;
+  accent-color: #d4a017;
+  cursor: pointer;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.rg-native-check-text {
+  font-size: 13px;
+  color: #1a1a1a;
+}
+
+.up-loading,
+.up-empty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+@media (max-width: 768px) {
+  .users-permissions-page {
+    padding: 10px;
+    height: auto;
+     height: calc(100vh - 64px); 
+    overflow: visible;
+  }
+  .users-permissions-container { height: auto; }
+  .users-permissions-container > .ant-col + .ant-col {
+    margin-top: 16px;
+  }
+  .up-users-list { max-height: 280px; }
+  .up-tree-wrapper { max-height: 500px; }
+}

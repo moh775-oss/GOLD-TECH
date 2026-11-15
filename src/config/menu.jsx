@@ -1,53 +1,36 @@
 import {
-  DashboardOutlined, DollarOutlined, ShoppingCartOutlined,
-  TeamOutlined, TruckOutlined, FileTextOutlined, SettingOutlined,
+  DollarOutlined, ShoppingCartOutlined,
+  TeamOutlined, FileTextOutlined, SettingOutlined,
   BookOutlined, ShopOutlined, BankOutlined, ApartmentOutlined,
   CalculatorOutlined, UserOutlined, BuildOutlined, HomeOutlined,
   BarChartOutlined, BellOutlined, AppstoreOutlined,
   WalletOutlined, AuditOutlined, InboxOutlined,
+  TagsOutlined, SafetyOutlined,
 } from '@ant-design/icons'
 
 export const MENU_GROUPS = [
   {
-    key: 'main',
+    key: '/',
     label: 'الرئيسية',
     icon: <HomeOutlined />,
-    items: [
-      { key: '/', label: 'لوحة التحكم', icon: <DashboardOutlined /> },
-    ],
+    permission: null,
   },
   {
     key: 'setup',
     label: 'التهيئة',
     icon: <BuildOutlined />,
     items: [
-      // ===== البيانات الأساسية (submenu) =====
-      {
-        key: 'setup_basic',
-        label: 'البيانات الأساسية',
-        icon: <BookOutlined />,
-        children: [
-          // الأساسيات
-          { key: '/companies',    label: 'الشركات',           icon: <HomeOutlined /> },
-          { key: '/branches',     label: 'الفروع',            icon: <ApartmentOutlined /> },
-          { key: '/users',        label: 'المستخدمون',        icon: <UserOutlined /> },
-          { key: '/accounts',     label: 'دليل الحسابات',     icon: <BookOutlined /> },
-          { key: '/contacts',     label: 'العملاء والموردون', icon: <TeamOutlined /> },
-          { key: '/items',        label: 'الأصناف',           icon: <AppstoreOutlined /> },
-          { key: '/karats',       label: 'العيارات',          icon: <DollarOutlined /> },
-
-          // الخزائن والبنوك
-          { key: '/safes',        label: 'الصناديق',          icon: <ShopOutlined /> },
-          { key: '/banks',        label: 'البنوك',            icon: <BankOutlined /> },
-
-          // الضرائب والعملات
-          { key: '/taxes',        label: 'الضرائب',           icon: <CalculatorOutlined /> },
-          { key: '/currencies',   label: 'العملات',           icon: <DollarOutlined /> },
-
-          // مراكز التكلفة
-          { key: '/cost-centers', label: 'مراكز التكلفة',     icon: <ApartmentOutlined /> },
-        ],
-      },
+      { key: '/company', label: 'الشركات', icon: <ApartmentOutlined />, permission: 'companies.view' },
+      { key: '/branches',     label: 'الفروع',         icon: <ApartmentOutlined />, permission: 'branches.view' },
+      { key: '/users',        label: 'المستخدمون',     icon: <UserOutlined />,      permission: 'users.view' },
+      { key: '/accounts',     label: 'دليل الحسابات',  icon: <BookOutlined />,      permission: 'accounts.view' },
+      { key: '/customers',    label: 'العملاء',        icon: <TeamOutlined />,      permission: 'contacts.view' },
+      { key: '/suppliers',    label: 'الموردون',       icon: <TeamOutlined />,      permission: 'contacts.view' },
+      { key: '/safes',        label: 'الصناديق',       icon: <ShopOutlined />,      permission: 'safes.view' },
+      { key: '/banks',        label: 'البنوك',         icon: <BankOutlined />,      permission: 'banks.view' },
+      { key: '/taxes',        label: 'الضرائب',        icon: <CalculatorOutlined />,permission: 'taxes.view' },
+      { key: '/currencies',   label: 'العملات',        icon: <DollarOutlined />,    permission: 'currencies.view' },
+      { key: '/cost-centers', label: 'مراكز التكلفة',  icon: <ApartmentOutlined />, permission: 'cost_centers.view' },
     ],
   },
   {
@@ -55,9 +38,12 @@ export const MENU_GROUPS = [
     label: 'المخزون',
     icon: <InboxOutlined />,
     items: [
-      { key: '/stores',           label: 'المخازن',       icon: <ShopOutlined /> },
-      { key: '/warehouse-stock',  label: 'أرصدة المخزون', icon: <InboxOutlined /> },
-      { key: '/stock-movements',  label: 'حركات المخزون', icon: <ShoppingCartOutlined /> },
+      { key: '/stores',           label: 'المخازن',          icon: <ShopOutlined />,       permission: 'stores.view' },
+      { key: '/items',            label: 'الأصناف',           icon: <AppstoreOutlined />,   permission: 'items.view' },
+      { key: '/itemCategories',   label: 'مجموعة الأصناف',    icon: <TagsOutlined />,       permission: 'item_categories.view' },
+      { key: '/karats',           label: 'العيارات',          icon: <DollarOutlined />,     permission: 'karats.view' },
+      { key: '/warehouse-stock',  label: 'أرصدة المخزون',     icon: <InboxOutlined />,      permission: 'warehouse_stock.view' },
+      { key: '/stock-movements',  label: 'حركات المخزون',     icon: <ShoppingCartOutlined />, permission: 'stock_movements.view' },
     ],
   },
   {
@@ -65,11 +51,11 @@ export const MENU_GROUPS = [
     label: 'العمليات',
     icon: <ShoppingCartOutlined />,
     items: [
-      { key: '/sales',           label: 'تسكير مبيعات',  icon: <DollarOutlined /> },
-      { key: '/purchases',       label: 'تسكير مشتريات', icon: <ShoppingCartOutlined /> },
-      { key: '/journal-entries', label: 'القيود',         icon: <CalculatorOutlined /> },
-      { key: '/receipts',        label: 'سندات القبض',    icon: <WalletOutlined /> },
-      { key: '/payments',        label: 'سندات الصرف',    icon: <WalletOutlined /> },
+      { key: '/sales',           label: 'تسكير مبيعات',   icon: <DollarOutlined />,       permission: 'sales_closing.view' },
+      { key: '/purchases',       label: 'تسكير مشتريات',  icon: <ShoppingCartOutlined />, permission: 'purchase_closing.view' },
+      { key: '/journal-entries', label: 'القيود',          icon: <CalculatorOutlined />,   permission: 'journal.view' },
+      { key: '/receipts',        label: 'سندات القبض',     icon: <WalletOutlined />,       permission: 'receipt_vouchers.view' },
+      { key: '/payments',        label: 'سندات الصرف',     icon: <WalletOutlined />,       permission: 'payment_vouchers.view' },
     ],
   },
   {
@@ -77,9 +63,9 @@ export const MENU_GROUPS = [
     label: 'التقارير',
     icon: <BarChartOutlined />,
     items: [
-      { key: '/reports/statement',   label: 'كشف حساب',       icon: <FileTextOutlined /> },
-      { key: '/reports/balance',     label: 'الميزانية',      icon: <BarChartOutlined /> },
-      { key: '/reports/profit-loss', label: 'الأرباح والخسائر', icon: <BarChartOutlined /> },
+      { key: '/reports/statement',   label: 'كشف حساب',        icon: <FileTextOutlined />, permission: 'reports.contacts' },
+      { key: '/reports/balance',     label: 'الميزانية',        icon: <BarChartOutlined />, permission: 'reports.accounts' },
+      { key: '/reports/profit-loss', label: 'الأرباح والخسائر', icon: <BarChartOutlined />, permission: 'reports.accounts' },
     ],
   },
   {
@@ -87,9 +73,9 @@ export const MENU_GROUPS = [
     label: 'الإعدادات',
     icon: <SettingOutlined />,
     items: [
-      { key: '/settings',    label: 'الإعدادات',    icon: <SettingOutlined /> },
-      { key: '/audit-logs',  label: 'سجل التدقيق',  icon: <AuditOutlined /> },
-      { key: '/theme',       label: 'الألوان',      icon: <SettingOutlined /> },
+      { key: '/settings',    label: 'الإعدادات',    icon: <SettingOutlined />, permission: 'settings.manage' },
+      { key: '/audit-logs',  label: 'سجل التدقيق',  icon: <AuditOutlined />,   permission: null },
+      { key: '/theme',       label: 'الألوان',      icon: <SettingOutlined />, permission: null },
     ],
   },
   {
@@ -97,7 +83,7 @@ export const MENU_GROUPS = [
     label: 'الإشعارات',
     icon: <BellOutlined />,
     items: [
-      { key: '/notifications', label: 'الإشعارات', icon: <BellOutlined /> },
+      { key: '/notifications', label: 'الإشعارات', icon: <BellOutlined />, permission: null },
     ],
   },
 ]

@@ -43,7 +43,7 @@ export default function BankFormModal({ open, onClose, bank, onSaved }) {
   }
 
   return (
-    <AppModal open={open} onCancel={onClose} onOk={handleOk} title={bank ? 'تعديل بنك' : 'إضافة بنك'} size="lg" okText="حفظ" cancelText="إلغاء" confirmLoading={saving} okButtonProps={{ disabled: saving }}>
+    <AppModal open={open} size="md" onCancel={onClose} onOk={handleOk} title={bank ? 'تعديل بنك' : 'إضافة بنك'}  okText="حفظ" cancelText="إلغاء" confirmLoading={saving} okButtonProps={{ disabled: saving }}>
       <Form form={form} layout="vertical" dir="rtl">
         <Row gutter={12}>
           <Col xs={24} md={12}>
@@ -57,7 +57,17 @@ export default function BankFormModal({ open, onClose, bank, onSaved }) {
             <Form.Item name="iban" label="IBAN"><Input /></Form.Item>
           </Col>
           <Col xs={24} md={12}>
-            <Form.Item name="opening_balance" label="الرصيد الافتتاحي"><InputNumber style={{ width: '100%' }} min={0} disabled={!!bank} /></Form.Item>
+            <Form.Item
+              name="opening_balance"
+              label="الرصيد الافتتاحي"
+              initialValue={0}
+            >
+              <InputNumber
+                style={{ width: '100%' }}
+                min={0}
+                disabled
+              />
+            </Form.Item>
           </Col>
           <Col xs={24} md={12}>
             <Form.Item name="is_active" label="الحالة" valuePropName="checked"><Switch checkedChildren="نشط" unCheckedChildren="موقوف" /></Form.Item>

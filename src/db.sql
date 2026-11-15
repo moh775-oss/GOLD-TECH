@@ -452,10 +452,58 @@ INSERT INTO accounts_template
 
 
 
+ALTER TABLE items ADD COLUMN gold_type VARCHAR(50) NULL AFTER item_type;
+
+
+-- ============ 1. العيارات (company_id = 1) ============
+INSERT INTO karats (company_id, branch_id, name, the_value, is_active, user_id, created_at, updated_at) VALUES
+(1, 1, '24', 0.999000, 1, 1, NOW(), NOW()),
+(1, 1, '22', 0.916000, 1, 1, NOW(), NOW()),
+(1, 1, '21', 0.875000, 1, 1, NOW(), NOW()),
+(1, 1, '18', 0.750000, 1, 1, NOW(), NOW()),
+(1, 1, '14', 0.585000, 1, 1, NOW(), NOW());
+
+-- ============ 2. مجموعات الأصناف الرئيسية ============
+INSERT INTO item_categories (company_id, parent_id, name, name_en, is_active, user_id, created_at, updated_at) VALUES
+(1, NULL, 'الذهب',  'Gold',    1, 1, NOW(), NOW()),
+(1, NULL, 'الفضة',  'Silver',  1, 1, NOW(), NOW()),
+(1, NULL, 'الماس',  'Diamond', 1, 1, NOW(), NOW());
+
+-- ============ 3. مجموعات فرعية تحت الذهب ============
+SET @gold_id = (SELECT id FROM item_categories WHERE company_id = 1 AND name = 'الذهب' LIMIT 1);
+
+INSERT INTO item_categories (company_id, parent_id, name, name_en, is_active, user_id, created_at, updated_at) VALUES
+(1, @gold_id, 'كسر مصاغ', 'Scrap Gold',  1, 1, NOW(), NOW()),
+(1, @gold_id, 'مصاغ',     'Worked Gold', 1, 1, NOW(), NOW()),
+(1, @gold_id, 'ذهب صافي', 'Pure Gold',   1, 1, NOW(), NOW());
 
 
 
 
+SET @karat_id_24   = (SELECT id FROM karats WHERE company_id = 1 AND name = '24' LIMIT 1);
+SET @category_gold = (SELECT id FROM item_categories WHERE company_id = 1 AND name = 'الذهب' AND parent_id IS NULL LIMIT 1);
+
+INSERT INTO items (
+    company_id, branch_id, category_id, store_id,
+    code, name, name_en, description,
+    item_type, gold_type, karat_id, unit,
+    weight, purity,
+    cost_price, purchase_price, sale_price, min_sale_price, wholesale_price,
+    tax_rate, currency_id, exchange_rate,
+    min_qty, max_qty, reorder_qty, current_qty, opening_qty, opening_weight,
+    is_active, is_sellable, is_purchasable, is_trackable, is_featured,
+    sort_order, user_id, created_at, updated_at
+) VALUES (
+    1, 1, @category_gold, NULL,
+    'GOLD-001', 'ذهب', 'Gold', 'ذهب صافي',
+    'pure', 'pure', @karat_id_24, 'جرام',
+    0, 1.000000,
+    0, 0, 0, 0, 0,
+    15.0000, NULL, 1.000000,
+    0, 0, 0, 0, 0, 0,
+    1, 1, 1, 1, 0,
+    0, 1, NOW(), NOW()
+);
 
 
 
@@ -1342,7 +1390,7 @@ CREATE TABLE purchase_wage_details (
 
 
 
-
+-- OPENING_BALANCE
 
 
 
@@ -2316,3 +2364,240 @@ ALTER TABLE receipt_vouchers        ADD COLUMN cost_center_id BIGINT NULL AFTER 
 ALTER TABLE payment_vouchers        ADD COLUMN cost_center_id BIGINT NULL AFTER contact_id;
 ALTER TABLE expenses                ADD COLUMN cost_center_id BIGINT NULL AFTER category_id;
 
+
+
+
+
+
+
+DELETE FROM permissions;
+
+
+
+
+INSERT INTO permissions (code, name, module) VALUES
+
+-- ============ النظام والشركات ============
+('companies.view', 'عرض الشركات', 'companies'),
+('companies.create', 'إضافة شركة', 'companies'),
+('companies.edit', 'تعديل شركة', 'companies'),
+('companies.delete', 'حذف شركة', 'companies'),
+
+('branches.view', 'عرض الفروع', 'branches'),
+('branches.create', 'إضافة فرع', 'branches'),
+('branches.edit', 'تعديل فرع', 'branches'),
+('branches.delete', 'حذف فرع', 'branches'),
+
+('users.view', 'عرض المستخدمين', 'users'),
+('users.create', 'إضافة مستخدم', 'users'),
+('users.edit', 'تعديل مستخدم', 'users'),
+('users.delete', 'حذف مستخدم', 'users'),
+('users.toggle', 'تفعيل/تعطيل مستخدم', 'users'),
+('users.password', 'تغيير كلمة مرور', 'users'),
+
+('roles.view', 'عرض الأدوار', 'roles'),
+('roles.create', 'إضافة دور', 'roles'),
+('roles.edit', 'تعديل دور', 'roles'),
+('roles.delete', 'حذف دور', 'roles'),
+
+('settings.manage', 'إدارة الإعدادات', 'settings'),
+('company_info.manage', 'إدارة بيانات الشركة', 'company_info'),
+
+('document_types.view', 'عرض أنواع المستندات', 'document_types'),
+('document_types.create', 'إضافة نوع مستند', 'document_types'),
+('document_types.edit', 'تعديل نوع مستند', 'document_types'),
+
+-- ============ المحاسبة ============
+('accounts.view', 'عرض الحسابات', 'accounts'),
+('accounts.create', 'إضافة حساب', 'accounts'),
+('accounts.edit', 'تعديل حساب', 'accounts'),
+('accounts.delete', 'حذف حساب', 'accounts'),
+
+('journal.view', 'عرض القيود', 'journal'),
+('journal.create', 'إضافة قيد', 'journal'),
+('journal.edit', 'تعديل قيد', 'journal'),
+('journal.delete', 'حذف قيد', 'journal'),
+('journal.post', 'ترحيل قيد', 'journal'),
+('journal.reverse', 'عكس قيد', 'journal'),
+
+('cost_centers.view', 'عرض مراكز التكلفة', 'cost_centers'),
+('cost_centers.create', 'إضافة مركز تكلفة', 'cost_centers'),
+('cost_centers.edit', 'تعديل مركز تكلفة', 'cost_centers'),
+('cost_centers.delete', 'حذف مركز تكلفة', 'cost_centers'),
+
+-- ============ البيانات الأساسية ============
+('contacts.view', 'عرض العملاء', 'contacts'),
+('contacts.create', 'إضافة عميل', 'contacts'),
+('contacts.edit', 'تعديل عميل', 'contacts'),
+('contacts.delete', 'حذف عميل', 'contacts'),
+
+('items.view', 'عرض الأصناف', 'items'),
+('items.create', 'إضافة صنف', 'items'),
+('items.edit', 'تعديل صنف', 'items'),
+('items.delete', 'حذف صنف', 'items'),
+
+('item_categories.view', 'عرض مجموعات الأصناف', 'item_categories'),
+('item_categories.create', 'إضافة مجموعة', 'item_categories'),
+('item_categories.edit', 'تعديل مجموعة', 'item_categories'),
+('item_categories.delete', 'حذف مجموعة', 'item_categories'),
+
+('karats.view', 'عرض العيارات', 'karats'),
+('karats.create', 'إضافة عيار', 'karats'),
+('karats.edit', 'تعديل عيار', 'karats'),
+('karats.delete', 'حذف عيار', 'karats'),
+
+('taxes.view', 'عرض الضرائب', 'taxes'),
+('taxes.create', 'إضافة ضريبة', 'taxes'),
+('taxes.edit', 'تعديل ضريبة', 'taxes'),
+('taxes.delete', 'حذف ضريبة', 'taxes'),
+
+('currencies.view', 'عرض العملات', 'currencies'),
+('currencies.create', 'إضافة عملة', 'currencies'),
+('currencies.edit', 'تعديل عملة', 'currencies'),
+('currencies.delete', 'حذف عملة', 'currencies'),
+
+('exchange_rates.view', 'عرض أسعار الصرف', 'exchange_rates'),
+('exchange_rates.create', 'إضافة سعر صرف', 'exchange_rates'),
+('exchange_rates.edit', 'تعديل سعر صرف', 'exchange_rates'),
+('exchange_rates.delete', 'حذف سعر صرف', 'exchange_rates'),
+
+('stores.view', 'عرض المخازن', 'stores'),
+('stores.create', 'إضافة مخزن', 'stores'),
+('stores.edit', 'تعديل مخزن', 'stores'),
+('stores.delete', 'حذف مخزن', 'stores'),
+
+('warehouse_stock.view', 'عرض أرصدة المخزون', 'warehouse_stock'),
+('warehouse_stock.create', 'إضافة رصيد مخزون', 'warehouse_stock'),
+('warehouse_stock.edit', 'تعديل رصيد مخزون', 'warehouse_stock'),
+('warehouse_stock.delete', 'حذف رصيد مخزون', 'warehouse_stock'),
+
+('stock_movements.view', 'عرض حركات المخزون', 'stock_movements'),
+('stock_movements.create', 'إضافة حركة مخزون', 'stock_movements'),
+('stock_movements.edit', 'تعديل حركة مخزون', 'stock_movements'),
+('stock_movements.delete', 'حذف حركة مخزون', 'stock_movements'),
+
+('safes.view', 'عرض الصناديق', 'safes'),
+('safes.create', 'إضافة صندوق', 'safes'),
+('safes.edit', 'تعديل صندوق', 'safes'),
+('safes.delete', 'حذف صندوق', 'safes'),
+
+('banks.view', 'عرض البنوك', 'banks'),
+('banks.create', 'إضافة بنك', 'banks'),
+('banks.edit', 'تعديل بنك', 'banks'),
+('banks.delete', 'حذف بنك', 'banks'),
+
+('expenses.view', 'عرض المصروفات', 'expenses'),
+('expenses.create', 'إضافة مصروف', 'expenses'),
+('expenses.edit', 'تعديل مصروف', 'expenses'),
+('expenses.delete', 'حذف مصروف', 'expenses'),
+
+('expense_categories.view', 'عرض تصنيفات المصروفات', 'expense_categories'),
+('expense_categories.create', 'إضافة تصنيف مصروف', 'expense_categories'),
+('expense_categories.edit', 'تعديل تصنيف مصروف', 'expense_categories'),
+('expense_categories.delete', 'حذف تصنيف مصروف', 'expense_categories'),
+
+('gold_prices.view', 'عرض أسعار الذهب', 'gold_prices'),
+('gold_prices.create', 'إضافة سعر ذهب', 'gold_prices'),
+('gold_prices.edit', 'تعديل سعر ذهب', 'gold_prices'),
+('gold_prices.delete', 'حذف سعر ذهب', 'gold_prices'),
+
+-- ============ المبيعات ============
+('sales_net.view', 'عرض مبيعات صافي', 'sales_net'),
+('sales_net.create', 'إضافة مبيعات صافي', 'sales_net'),
+('sales_net.edit', 'تعديل مبيعات صافي', 'sales_net'),
+('sales_net.delete', 'حذف مبيعات صافي', 'sales_net'),
+
+('sales_jewelry.view', 'عرض مبيعات مصاغ', 'sales_jewelry'),
+('sales_jewelry.create', 'إضافة مبيعات مصاغ', 'sales_jewelry'),
+('sales_jewelry.edit', 'تعديل مبيعات مصاغ', 'sales_jewelry'),
+('sales_jewelry.delete', 'حذف مبيعات مصاغ', 'sales_jewelry'),
+
+('sales_closing.view', 'عرض مبيعات تسكير', 'sales_closing'),
+('sales_closing.create', 'إضافة مبيعات تسكير', 'sales_closing'),
+('sales_closing.edit', 'تعديل مبيعات تسكير', 'sales_closing'),
+('sales_closing.delete', 'حذف مبيعات تسكير', 'sales_closing'),
+
+('sales_wages.view', 'عرض مبيعات أجور', 'sales_wages'),
+('sales_wages.create', 'إضافة مبيعات أجور', 'sales_wages'),
+('sales_wages.edit', 'تعديل مبيعات أجور', 'sales_wages'),
+('sales_wages.delete', 'حذف مبيعات أجور', 'sales_wages'),
+
+('sales_return_net.view', 'عرض مرتجع صافي', 'sales_return_net'),
+('sales_return_net.create', 'إضافة مرتجع صافي', 'sales_return_net'),
+('sales_return_net.edit', 'تعديل مرتجع صافي', 'sales_return_net'),
+('sales_return_net.delete', 'حذف مرتجع صافي', 'sales_return_net'),
+
+('sales_return_jewelry.view', 'عرض مرتجع مصاغ', 'sales_return_jewelry'),
+('sales_return_jewelry.create', 'إضافة مرتجع مصاغ', 'sales_return_jewelry'),
+('sales_return_jewelry.edit', 'تعديل مرتجع مصاغ', 'sales_return_jewelry'),
+('sales_return_jewelry.delete', 'حذف مرتجع مصاغ', 'sales_return_jewelry'),
+
+('sales_return_wages.view', 'عرض مرتجع أجور', 'sales_return_wages'),
+('sales_return_wages.create', 'إضافة مرتجع أجور', 'sales_return_wages'),
+('sales_return_wages.edit', 'تعديل مرتجع أجور', 'sales_return_wages'),
+('sales_return_wages.delete', 'حذف مرتجع أجور', 'sales_return_wages'),
+
+('sales_return_closing.view', 'عرض مرتجع تسكير', 'sales_return_closing'),
+('sales_return_closing.create', 'إضافة مرتجع تسكير', 'sales_return_closing'),
+('sales_return_closing.edit', 'تعديل مرتجع تسكير', 'sales_return_closing'),
+('sales_return_closing.delete', 'حذف مرتجع تسكير', 'sales_return_closing'),
+
+-- ============ المشتريات ============
+('purchase_net.view', 'عرض مشتريات صافي', 'purchase_net'),
+('purchase_net.create', 'إضافة مشتريات صافي', 'purchase_net'),
+('purchase_net.edit', 'تعديل مشتريات صافي', 'purchase_net'),
+('purchase_net.delete', 'حذف مشتريات صافي', 'purchase_net'),
+
+('purchase_jewelry.view', 'عرض مشتريات مصاغ', 'purchase_jewelry'),
+('purchase_jewelry.create', 'إضافة مشتريات مصاغ', 'purchase_jewelry'),
+('purchase_jewelry.edit', 'تعديل مشتريات مصاغ', 'purchase_jewelry'),
+('purchase_jewelry.delete', 'حذف مشتريات مصاغ', 'purchase_jewelry'),
+
+('purchase_closing.view', 'عرض مشتريات تسكير', 'purchase_closing'),
+('purchase_closing.create', 'إضافة مشتريات تسكير', 'purchase_closing'),
+('purchase_closing.edit', 'تعديل مشتريات تسكير', 'purchase_closing'),
+('purchase_closing.delete', 'حذف مشتريات تسكير', 'purchase_closing'),
+
+('purchase_wages.view', 'عرض مشتريات أجور', 'purchase_wages'),
+('purchase_wages.create', 'إضافة مشتريات أجور', 'purchase_wages'),
+('purchase_wages.edit', 'تعديل مشتريات أجور', 'purchase_wages'),
+('purchase_wages.delete', 'حذف مشتريات أجور', 'purchase_wages'),
+
+('purchase_return_net.view', 'عرض مرتجع صافي', 'purchase_return_net'),
+('purchase_return_net.create', 'إضافة مرتجع صافي', 'purchase_return_net'),
+('purchase_return_net.edit', 'تعديل مرتجع صافي', 'purchase_return_net'),
+('purchase_return_net.delete', 'حذف مرتجع صافي', 'purchase_return_net'),
+
+('purchase_return_jewelry.view', 'عرض مرتجع مصاغ', 'purchase_return_jewelry'),
+('purchase_return_jewelry.create', 'إضافة مرتجع مصاغ', 'purchase_return_jewelry'),
+('purchase_return_jewelry.edit', 'تعديل مرتجع مصاغ', 'purchase_return_jewelry'),
+('purchase_return_jewelry.delete', 'حذف مرتجع مصاغ', 'purchase_return_jewelry'),
+
+('purchase_return_wages.view', 'عرض مرتجع أجور', 'purchase_return_wages'),
+('purchase_return_wages.create', 'إضافة مرتجع أجور', 'purchase_return_wages'),
+('purchase_return_wages.edit', 'تعديل مرتجع أجور', 'purchase_return_wages'),
+('purchase_return_wages.delete', 'حذف مرتجع أجور', 'purchase_return_wages'),
+
+('purchase_return_closing.view', 'عرض مرتجع تسكير', 'purchase_return_closing'),
+('purchase_return_closing.create', 'إضافة مرتجع تسكير', 'purchase_return_closing'),
+('purchase_return_closing.edit', 'تعديل مرتجع تسكير', 'purchase_return_closing'),
+('purchase_return_closing.delete', 'حذف مرتجع تسكير', 'purchase_return_closing'),
+
+-- ============ السندات ============
+('receipt_vouchers.view', 'عرض سندات القبض', 'receipt_vouchers'),
+('receipt_vouchers.create', 'إضافة سند قبض', 'receipt_vouchers'),
+('receipt_vouchers.edit', 'تعديل سند قبض', 'receipt_vouchers'),
+('receipt_vouchers.delete', 'حذف سند قبض', 'receipt_vouchers'),
+
+('payment_vouchers.view', 'عرض سندات الصرف', 'payment_vouchers'),
+('payment_vouchers.create', 'إضافة سند صرف', 'payment_vouchers'),
+('payment_vouchers.edit', 'تعديل سند صرف', 'payment_vouchers'),
+('payment_vouchers.delete', 'حذف سند صرف', 'payment_vouchers'),
+
+-- ============ التقارير ============
+('reports.sales', 'تقرير المبيعات', 'reports'),
+('reports.purchases', 'تقرير المشتريات', 'reports'),
+('reports.inventory', 'تقرير المخزون', 'reports'),
+('reports.accounts', 'التقارير المحاسبية', 'reports'),
+('reports.contacts', 'كشوف الحسابات', 'reports'),
+('reports.gold', 'تقارير الذهب', 'reports');

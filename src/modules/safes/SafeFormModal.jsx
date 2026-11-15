@@ -63,7 +63,7 @@ export default function SafeFormModal({ open, onClose, safe, onSaved }) {
       onCancel={onClose}
       onOk={handleOk}
       title={safe ? 'تعديل صندوق' : 'إضافة صندوق'}
-      size="lg"
+      size="md"
       okText="حفظ"
       cancelText="إلغاء"
       confirmLoading={saving}
@@ -83,13 +83,13 @@ export default function SafeFormModal({ open, onClose, safe, onSaved }) {
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
-            <Form.Item name="opening_cash" label="الرصيد الافتتاحي النقدي">
-              <InputNumber style={{ width: '100%' }} min={0} disabled={!!safe} />
+            <Form.Item name="opening_cash" initialValue={0}  label="الرصيد الافتتاحي النقدي">
+              <InputNumber style={{ width: '100%' }} min={0} disabled />
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
-            <Form.Item name="opening_gold" label="الرصيد الافتتاحي الذهب">
-              <InputNumber style={{ width: '100%' }} min={0} step={0.001} disabled={!!safe} />
+            <Form.Item initialValue={0} name="opening_gold" label="الرصيد الافتتاحي الذهب">
+              <InputNumber style={{ width: '100%' }} min={0} step={0.001} disabled />
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>

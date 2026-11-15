@@ -41,7 +41,7 @@ export default function CostCenterFormModal({ open, onClose, costCenter, onSaved
   }
 
   return (
-    <AppModal open={open} onCancel={onClose} onOk={handleOk} title={costCenter ? 'تعديل مركز تكلفة' : 'إضافة مركز تكلفة'} size="lg" okText="حفظ" cancelText="إلغاء" confirmLoading={saving} okButtonProps={{ disabled: saving }}>
+    <AppModal open={open} onCancel={onClose} onOk={handleOk} title={costCenter ? 'تعديل مركز تكلفة' : 'إضافة مركز تكلفة'} size="md" okText="حفظ" cancelText="إلغاء" confirmLoading={saving} okButtonProps={{ disabled: saving }}>
       <Form form={form} layout="vertical" dir="rtl">
         <Row gutter={12}>
           <Col xs={24} md={12}>
@@ -64,19 +64,19 @@ export default function CostCenterFormModal({ open, onClose, costCenter, onSaved
             </Form.Item>
           </Col>
           <Col xs={24} md={12}>
-            <Form.Item name="budget_amount" label="الميزانية"><InputNumber style={{ width: '100%' }} min={0} /></Form.Item>
+            <Form.Item name="budget_amount" initialValue={0} label="الميزانية"><InputNumber disabled style={{ width: '100%' }} min={0} /></Form.Item>
           </Col>
           <Col xs={24} md={12}>
-            <Form.Item name="opening_balance" label="الرصيد الافتتاحي"><InputNumber style={{ width: '100%' }} /></Form.Item>
+            <Form.Item name="opening_balance" initialValue={0} label="الرصيد الافتتاحي"><InputNumber disabled style={{ width: '100%' }} /></Form.Item>
           </Col>
           <Col xs={24} md={12}>
             <Form.Item name="is_active" label="الحالة" valuePropName="checked"><Switch checkedChildren="نشط" unCheckedChildren="موقوف" /></Form.Item>
           </Col>
           <Col xs={24}>
             <Form.Item name="notes" label="ملاحظات"><Input.TextArea rows={2} /></Form.Item>
-          </Col>
+        </Col>
         </Row>
       </Form>
     </AppModal>
-  )
+    )
 }
