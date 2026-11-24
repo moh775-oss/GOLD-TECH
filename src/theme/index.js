@@ -4,7 +4,7 @@ import { colors } from './colors'
 export { colors }
 
 export const antdTheme = {
-  algorithm: theme.defaultAlgorithm, // الوضع الفاتح
+  algorithm: theme.defaultAlgorithm,
 
   token: {
     // ===== الألوان الأساسية =====
@@ -39,7 +39,7 @@ export const antdTheme = {
 
     // ===== الحواف =====
     borderRadius: 8,
-    borderRadiusLG: 12,
+    borderRadiusLG: 10,
     borderRadiusSM: 6,
     borderRadiusXS: 4,
 
@@ -53,6 +53,12 @@ export const antdTheme = {
     fontSizeHeading3: 24,
     fontSizeHeading4: 20,
     fontSizeHeading5: 16,
+
+    // ===== ⭐ أحجام الحقول الموحّدة على مستوى الـ token العام =====
+    controlHeight: 32,
+    controlHeightLG: 40,
+    controlHeightSM: 24,
+    controlHeightXS: 22,
 
     // ===== الظلال =====
     boxShadow: '0 6px 16px rgba(0, 0, 0, 0.08)',
@@ -68,8 +74,8 @@ export const antdTheme = {
   components: {
     // ===== Layout =====
     Layout: {
-      headerBg: colors.black[900],        // الناف بار يبقى أسود
-      bodyBg: colors.surface.base,         // خلفية الصفحة فاتحة
+      headerBg: colors.black[900],
+      bodyBg: colors.surface.base,
       siderBg: colors.black[900],
       triggerBg: colors.black[800],
       triggerColor: colors.text.onGold,
@@ -95,34 +101,26 @@ export const antdTheme = {
     // ===== Button =====
     Button: {
       colorPrimary: colors.gold[600],
-      primaryColor: colors.text.onGold, // نص أبيض فوق الذهبي
-
-      // الزر الافتراضي
+      primaryColor: colors.text.onGold,
       defaultBg: '#ffffff',
       defaultColor: colors.text.primary,
       defaultBorderColor: colors.surface.border,
       defaultHoverBg: '#fafafa',
       defaultHoverColor: colors.gold[700],
       defaultHoverBorderColor: colors.gold[600],
-
-      // الزر الخطر
       dangerColor: '#ffffff',
       dangerShadow: '0 2px 0 rgba(255, 77, 79, 0.1)',
-
-      // أحجام
-      controlHeight: 32,        // كان 36
-      controlHeightLG: 40,      // كان 44
-      controlHeightSM: 24, 
+      controlHeight: 32,
+      controlHeightLG: 40,
+      controlHeightSM: 24,
       borderRadius: 8,
       borderRadiusLG: 10,
       borderRadiusSM: 6,
-
-      // الزر الرابط
       colorLink: colors.gold[700],
       colorLinkHover: colors.gold[600],
     },
 
-    // ===== Input =====
+    // ===== ⭐ Input (المرجع الأساسي) =====
     Input: {
       colorBgContainer: '#ffffff',
       colorBorder: colors.surface.border,
@@ -137,24 +135,38 @@ export const antdTheme = {
       controlHeightLG: 40,
       controlHeightSM: 24,
       borderRadius: 8,
+      borderRadiusLG: 10,
+      borderRadiusSM: 6,
+      // ⭐ لا نضع paddingBlock/Inline هنا — الـ CSS يتحكم بها
       width: '100%',
     },
 
-    // ===== InputNumber =====
+    // ===== ⭐ InputNumber =====
     InputNumber: {
       colorBgContainer: '#ffffff',
       colorBorder: colors.surface.border,
       colorText: colors.text.primary,
+      colorTextPlaceholder: colors.text.disabled,
       activeBorderColor: colors.gold[600],
       hoverBorderColor: colors.gold[500],
+      activeShadow: '0 0 0 2px rgba(184, 134, 11, 0.15)',
+      errorActiveShadow: '0 0 0 2px rgba(255, 77, 79, 0.15)',
+      warningActiveShadow: '0 0 0 2px rgba(212, 160, 23, 0.15)',
       handleBg: '#fafafa',
       handleActiveBg: '#f0f0f0',
       handleHoverColor: colors.gold[700],
-      controlHeight: 36,
+      handleWidth: 22,
+      handleFontSize: 10,
+      controlHeight: 32,
+      controlHeightLG: 40,
+      controlHeightSM: 24,
+      borderRadius: 8,
+      borderRadiusLG: 10,
+      borderRadiusSM: 6,
       width: '100%',
     },
 
-    // ===== Select =====
+    // ===== ⭐ Select =====
     Select: {
       colorBgContainer: '#ffffff',
       colorBorder: colors.surface.border,
@@ -162,6 +174,7 @@ export const antdTheme = {
       colorTextPlaceholder: colors.text.disabled,
       activeBorderColor: colors.gold[600],
       hoverBorderColor: colors.gold[500],
+      activeOutlineColor: 'rgba(184, 134, 11, 0.15)',
       optionSelectedBg: '#fafafa',
       optionSelectedColor: colors.gold[700],
       optionActiveBg: '#f5f5f5',
@@ -175,7 +188,7 @@ export const antdTheme = {
       width: '100%',
     },
 
-    // ===== DatePicker =====
+    // ===== ⭐ DatePicker (تمت إزالة paddingBlock/Inline التي كانت تضخّمه) =====
     DatePicker: {
       colorBgContainer: '#ffffff',
       colorBorder: colors.surface.border,
@@ -183,10 +196,15 @@ export const antdTheme = {
       colorTextPlaceholder: colors.text.disabled,
       activeBorderColor: colors.gold[600],
       hoverBorderColor: colors.gold[500],
+      activeShadow: '0 0 0 2px rgba(184, 134, 11, 0.15)',
       cellHoverBg: '#f5f5f5',
       cellActiveWithRangeBg: '#fafafa',
       controlHeight: 32,
+      controlHeightLG: 40,
+      controlHeightSM: 24,
       borderRadius: 8,
+      borderRadiusLG: 10,
+      borderRadiusSM: 6,
       width: '100%',
     },
 

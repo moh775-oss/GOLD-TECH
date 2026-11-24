@@ -18,8 +18,8 @@ export default function SafeViewModal({ open, onClose, safe }) {
         <Descriptions.Item label="الكود">{safe.code || '—'}</Descriptions.Item>
         <Descriptions.Item label="رقم الحساب">{safe.acc_no || '—'}</Descriptions.Item>
         <Descriptions.Item label="الفرع">{safe.branch_id}</Descriptions.Item>
-        <Descriptions.Item label="الرصيد الافتتاحي النقدي">{Number(safe.opening_cash || 0).toLocaleString('ar-SA')}</Descriptions.Item>
-        <Descriptions.Item label="الرصيد الحالي النقدي">{Number(safe.current_cash || 0).toLocaleString('ar-SA')}</Descriptions.Item>
+        <Descriptions.Item label="الرصيد الافتتاحي النقدي">{Number(safe.opening_cash || 0).toLocaleString('en-US')}</Descriptions.Item>
+        <Descriptions.Item label="الرصيد الحالي النقدي">{Number(safe.current_cash || 0).toLocaleString('en-US')}</Descriptions.Item>
         <Descriptions.Item label="الرصيد الافتتاحي الذهب">{Number(safe.opening_gold || 0).toFixed(3)}</Descriptions.Item>
         <Descriptions.Item label="الرصيد الحالي الذهب">{Number(safe.current_gold || 0).toFixed(3)}</Descriptions.Item>
         <Descriptions.Item label="الحالة">

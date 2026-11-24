@@ -98,6 +98,9 @@ export default function ItemsPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+         إدارة الأصناف
+        </div>
         <div className="items-filters" style={{ marginBottom:'20px' }}>
   <Row gutter={[8, 8]}>
     <Col xs={12} md={6}>

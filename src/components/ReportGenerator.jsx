@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import {
   Table, Input, Select, Button, Tooltip, Pagination,
-  DatePicker, Modal, Checkbox,
+  DatePicker, Modal,
 } from 'antd';
 import {
   SearchOutlined, PrinterOutlined, FileExcelOutlined, ReloadOutlined,
@@ -10,9 +10,10 @@ import {
 import * as XLSX from "xlsx";
 import dayjs from 'dayjs';
 import { createStyles } from 'antd-style';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { useAuth } from "../contexts/AuthContext.jsx"; 
+import PrintHeader from "./PrintHeader.jsx"; 
 import '../styles/ReportGenerator.css';
-// import notify from '../lib/notify'
-
 
 const { RangePicker } = DatePicker;
 
@@ -33,15 +34,21 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-const companyInfo = {
-  nameAr: "شركة التميمي",
-  nameEn: "Altamimi IT Solutions Co.",
-  addressAr: "الرياض - السعودية",
-  addressEn: "Riyadh - Saudi Arabia",
-  phone: "+967775294208",
-  taxNumber: "300123456789",
-  commercialRegister: "1010234567",
-  website: "www.altamimi.com",
+// ✅ دالة سحرية لاستخراج كل النصوص من أي كائن (حتى المتداخل) لضمان البحث الشامل
+const extractText = (val) => {
+  if (val === null || val === undefined) return '';
+  if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean') {
+    return String(val).toLowerCase();
+  }
+  if (Array.isArray(val)) {
+    return val.map(extractText).join(' ');
+  }
+  if (typeof val === 'object') {
+    // تجاهل عناصر React (مثل الأزرار) لتجنب الأخطاء
+    if (val.$$typeof) return ''; 
+    return Object.values(val).map(extractText).join(' ');
+  }
+  return '';
 };
 
 const ReportGenerator = ({
@@ -69,6 +76,7 @@ const ReportGenerator = ({
   disablePrint = false,
   pagination = { pageSize: 10 },
   showPagination = true,
+  hideExportButton = false, 
   className = '',
   size = 'middle',
   bordered = false,
@@ -82,20 +90,18 @@ const ReportGenerator = ({
   selection,
   showDateFilter = false,
   onDateFilterChange,
-  fixedColumns = null,
 }) => {
   const { styles } = useStyle();
+  const { session } = useAuth();
 
   const rows = (data && data.length > 0) ? data : (dataSource || []);
 
-  
   const [searchText, setSearchText] = useState('');
   const [selectedFilters, setSelectedFilters] = useState(filterValues || {});
   const [pageSize, setPageSize] = useState(pagination?.pageSize || 15);
   const [currentPage, setCurrentPage] = useState(1);
   const [dateRange, setDateRange] = useState(null);
 
-  // ✅ state للترتيب
   const [sortField, setSortField] = useState(defaultSort?.field || null);
   const [sortDirection, setSortDirection] = useState(defaultSort?.direction || null);
 
@@ -106,22 +112,19 @@ const ReportGenerator = ({
   const filteredData = useMemo(() => {
     let result = [...rows];
 
-    // بحث
+    // ✅ البحث الشامل في كل البيانات
     if (searchable && searchText && searchText.trim()) {
       const searchLower = searchText.trim().toLowerCase();
+      
       result = result.filter((row) => {
+        // إذا مررت حقول معينة سيحصر البحث فيها، وإلا سيبحث في كل شيء
         if (searchFields && searchFields.length > 0) {
-          return searchFields.some((field) => {
-            const value = row[field];
-            return value != null && String(value).toLowerCase().includes(searchLower);
-          });
+          return searchFields.some((field) => extractText(row[field]).includes(searchLower));
         }
-        return Object.entries(row).some(([key, value]) => {
-          if (key === 'actions') return false;
-          if (value === null || value === undefined) return false;
-          if (typeof value === 'object') return false;
-          return String(value).toLowerCase().includes(searchLower);
-        });
+        
+        // البحث في كامل الصف
+        const rowString = extractText(row);
+        return rowString.includes(searchLower);
       });
     }
 
@@ -149,7 +152,6 @@ const ReportGenerator = ({
       });
     }
 
-
     if (sortField && sortDirection) {
       result.sort((a, b) => {
         const aVal = a[sortField];
@@ -168,7 +170,6 @@ const ReportGenerator = ({
     return result;
   }, [rows, searchText, selectedFilters, filters, searchFields, searchable, dateRange, sortField, sortDirection]);
 
-  // ===== paginatedData =====
   const paginatedData = useMemo(() => {
     if (!showPagination || pageSize === 999999 || pageSize >= filteredData.length) {
       return filteredData;
@@ -176,10 +177,6 @@ const ReportGenerator = ({
     const start = (currentPage - 1) * pageSize;
     return filteredData.slice(start, start + pageSize);
   }, [filteredData, currentPage, pageSize, showPagination]);
-
-
-  const tableKey = `${filteredData.length}-${searchText}-${currentPage}-${pageSize}-${sortField}-${sortDirection}`;
-
 
   useEffect(() => {
     setCurrentPage(1);
@@ -247,6 +244,10 @@ const ReportGenerator = ({
       return `<tr>${cells}</tr>`;
     }).join('');
 
+    const headerHTML = session?.company_info
+      ? renderToStaticMarkup(<PrintHeader info={session.company_info} />)
+      : '';
+
     const printContent = `
       <!DOCTYPE html>
       <html dir="rtl">
@@ -257,81 +258,81 @@ const ReportGenerator = ({
         <style>
           @page { size: ${isLandscape ? 'landscape' : 'portrait'}; margin: 6mm; }
           * { margin: 0; padding: 0; box-sizing: border-box; }
-          body { font-family: 'Cairo', 'Tajawal', sans-serif; direction: rtl; background: white; font-size: ${fontSize}; }
-          .header { display: flex; justify-content: space-between; padding: 4px 8px; border: 1.5px solid #197fdd; border-radius: 4px; margin-bottom: 4px; }
-          .header-right { text-align: right; flex: 1; }
-          .header-center { text-align: center; flex: 1; }
-          .header-left { text-align: left; direction: ltr; flex: 1; }
-          .company-name-ar { font-size: ${parseInt(fontSize) + 4}px; font-weight: bold; color: #2c3e50; }
-          .company-name-en { font-size: ${parseInt(fontSize) + 4}px; font-weight: bold; color: #2c3e50; }
-          .info-text { font-size: ${parseInt(fontSize) - 1}px; margin-top: 1px; color: #495057; }
-          .title-box { text-align: center; background: #f8f9fa; border: 1.5px solid #197fdd; border-radius: 4px; padding: 4px; font-size: ${parseInt(fontSize) + 8}px; font-weight: bold; margin: 4px 0; }
-          .date-range { text-align: center; font-size: ${parseInt(fontSize) + 1}px; color: #495057; margin: 2px 0 4px 0; font-weight: bold; }
-          .report-table { width: 100%; border-collapse: collapse; font-size: ${fontSize}; table-layout: auto; }
-          .report-table th, .report-table td { border: 1px solid #c5ccd1; padding: 3px 5px; text-align: center; white-space: nowrap; }
-          .report-table th { background: #197fdd; color: white; font-weight: bold; font-size: ${headerFontSize}; padding: 4px 6px; }
+          body { font-family: 'Cairo', 'Tajawal', sans-serif; direction: rtl; background: white; font-size: ${fontSize}; padding: 10px; }
+          
+          .title-box { 
+            text-align: center; 
+            background: rgba(184, 134, 11, 0.12); 
+            border: 1.5px solid rgba(184, 134, 11, 0.45); 
+            color: #7a5d00;
+            border-radius: 6px; 
+            padding: 8px; 
+            font-size: ${parseInt(fontSize) + 8}px; 
+            font-weight: bold; 
+            margin: 12px 0; 
+          }
+          .date-range { text-align: center; font-size: ${parseInt(fontSize) + 1}px; color: #495057; margin: 2px 0 8px 0; font-weight: bold; }
+          
+          .report-table { width: 100%; border-collapse: collapse; font-size: ${fontSize}; table-layout: auto; margin-top: 8px; }
+          .report-table th, .report-table td { border: 1px solid #c5ccd1; padding: 6px 8px; text-align: center; white-space: nowrap; }
+          
+          .report-table th { 
+            background: rgba(184, 134, 11, 0.16); 
+            color: #7a5d00; 
+            font-weight: bold; 
+            font-size: ${headerFontSize}; 
+            border: 1px solid rgba(184, 134, 11, 0.45);
+          }
+          
           .report-table tr:nth-child(even) { background: #f8f9fa; }
-          .footer { text-align: center; font-size: ${parseInt(fontSize) - 1}px; color: #6c757d; border-top: 1px solid #c5ccd1; padding-top: 4px; margin-top: 6px; }
+          .footer { text-align: center; font-size: ${parseInt(fontSize) - 1}px; color: #6c757d; border-top: 1px solid #c5ccd1; padding-top: 8px; margin-top: 20px; }
           @media print {
             body { padding: 0; margin: 0; }
-            .header, .title-box, .report-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .title-box, .report-table th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
             .report-table tr { page-break-inside: avoid; }
           }
         </style>
       </head>
       <body>
-        <div class="header">
-          <div class="header-right">
-            <div class="company-name-ar">${companyInfo.nameAr}</div>
-            <div class="info-text">${companyInfo.addressAr}</div>
-            <div class="info-text">الرقم الضريبي: ${companyInfo.taxNumber}</div>
-            <div class="info-text">السجل التجاري: ${companyInfo.commercialRegister}</div>
-            <div class="info-text">الهاتف: ${companyInfo.phone}</div>
-          </div>
-          <div class="header-center"><div class="info-text">${companyInfo.website}</div></div>
-          <div class="header-left">
-            <div class="company-name-en">${companyInfo.nameEn}</div>
-            <div class="info-text">${companyInfo.addressEn}</div>
-            <div class="info-text">Tax Number: ${companyInfo.taxNumber}</div>
-            <div class="info-text">Phone: ${companyInfo.phone}</div>
-          </div>
-        </div>
+        ${headerHTML}
+        
         <div class="title-box">${printTitle || title || 'تقرير'}</div>
         ${dateRangeText ? `<div class="date-range">${dateRangeText}</div>` : ''}
+        
         <table class="report-table">
           <thead><tr>${pickedColumns.map(col => `<th>${col.label}</th>`).join('')}</tr></thead>
           <tbody>${tableRows}</tbody>
         </table>
+        
         <div class="footer">
           <div>تاريخ الطباعة: ${new Date().toLocaleDateString("ar-SA")}</div>
           <div>تم الإنشاء بواسطة نظام Attlsoft ERP</div>
         </div>
-        <script>
-          window.onload = function() {
-            setTimeout(function() { window.print(); setTimeout(function() { window.close(); }, 500); }, 300);
-          };
-        </script>
       </body>
       </html>
     `;
 
-    const printWindow = window.open('', '_blank', 'width=1200,height=900');
-    if (!printWindow) {
-      const blob = new Blob([printContent], { type: 'text/html;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const newWindow = window.open(url, '_blank');
-      if (newWindow) {
-        newWindow.onload = () => {
-          setTimeout(() => {
-            newWindow.print();
-            setTimeout(() => newWindow.close(), 500);
-          }, 300);
-        };
-      }
-      return;
-    }
-    printWindow.document.write(printContent);
-    printWindow.document.close();
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    document.body.appendChild(iframe);
+
+    const frameDoc = iframe.contentWindow.document;
+    frameDoc.open();
+    frameDoc.write(printContent);
+    frameDoc.close();
+
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      setTimeout(() => {
+        document.body.removeChild(iframe);
+      }, 1000);
+    }, 500);
   };
 
   // ============ الإكسل ============
@@ -343,7 +344,8 @@ const ReportGenerator = ({
     if (pickedColumns.length === 0) return showAlert('اختر عموداً واحداً على الأقل');
 
     const excelData = [];
-    excelData.push(["", companyInfo.nameAr, printTitle || title || '', companyInfo.nameEn, ""]);
+    const companyName = session?.company_info?.name_ar || session?.company_info?.name || 'الشركة';
+    excelData.push(["", companyName, printTitle || title || '', "", ""]);
     excelData.push([]);
     excelData.push(pickedColumns.map(c => c.label));
 
@@ -386,7 +388,7 @@ const ReportGenerator = ({
 
   const handlePageChange = (page) => setCurrentPage(page);
 
-  // ===== أعمدة antd — ترتيب controlled + عمود واحد ثابت =====
+  // ===== أعمدة antd =====
   const antColumns = useMemo(() => {
     return columns.map((col, index) => {
       const isActionsColumn = col.key === 'actions' || col.label === 'الإجراءات' || col.label === 'Actions';
@@ -396,7 +398,6 @@ const ReportGenerator = ({
       if (isActionsColumn || index === 0) {
         fixed = 'start';
       }
-
 
       let sortOrder = null;
       if (sortField === col.key && sortDirection) {
@@ -426,11 +427,10 @@ const ReportGenerator = ({
   const renderToolbar = () => {
     const hasSearch = searchable && !disablePrint;
     const hasFilters = filters && Object.keys(filters).length > 0 && !disablePrint;
-    const hasExport = showPrintButtons && !disablePrint;
+    const hasExport = showPrintButtons && !disablePrint && !hideExportButton;
 
     return (
       <div className={`rg-toolbar ${toolbarClassName}`}>
-        {/* اليسار: بحث + تصدير + رفرش */}
          {extraActions && (
         <div className="rg-toolbar-extra">
           {extraActions}
@@ -446,7 +446,8 @@ const ReportGenerator = ({
               shape="circle"
             />
           </Tooltip>
-          {hasExport && (
+          
+          {/* {hasExport && (
             <Tooltip title="تصدير">
               <Button
                 className="rg-icon-btn rg-export-btn"
@@ -455,9 +456,8 @@ const ReportGenerator = ({
                 shape="circle"
               />
             </Tooltip>
-          )}
+          )} */}
 
-          
           {hasSearch && (
             <Input
               className="rg-search"
@@ -469,8 +469,6 @@ const ReportGenerator = ({
               size="middle"
             />
           )}
-
-          
 
           {showDateFilter && (
             <RangePicker
@@ -506,11 +504,8 @@ const ReportGenerator = ({
               )}
             </div>
           )}
-
-          
         </div>
 
-        {/* اليمين: عدد الصفوف + الإجمالي */}
         <div className="rg-toolbar-right">
           <span className="rg-rows-label"> الصفوف:</span>
           <Select
@@ -571,7 +566,6 @@ const ReportGenerator = ({
 
       <div className="rg-table-card">
         <Table
-          key={tableKey}
           className={styles.customTable}
           columns={antColumns}
           dataSource={paginatedData}
@@ -624,42 +618,42 @@ const ReportGenerator = ({
           <div className="rg-columns-box">
             <div className="rg-columns-header">
               <label className="rg-native-check-label rg-native-check-all">
-  <input
-    type="checkbox"
-    className="rg-native-check"
-    checked={allChecked}
-    ref={(el) => {
-      if (el) el.indeterminate = someChecked;
-    }}
-    onChange={(e) => toggleAll(e.target.checked)}
-  />
-  <span className="rg-native-check-text">
-    <strong>تحديد الكل</strong>
-  </span>
-</label>
+                <input
+                  type="checkbox"
+                  className="rg-native-check"
+                  checked={allChecked}
+                  ref={(el) => {
+                    if (el) el.indeterminate = someChecked;
+                  }}
+                  onChange={(e) => toggleAll(e.target.checked)}
+                />
+                <span className="rg-native-check-text">
+                  <strong>تحديد الكل</strong>
+                </span>
+              </label>
             </div>
 
             <div className="rg-columns-list">
-  {exportableColumns.map((col) => (
-    <div key={col.key} className="rg-column-item">
-      <label className="rg-native-check-label">
-        <input
-          type="checkbox"
-          className="rg-native-check"
-          checked={selectedExportKeys.includes(col.key)}
-          onChange={(e) => {
-            if (e.target.checked) {
-              setSelectedExportKeys(prev => [...prev, col.key]);
-            } else {
-              setSelectedExportKeys(prev => prev.filter(k => k !== col.key));
-            }
-          }}
-        />
-        <span className="rg-native-check-text">{col.label}</span>
-      </label>
-    </div>
-  ))}
-</div>
+              {exportableColumns.map((col) => (
+                <div key={col.key} className="rg-column-item">
+                  <label className="rg-native-check-label">
+                    <input
+                      type="checkbox"
+                      className="rg-native-check"
+                      checked={selectedExportKeys.includes(col.key)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedExportKeys(prev => [...prev, col.key]);
+                        } else {
+                          setSelectedExportKeys(prev => prev.filter(k => k !== col.key));
+                        }
+                      }}
+                    />
+                    <span className="rg-native-check-text">{col.label}</span>
+                  </label>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="rg-modal-actions">

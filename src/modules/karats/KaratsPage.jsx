@@ -59,6 +59,9 @@ export default function KaratsPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+          إدارة العيارات
+        </div>
         <div className="items-filters" style={{ marginBottom: 16 }}>
           <Row gutter={[8, 8]}>
             <Col xs={12} md={6}>

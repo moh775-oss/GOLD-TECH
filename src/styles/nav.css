@@ -595,10 +595,10 @@
   align-items: center;
 }
 
-/* ✅ أيقونة البحث — جنب البروفايل */
+
 .search-btn {
-  width: 42px !important;
-  height: 42px !important;
+  width: 38px !important;
+  height: 38px !important;
   border-radius: 12px !important;
   background: linear-gradient(135deg, rgba(212,160,23,0.12), rgba(184,134,11,0.12)) !important;
   border: 1px solid rgba(212,160,23,0.35) !important;
@@ -623,7 +623,7 @@
   font-size: 18px !important;
 }
 
-/* ✅ موبايل — أيقونة بحث */
+
 .mobile-icons {
   display: flex;
   align-items: center;
@@ -631,8 +631,8 @@
 }
 
 .mobile-icon-btn {
-  width: 38px !important;
-  height: 38px !important;
+  width: 35px !important;
+  height: 35px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;

@@ -49,6 +49,9 @@ export default function CostCentersPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+         إدارة مراكز التكلفة
+        </div>
         <DataTable
           title="إدارة مراكز التكلفة"
           columns={columns}

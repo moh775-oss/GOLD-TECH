@@ -50,6 +50,12 @@ export default function BanksPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div
+          className="page-header-banner"
+          
+        >
+         إدارة البنوك
+        </div>
         <DataTable
           title="إدارة البنوك"
           columns={columns}

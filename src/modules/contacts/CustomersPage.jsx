@@ -79,6 +79,9 @@ export default function CustomersPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+         إدارة العملاء
+        </div>
         <DataTable
           title="إدارة العملاء"
           columns={columns}

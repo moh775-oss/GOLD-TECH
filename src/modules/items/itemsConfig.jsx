@@ -93,14 +93,14 @@ export function buildItemColumns({ onEdit, onDelete, onView }) {
       label: 'سعر البيع ',
       width: 130,
       align: 'center',
-      render: (v) => v != null ? <span style={{ color: '#389e0d', fontWeight: 700 }}>{Number(v).toLocaleString('ar-SA', { minimumFractionDigits: 2 })}</span> : '—',
+      render: (v) => v != null ? <span style={{ color: '#389e0d', fontWeight: 700 }}>{Number(v).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span> : '—',
     },
     {
       key: 'purchase_price_with_tax',
       label: 'سعر الشراء',
       width: 130,
       align: 'center',
-      render: (v) => v != null ? <span style={{ color: '#1890ff', fontWeight: 700 }}>{Number(v).toLocaleString('ar-SA', { minimumFractionDigits: 2 })}</span> : '—',
+      render: (v) => v != null ? <span style={{ color: '#1890ff', fontWeight: 700 }}>{Number(v).toLocaleString('en-US', { minimumFractionDigits: 2 })}</span> : '—',
     },
     {
       key: 'is_active',

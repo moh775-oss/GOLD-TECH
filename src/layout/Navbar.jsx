@@ -10,6 +10,7 @@ import { usePermission } from '../hooks/usePermission'
 import { MENU_GROUPS } from '../config/menu'
 import DrawerMenu from './DrawerMenu'
 import SearchModal from './SearchModal'
+import NotificationsDropdown from './NotificationsDropdown' // ✅ استيراد مكون الإشعارات
 import logo from '../assets/Logo.png'
 import '../styles/nav.css'
 import '../styles/SearchModal.css'
@@ -25,6 +26,10 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1000)
   const [openKeys, setOpenKeys] = useState([])
+  
+  // ✅ حالة وهمية للإشعارات (مبدئياً صفر) - يمكنك جلبها من السيرفر لاحقاً
+  const [unreadCount, setUnreadCount] = useState(0)
+  const [notifications, setNotifications] = useState([])
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 1000)
@@ -94,7 +99,7 @@ export default function Navbar() {
     onClick: async ({ key }) => {
       if (key === 'settings') navigate('/settings')
       if (key === 'logout') {
-        try { await logout() } catch {}
+        try { await logout() } catch { }
         navigate('/login')
       }
     },
@@ -108,7 +113,6 @@ export default function Navbar() {
             <div className="company-section">
               <Link to="/" className="company-name">
                 <img src={logo} alt="logo" className="company-logo" />
-                <span className="company-text">{session?.company_name || 'جولد تاك'}</span>
               </Link>
             </div>
 
@@ -127,13 +131,17 @@ export default function Navbar() {
             </div>
 
             <div className="icons-section">
-              <div className="icons-container">
-                {/* ✅ أيقونة البحث */}
+              <div className="icons-container" style={{ display: 'flex', alignItems: 'center' }}>
+                <NotificationsDropdown count={unreadCount} items={notifications} />
+                
                 <Tooltip title="بحث (Ctrl+K)">
                   <button className="icon-btn search-btn" onClick={() => setSearchOpen(true)}>
                     <SearchOutlined />
                   </button>
                 </Tooltip>
+
+                
+                
 
                 {/* أيقونة المستخدم */}
                 <Dropdown menu={accountMenu} placement="bottomLeft" trigger={['click']}>
@@ -160,10 +168,14 @@ export default function Navbar() {
                 <span className="mobile-company-name">جولد تاك</span>
               </Link>
 
-              <div className="mobile-icons">
+              <div className="mobile-icons" style={{ display: 'flex', alignItems: 'center' }}>
+                <NotificationsDropdown count={unreadCount} items={notifications} />
                 <button className="mobile-icon-btn" onClick={() => setSearchOpen(true)}>
                   <SearchOutlined />
                 </button>
+
+                
+                
 
                 <Dropdown menu={accountMenu} placement="bottomLeft" trigger={['click']}>
                   <div className="avatar-btn avatar-sm" title={session?.name}>

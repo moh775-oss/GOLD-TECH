@@ -35,8 +35,8 @@ export function buildCostCenterColumns({ onEdit, onDelete, onView }) {
     { key: 'code', label: 'الكود', width: 120, align: 'center' },
     {key: 'center_type',label: 'النوع',width: 120,align: 'center',render: (v) => ({  revenue: 'إيرادات',  cost: 'تكاليف',  profit: 'أرباح',  investment: 'استثمار',}[v] || v || '—'),
   },
-    { key: 'budget_amount', label: 'الميزانية', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('ar-SA') : '—' },
-    { key: 'opening_balance', label: 'رصيد افتتاحي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('ar-SA') : '—' },
+    { key: 'budget_amount', label: 'الميزانية', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('en-US') : '—' },
+    { key: 'opening_balance', label: 'رصيد افتتاحي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('en-US') : '—' },
     {
       key: 'is_active',
       label: 'الحالة',

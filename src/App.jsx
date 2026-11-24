@@ -1,3 +1,5 @@
+
+import { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { ROUTES } from './config/routes'
@@ -18,6 +20,20 @@ export default function App() {
   const barePublic = ROUTES.filter((r) => r.public && !r.withLayout)
   const publicWithLayout = ROUTES.filter((r) => r.public && r.withLayout)
   const privateRoutes = ROUTES.filter((r) => !r.public)
+
+  useEffect(() => {
+    const disableBrowserSuggestions = (e) => {
+      if (e.target.matches?.('.ant-select-selection-search-input')) {
+        e.target.setAttribute('autocomplete', 'new-password')
+      }
+    }
+
+    document.addEventListener('focus', disableBrowserSuggestions, true)
+
+    return () => {
+      document.removeEventListener('focus', disableBrowserSuggestions, true)
+    }
+  }, [])
 
   return (
     <AuthProvider>

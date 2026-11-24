@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import {
   LeftOutlined, RightOutlined,
   DollarOutlined, ShoppingCartOutlined,
-  WalletOutlined, InboxOutlined,
+  WalletOutlined, InboxOutlined,AuditOutlined,
 } from '@ant-design/icons'
 import { usePermission } from '../../hooks/usePermission'
 import './quick-sidebar.css'
@@ -10,7 +10,7 @@ import './quick-sidebar.css'
 const quickLinks = [
   { key: '/sales',            label: 'مبيعات أجور',       icon: <DollarOutlined />,         permission: 'sales_wages.view' },
   { key: '/purchases',        label: 'مشتريات أجور',      icon: <ShoppingCartOutlined />,   permission: 'purchase_wages.view' },
-  { key: '/receipts',         label: 'سند قبض ذهب / ريال', icon: <WalletOutlined />,         permission: 'receipt_vouchers.view' },
+  { key: '/receipts',         label: 'سند قبض ذهب / ريال', icon: <AuditOutlined />,         permission: 'receipt_vouchers.view' },
   { key: '/payments',         label: 'سند صرف ذهب / ريال', icon: <WalletOutlined />,         permission: 'payment_vouchers.view' },
   { key: '/gold',             label: 'أسعار الذهب',        icon: <InboxOutlined />,          permission: 'gold_prices.view' },
   { key: '/warehouse-rack',   label: 'صرف مخزني',          icon: <InboxOutlined />,          permission: 'stock_movements.view' },

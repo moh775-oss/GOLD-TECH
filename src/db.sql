@@ -297,6 +297,7 @@ INSERT INTO document_types
 ('PAYMENT_INTERNAL',   '8',  'سند صرف داخلي',            'accounts',                     NULL, NULL,-1,  8),
 ('FIRST_STOCK',        '22', 'مخزون اول المده',          'First Stock',                  NULL, 3,    1,  9),
 ('JOURNAL_ENTRY',      '33', 'قيود اليومية',             'daily restrictions',           NULL, NULL, 1, 10),
+
 ('OPENING_BALANCE',    '28', 'رصيد افتتاحي',             'Opening balance',              NULL, NULL,NULL,11),
 ('SALE_REPLACE',       '13', 'استبدال مبيعات',           'Sales Replace',                NULL, 1,    1, 13),
 ('SHIFT_MATCHING',     '14', 'مطابقة الورديات',          'Shift Matching',               NULL, 1,    1, 14),
@@ -326,9 +327,16 @@ INSERT INTO document_types
 ('SHIFT_OPEN',         NULL, 'فتح الوردية',              'Shift Open',                   NULL, NULL,NULL,55);
 
 
+INSERT INTO document_types (type_code, trans_code, name, name_en, sort_order) VALUES
+('SALES_CLOSING',    'S1', 'تسكير مبيعات',  'Sales Closing',    60),
+('PURCHASE_CLOSING', 'P1', 'تسكير مشتريات', 'Purchase Closing', 61);
 
-
-
+INSERT INTO account_mappings (company_id, `key`, acc_no) VALUES
+(1, 'SALES_CLOSING_REVENUE', '4101'),
+(1, 'SALES_CLOSING_WAGES',   '4102'),
+(1, 'PURCHASE_CLOSING_EXPENSE', '5101'),
+(1, 'PURCHASE_CLOSING_WAGES',   '5102'),
+(1, 'GOLD_INVENTORY', '1103');
 
 
 
@@ -872,7 +880,7 @@ CREATE TABLE sales_invoices (
     doc_date              DATE          NOT NULL,
     contact_id            BIGINT        NULL,
 
-    -- المخزن/الدفع
+    -- الخزينة/الدفع
     safe_id               BIGINT        NULL,
     bank_id               BIGINT        NULL,
     payment_method        VARCHAR(30)   NULL,
@@ -2601,3 +2609,11 @@ INSERT INTO permissions (code, name, module) VALUES
 ('reports.accounts', 'التقارير المحاسبية', 'reports'),
 ('reports.contacts', 'كشوف الحسابات', 'reports'),
 ('reports.gold', 'تقارير الذهب', 'reports');
+
+
+INSERT INTO permissions (code, name, module) VALUES
+-- ============ الرصيد الافتتاحي للذهب ============
+('gold_opening_balances.view', 'عرض أرصدة الذهب الافتتاحية', 'gold_opening_balances'),
+('gold_opening_balances.create', 'إضافة رصيد افتتاحي للذهب', 'gold_opening_balances'),
+('gold_opening_balances.edit', 'تعديل رصيد افتتاحي للذهب', 'gold_opening_balances'),
+('gold_opening_balances.delete', 'حذف رصيد افتتاحي للذهب', 'gold_opening_balances');

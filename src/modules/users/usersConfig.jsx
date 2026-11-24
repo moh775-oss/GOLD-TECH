@@ -113,7 +113,7 @@ export function buildUserColumns({ onEdit, onDelete, onToggle }) {
       label: 'آخر دخول',
       width: 160,
       align: 'center',
-      render: (v) => v ? new Date(v).toLocaleString('ar-SA') : '—',
+      render: (v) => v ? new Date(v).toLocaleString('en-US') : '—',
     },
   ]
 }

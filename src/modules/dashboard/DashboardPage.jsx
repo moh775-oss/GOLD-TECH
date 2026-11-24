@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import { homeCards } from './data'
@@ -13,6 +13,9 @@ export default function DashboardPage() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1000)
   const [sideOpen, setSideOpen] = useState(window.innerWidth > 1000)
 
+  // ✅ متغير لحفظ نقطة بداية اللمس
+  const touchStart = useRef({ x: 0, y: 0 })
+
   useEffect(() => {
     const onResize = () => {
       const desktop = window.innerWidth > 1000
@@ -23,17 +26,51 @@ export default function DashboardPage() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  const isSuperAdmin = user?.role === 'admin'
+  const isSuperAdmin = String(user?.company_id) === '1'
 
   const visibleCards = homeCards.filter((c) => {
     if (c.superAdminOnly && !isSuperAdmin) return false
-    if (c.permission && !has(c.permission)) return false
+    if (c.permission && !c.superAdminOnly && !has(c.permission)) return false
     return true
   })
 
+  // ✅ دوال السحب (Swipe) للفتح والإغلاق
+  const handleTouchStart = (e) => {
+    touchStart.current = {
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY,
+    }
+  }
+
+  const handleTouchEnd = (e) => {
+    const touchEndX = e.changedTouches[0].clientX
+    const touchEndY = e.changedTouches[0].clientY
+
+    const deltaX = touchEndX - touchStart.current.x
+    const deltaY = touchEndY - touchStart.current.y
+
+    // التأكد من أن الحركة أفقية (لتجنب فتح القائمة أثناء التمرير لأسفل)
+    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 60) {
+      
+      // إذا سحب لليسار (deltaX سالب) والقائمة مغلقة -> يفتحها
+      if (deltaX < -60 && !sideOpen) {
+        setSideOpen(true)
+      } 
+      // إذا سحب لليمين (deltaX موجب) والقائمة مفتوحة -> يغلقها
+      else if (deltaX > 60 && sideOpen) {
+        setSideOpen(false)
+      }
+    }
+  }
+
   return (
-    <div className={`dashboard-wrap ${sideOpen && isDesktop ? 'with-side' : ''}`}>
+    <div 
+      className={`dashboard-wrap ${sideOpen && isDesktop ? 'with-side' : ''}`}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <QuickSidebar open={sideOpen} isDesktop={isDesktop} onOpenChange={setSideOpen} />
+      
       <div className="dashboard-content">
         <Row gutter={[20, 20]} className="home-cards-row" style={{ paddingBottom: 90, paddingTop: 20, paddingLeft: 20, paddingRight: 20 }}>
           {visibleCards.map((item) => (

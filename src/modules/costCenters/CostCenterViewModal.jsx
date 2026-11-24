@@ -11,8 +11,8 @@ export default function CostCenterViewModal({ open, onClose, costCenter }) {
         <Descriptions.Item label="الاسم بالإنجليزية">{costCenter.name_en || '—'}</Descriptions.Item>
         <Descriptions.Item label="الكود">{costCenter.code || '—'}</Descriptions.Item>
         <Descriptions.Item label="النوع">{costCenter.center_type || '—'}</Descriptions.Item>
-        <Descriptions.Item label="الميزانية">{costCenter.budget_amount != null ? Number(costCenter.budget_amount).toLocaleString('ar-SA') : '—'}</Descriptions.Item>
-        <Descriptions.Item label="رصيد افتتاحي">{costCenter.opening_balance != null ? Number(costCenter.opening_balance).toLocaleString('ar-SA') : '—'}</Descriptions.Item>
+        <Descriptions.Item label="الميزانية">{costCenter.budget_amount != null ? Number(costCenter.budget_amount).toLocaleString('en-US') : '—'}</Descriptions.Item>
+        <Descriptions.Item label="رصيد افتتاحي">{costCenter.opening_balance != null ? Number(costCenter.opening_balance).toLocaleString('en-US') : '—'}</Descriptions.Item>
         <Descriptions.Item label="الحالة"><Tag color={costCenter.is_active ? 'green' : 'red'}>{costCenter.is_active ? 'نشط' : 'موقوف'}</Tag></Descriptions.Item>
         <Descriptions.Item label="ملاحظات" span={2}>{costCenter.notes || '—'}</Descriptions.Item>
       </Descriptions>

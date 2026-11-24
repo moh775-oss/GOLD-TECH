@@ -1,0 +1,430 @@
+/* ============ الحاوية العامة ============ */
+.crp-wrap {
+  padding: 24px;
+  background: #f7f8fa;
+  min-height: 100vh;
+  font-family: 'Cairo', 'Tajawal', 'Segoe UI', sans-serif;
+}
+
+/* ============ الشريط العلوي ============ */
+.crp-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.crp-back-btn {
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  background: #fff !important;
+  border: 2px solid #b8860b !important;
+  color: #b8860b !important;
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.15);
+  transition: all 0.2s;
+}
+.crp-back-btn:hover {
+  background: linear-gradient(135deg, #b8860b, #d4a017) !important;
+  color: #fff !important;
+  transform: translateX(4px);
+}
+.crp-date-tag {
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  color: #6b7280 !important;
+  padding: 6px 16px !important;
+  border-radius: 10px !important;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* ============ بطاقة الهيدر الفخمة ============ */
+.crp-hero {
+  border-radius: 24px !important;
+  overflow: hidden;
+  border: none !important;
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%) !important;
+  box-shadow: 0 24px 48px rgba(15, 15, 30, 0.25) !important;
+  margin-bottom: 24px;
+  position: relative;
+}
+.crp-hero::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.4), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: crp-pulse 4s ease-in-out infinite;
+}
+.crp-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -120px;
+  left: -80px;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(212, 160, 23, 0.2), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+@keyframes crp-pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.crp-hero-body {
+  position: relative;
+  z-index: 2;
+  padding: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.crp-hero-content {
+  flex: 1;
+  min-width: 280px;
+}
+.crp-hero-crown {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #b8860b, #f0c040);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #fff;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(212, 160, 23, 0.5);
+}
+.crp-hero-title {
+  margin: 0 !important;
+  color: #fff !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.5px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+.crp-hero-sub {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 15px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+.crp-hero-meta {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.crp-hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+  backdrop-filter: blur(12px);
+  transition: all 0.2s;
+}
+.crp-hero-chip:hover {
+  background: rgba(212, 160, 23, 0.2);
+  border-color: rgba(212, 160, 23, 0.5);
+  transform: translateY(-2px);
+}
+.crp-hero-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+.crp-status-badge, .crp-plan-badge, .crp-expiry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.crp-status-badge.active {
+  background: linear-gradient(135deg, #389e0d, #52c41a);
+}
+.crp-status-badge.inactive {
+  background: linear-gradient(135deg, #cf1322, #ff4d4f);
+}
+.crp-plan-badge {
+  background: linear-gradient(135deg, #b8860b, #f0c040);
+}
+.crp-expiry-badge {
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+}
+
+/* ============ بطاقات الإحصائيات ============ */
+.crp-stat-card {
+  border-radius: 18px !important;
+  border: 1px solid #eef0f3 !important;
+  background: #fff !important;
+  transition: all 0.3s ease;
+  padding: 8px 4px;
+  position: relative;
+  overflow: hidden;
+}
+.crp-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--accent, #b8860b);
+  transition: width 0.3s ease;
+}
+.crp-stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent, #b8860b);
+}
+.crp-stat-card:hover::before {
+  width: 100%;
+  opacity: 0.08;
+}
+.crp-stat-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: #fff;
+  margin-bottom: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 1;
+}
+.crp-stat-custom .ant-statistic-title {
+  color: #6b7280 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+  position: relative;
+  z-index: 1;
+}
+.crp-stat-custom .ant-statistic-content {
+  color: #111827 !important;
+  font-size: 30px !important;
+  font-weight: 900 !important;
+  font-family: 'Tajawal', sans-serif;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============ استخدام الباقة ============ */
+.crp-usage-card {
+  border-radius: 20px !important;
+  border: 1px solid #eef0f3 !important;
+  background: #fff !important;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+.crp-usage-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.crp-usage-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: #374151;
+  font-size: 14px;
+}
+.crp-usage-count {
+  font-weight: 800;
+  font-size: 15px;
+  color: #b8860b;
+}
+
+/* ============ عناوين الأقسام ============ */
+.crp-section-card {
+  border-radius: 20px !important;
+  border: 1px solid #eef0f3 !important;
+  background: #fff !important;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+.crp-section-card .ant-card-head {
+  border-bottom: 2px solid #f5f5f5 !important;
+  padding: 20px 24px !important;
+  background: #fff !important;
+}
+.crp-section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #1f2937;
+}
+.crp-section-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ============ بطاقات المستندات ============ */
+.crp-doc-tile {
+  padding: 16px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fafbfc, #f5f6f8);
+  border: 1px solid #eef0f3;
+  text-align: center;
+  transition: all 0.2s;
+  height: 100%;
+}
+.crp-doc-tile:hover {
+  border-color: #b8860b;
+  background: linear-gradient(135deg, #fffbf0, #fdf6e3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(184, 134, 11, 0.15);
+}
+.crp-doc-title {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.crp-doc-value {
+  font-size: 22px;
+  font-weight: 900;
+  font-family: 'Tajawal', sans-serif;
+}
+
+/* ============ المبالغ ============ */
+.crp-amount-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+.crp-amount-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 600;
+}
+.crp-amount-value {
+  font-size: 20px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  font-family: 'Tajawal', sans-serif;
+}
+.crp-amount-value small {
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0.7;
+  margin-right: 4px;
+}
+
+/* ============ الشارتات ============ */
+.crp-chart-container {
+  padding: 8px 0;
+  background: #fff;
+  border-radius: 12px;
+}
+
+/* ============ الجداول — رأس ذهبي ============ */
+.crp-table .ant-table {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #eef0f3;
+}
+.crp-table .ant-table-thead > tr > th {
+  background: linear-gradient(135deg, #b8860b 0%, #d4a017 100%) !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  border-bottom: none !important;
+  font-size: 13px !important;
+  padding: 14px 12px !important;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+.crp-table .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+.crp-table .ant-table-thead > tr > th:hover {
+  background: linear-gradient(135deg, #a67608 0%, #c49415 100%) !important;
+}
+.crp-table .ant-table-tbody > tr > td {
+  font-size: 13px !important;
+  padding: 12px !important;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+}
+.crp-table .ant-table-tbody > tr:hover > td {
+  background: #fffbf0 !important;
+}
+.crp-table .ant-table-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+/* ============ شارة الدور ============ */
+.crp-role-tag {
+  background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
+  color: #92400e !important;
+  border: 1px solid #f59e0b !important;
+  font-weight: 800 !important;
+  padding: 3px 12px !important;
+  border-radius: 8px !important;
+}
+
+/* ============ تحميل ============ */
+.crp-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  flex-direction: column;
+  gap: 20px;
+}
+.crp-loading-text {
+  color: #6b7280;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* ============ ريسبونس ============ */
+@media (max-width: 768px) {
+  .crp-wrap { padding: 12px; }
+  .crp-hero-body { padding: 24px; }
+  .crp-hero-title { font-size: 24px !important; }
+  .crp-hero-badges { align-items: flex-start; }
+  .crp-stat-custom .ant-statistic-content { font-size: 22px !important; }
+}

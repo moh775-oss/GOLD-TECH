@@ -50,8 +50,8 @@ export function buildBankColumns({ onEdit, onDelete, onView }) {
     { key: 'account_number', label: 'رقم الحساب البنكي', width: 160, align: 'center' },
     { key: 'iban', label: 'IBAN', width: 200, align: 'center' },
     { key: 'acc_no', label: 'رقم الحساب', width: 140, align: 'center' },
-    { key: 'opening_balance', label: 'رصيد افتتاحي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('ar-SA') : '—' },
-    { key: 'current_balance', label: 'الرصيد الحالي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('ar-SA') : '—' },
+    { key: 'opening_balance', label: 'رصيد افتتاحي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('en-US') : '—' },
+    { key: 'current_balance', label: 'الرصيد الحالي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('en-US') : '—' },
     { key: 'is_active', label: 'الحالة', width: 100, align: 'center', render: (v) => <Tag color={v ? 'green' : 'red'}>{v ? 'نشط' : 'موقوف'}</Tag> },
   ]
 }

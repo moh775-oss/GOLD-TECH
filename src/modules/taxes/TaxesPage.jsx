@@ -46,6 +46,9 @@ export default function TaxesPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+         إدارة  الضرائب
+        </div>
         <DataTable
           title="إدارة الضرائب"
           columns={columns}

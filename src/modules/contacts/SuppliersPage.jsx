@@ -77,6 +77,9 @@ export default function SuppliersPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+         إدارة الموردين
+        </div>
         <DataTable
           title="إدارة الموردين"
           columns={columns}

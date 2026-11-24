@@ -3,6 +3,7 @@
   direction: rtl !important;
   font-family: 'Tajawal', sans-serif;
 }
+
 /* Select */
 html, body, #root {
   margin: 0;
@@ -21,8 +22,6 @@ a {
 a:hover {
   color: inherit;
 }
-
-
 
 /* ========== كاردات الرئيسية ========== */
 .home-cards-row { position: relative; }
@@ -224,7 +223,32 @@ a:hover {
   .quick-side-trigger.is-open { right: 230px; }
 }
 
-/* ===== الحقول تأخذ العرض الكامل ===== */
+
+
+
+/* ========== بانر عنوان الصفحة القابل للطي والفتح ========== */
+.page-header-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px 18px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  background: rgba(212, 160, 23, 0.03);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  color: #8f6200;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+
+
+/* ===== الحقول تأخذ العرض الكامل بدون تقييد ارتفاعها ===== */
 .ant-form-item,
 .ant-form-item-control,
 .ant-form-item-control-input,
@@ -276,8 +300,6 @@ a:hover {
   flex-shrink: 0;
 }
 
-
-
 .ant-input,
 .ant-input-affix-wrapper,
 .ant-input-number,
@@ -285,32 +307,12 @@ a:hover {
 .ant-select .ant-select-selector,
 .ant-picker,
 .ant-input-password {
-  height: 32px !important;
-  min-height: 32px !important;
-  padding: 4px 10px !important;
   border-radius: 8px !important;
-  
+  border: 1.5px solid #e5e5e5 !important;
+  background: #ffffff !important;
   font-size: 13px !important;
+  box-shadow: none !important;
   transition: border-color .2s ease, box-shadow .2s ease !important;
-}
-
-.ant-input-lg,
-.ant-input-affix-wrapper-lg,
-.ant-select-lg .ant-select-selector,
-.ant-picker-lg {
-  height: 40px !important;
-  min-height: 40px !important;
-  font-size: 14px !important;
-}
-
-.ant-input-sm,
-.ant-input-affix-wrapper-sm,
-.ant-select-sm .ant-select-selector,
-.ant-picker-sm {
-  height: 24px !important;
-  min-height: 24px !important;
-  font-size: 12px !important;
-  padding: 0 8px !important;
 }
 
 .ant-input:hover,
@@ -332,43 +334,35 @@ a:hover {
 }
 
 .ant-input-affix-wrapper > input.ant-input {
-  height: auto !important;
-  min-height: 0 !important;
-  padding: 0 !important;
   border: none !important;
+  background: transparent !important;
   box-shadow: none !important;
 }
 
 /* TextArea */
 .ant-input-textarea textarea.ant-input {
-  height: auto !important;
-  min-height: 60px !important;
   padding: 6px 10px !important;
+  line-height: 1.5 !important;
 }
 
-/* ===================== Select Dropdown ===================== */
-.ant-select-dropdown {
-  border-radius: 10px !important;
-  padding: 6px !important;
+/* ===== Select في الـ Dark Mode ===== */
+.dark-mode .ant-select .ant-select-selector {
+  background: #131a2c !important;
+  border-color: #1f2a45 !important;
+  color: #e8ecf4 !important;
+}
+
+.dark-mode .ant-select-selection-item {
+  color: #e8ecf4 !important;
+}
+
+.dark-mode .ant-select-selection-placeholder {
+  color: #6b7280 !important;
+}
+
+.dark-mode .ant-select:hover .ant-select-selector {
   border-color: #d4a017 !important;
-  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.15) !important;
 }
-
-.ant-select-item {
-  border-radius: 6px !important;
-  padding: 6px 10px !important;
-  font-size: 13px !important;
-    border-color: #d4a017 !important;
-  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.15) !important;
-}
-
-.ant-select-item-option-selected {
-  background: #fdf6e3 !important;
-  color: #b8860b !important;
-  font-weight: 600;
-}
-
-
 
 /* ===================== DatePicker Dropdown ===================== */
 .ant-picker-dropdown {
@@ -390,117 +384,12 @@ a:hover {
   background: #fdf9ef !important;
 }
 
-/* ===================== Select = Input ===================== */
-.ant-select .ant-select-selector {
-  height: 32px !important;
-  min-height: 32px !important;
-  padding: 4px 10px !important;
-  border-radius: 8px !important;
-  border: 1.5px solid #e5e5e5 !important;
-  background: #ffffff !important;
-  box-shadow: none !important;
-  display: flex !important;
-  align-items: center !important;
-  font-size: 13px !important;
-  transition: border-color .2s ease, box-shadow .2s ease !important;
-}
-
-.ant-select:hover .ant-select-selector {
-  border-color: #d4a017 !important;
-}
-
-.ant-select-focused .ant-select-selector {
-  border-color: #d4a017 !important;
-  box-shadow: 0 0 0 2px rgba(212, 160, 23, 0.15) !important;
-}
-
-.ant-select-selection-item {
-  line-height: 22px !important;
-  font-size: 13px !important;
-  color: #1a1a1a !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.ant-select-selection-placeholder {
-  line-height: 22px !important;
-  font-size: 13px !important;
-  color: #bfbfbf !important;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-.ant-select-arrow {
-  color: #bfbfbf !important;
-  font-size: 11px !important;
-  height: 22px !important;
-  display: flex !important;
-  align-items: center !important;
-}
-
-/* Select sizes */
-.ant-select-lg .ant-select-selector {
-  height: 40px !important;
-  min-height: 40px !important;
-  padding: 6px 12px !important;
-  font-size: 14px !important;
-}
-
-.ant-select-sm .ant-select-selector {
-  height: 24px !important;
-  min-height: 24px !important;
-  padding: 0 8px !important;
-  font-size: 12px !important;
-}
-
-.ant-select-sm .ant-select-selection-item,
-.ant-select-sm .ant-select-selection-placeholder {
-  line-height: 22px !important;
-}
-
-/* شيل الخلفية الرمادية من الـ selector */
-.ant-select-single .ant-select-selector .ant-select-selection-search-input {
-  height: 22px !important;
-}
-
-/* ===== Select في الـ Dark Mode ===== */
-.dark-mode .ant-select .ant-select-selector {
-  background: #131a2c !important;
-  border-color: #1f2a45 !important;
-  color: #e8ecf4 !important;
-}
-
-.dark-mode .ant-select-selection-item {
-  color: #e8ecf4 !important;
-}
-
-.dark-mode .ant-select-selection-placeholder {
-  color: #6b7280 !important;
-}
-
-.dark-mode .ant-select:hover .ant-select-selector {
-  border-color: #d4a017 !important;
-}
 /* ===================== الأزرار ===================== */
 .ant-btn {
-  height: 32px !important;
-  padding: 4px 14px !important;
   border-radius: 8px !important;
   font-weight: 600 !important;
   font-size: 13px !important;
   transition: all .2s ease !important;
-}
-
-.ant-btn-lg {
-  height: 40px !important;
-  padding: 6px 18px !important;
-  font-size: 14px !important;
-}
-
-.ant-btn-sm {
-  height: 24px !important;
-  padding: 0 10px !important;
-  font-size: 12px !important;
 }
 
 .ant-btn-primary {
@@ -548,7 +437,7 @@ a:hover {
   color: #d4a017 !important;
 }
 
-/* ===================== Form ===================== */
+/* ===================== Form & Labels ===================== */
 .ant-form-item {
   margin-bottom: 16px !important;
 }
@@ -557,33 +446,12 @@ a:hover {
   font-weight: 600 !important;
   color: #1a1a1a !important;
   font-size: 13px !important;
-  height: 26px !important;
+  line-height: 1.35 !important;
 }
 
 .ant-form-item-explain-error {
   font-size: 12px !important;
   margin-top: 4px !important;
-}
-
-.ant-form-item,
-.ant-form-item-control,
-.ant-form-item-control-input,
-.ant-form-item-control-input-content {
-  width: 100%;
-  min-width: 0;
-}
-
-.ant-input-number,
-.ant-input-number-group-wrapper,
-.ant-input-number-affix-wrapper {
-  width: 100% !important;
-  min-width: 0;
-}
-
-.ant-select,
-.ant-picker,
-.ant-input {
-  width: 100%;
 }
 
 /* ===================== Layout ===================== */
@@ -693,8 +561,6 @@ a:hover {
 .ant-table-pagination.ant-pagination {
   margin: 16px 0 0 !important;
 }
-
-
 
 /* ===================== Tabs ===================== */
 .ant-tabs-tab {
@@ -836,3 +702,62 @@ a:hover {
   font-size: 13px !important;
   color: #999 !important;
 }
+
+/* ============================================================
+   ⭐ توحيد ألوان وبوردر القائمة المنسدلة (Select Dropdown)
+   ============================================================ */
+.ant-select-dropdown {
+  border-radius: 10px !important;
+  padding: 6px !important;
+  border: 1.5px solid #d4a017 !important;
+  background: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12),
+              0 0 0 2px rgba(212, 160, 23, 0.15) !important;
+}
+
+.ant-select-dropdown .ant-select-item {
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  font-size: 13px !important;
+  color: #1a1a1a !important;
+  border: 1px solid transparent !important;
+  transition: all .15s ease !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-active,
+.ant-select-dropdown .ant-select-item-option:hover {
+  background: #fdf9ef !important;
+  border-color: #f0e6c8 !important;
+  color: #1a1a1a !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-selected {
+  background: #fdf6e3 !important;
+  border-color: #d4a017 !important;
+  color: #b8860b !important;
+  font-weight: 600 !important;
+}
+
+.ant-select-dropdown .ant-select-item-option-selected .ant-select-item-option-state {
+  color: #d4a017 !important;
+}
+
+/* القائمة الفارغة */
+.ant-select-dropdown .ant-empty-description {
+  color: #999 !important;
+  font-size: 13px !important;
+}
+
+/* Scrollbar داخل القائمة */
+.ant-select-dropdown .rc-virtual-list-holder::-webkit-scrollbar {
+  width: 6px;
+}
+.ant-select-dropdown .rc-virtual-list-holder::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.4);
+  border-radius: 4px;
+}
+.ant-select-dropdown .rc-virtual-list-holder::-webkit-scrollbar-thumb:hover {
+  background: #d4a017;
+}
+
+

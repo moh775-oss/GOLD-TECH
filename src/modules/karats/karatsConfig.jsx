@@ -64,7 +64,7 @@ export function buildKaratColumns({ onEdit, onDelete }) {
       label: 'تاريخ الإنشاء',
       width: 160,
       align: 'center',
-      render: (v) => v ? new Date(v).toLocaleString('ar-SA') : '—',
+      render: (v) => v ? new Date(v).toLocaleString('en-US') : '—',
     },
   ]
 }

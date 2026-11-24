@@ -5,7 +5,7 @@ import {
 } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
-import { RiyalSymbol } from 'riyal/react'
+import { RiyalIcon } from 'riyal/react'
 import CustomerModal from '../customers/CustomerModal'
 
 const GOLD_KARATS = [
@@ -129,7 +129,7 @@ export default function SalesSettlementPage() {
                 min={0}
                 step={0.01}
                 placeholder="0.00"
-                addonAfter={<RiyalSymbol />}
+                addonAfter={<RiyalIcon width={15} height={15} />}
               />
             </Form.Item>
           </Col>
@@ -143,7 +143,7 @@ export default function SalesSettlementPage() {
               title="الإجمالي"
               value={total}
               precision={2}
-              suffix={<RiyalSymbol />}
+              suffix={<RiyalIcon width={15} height={15} />}
               valueStyle={{ color: '#d4a017', fontWeight: 700 }}
             />
           </Col>

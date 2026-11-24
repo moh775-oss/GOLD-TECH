@@ -52,7 +52,7 @@ export function AuthProvider({ children }) {
     })
     if (!res.data.success) throw new Error(res.data.message || 'فشل تسجيل الدخول')
 
-    const { token, user, permissions: perms } = res.data.data
+    const { token, user, permissions: perms , company_info} = res.data.data
     const sessionData = {
       token,
       user_id:        user.id,
@@ -67,6 +67,7 @@ export function AuthProvider({ children }) {
       fiscal_year_id: user.fiscal_year_id,
       fiscal_year:    user.fiscal_year,
       permissions:    perms || [],
+      company_info:   company_info || null,
     }
 
     localStorage.setItem(STORAGE_KEY, JSON.stringify(sessionData))
@@ -105,7 +106,8 @@ export function AuthProvider({ children }) {
       const res = await api.get('/auth/me')
       if (res.data.success) {
         const perms = res.data.data.permissions || []
-        const updated = { ...session, permissions: perms }
+        const info  = res.data.data.company_info || null
+        const updated = { ...session, permissions: perms, company_info: info }
         localStorage.setItem(STORAGE_KEY, JSON.stringify(updated))
         setSession(updated)
         setPermissions(perms)

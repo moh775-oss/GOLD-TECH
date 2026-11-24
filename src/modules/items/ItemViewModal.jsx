@@ -23,9 +23,9 @@ export default function ItemViewModal({ open, onClose, item, categories = [], ka
         <Descriptions.Item label="نوع الذهب"><Tag color="gold">{goldTypeMap[item.gold_type] || item.gold_type || '—'}</Tag></Descriptions.Item>
         <Descriptions.Item label="الوحدة">{item.unit || '—'}</Descriptions.Item>
         <Descriptions.Item label="الوزن">{item.weight != null ? Number(item.weight).toFixed(3) : '—'}</Descriptions.Item>
-        <Descriptions.Item label="سعر التكلفة">{item.cost_price != null ? Number(item.cost_price).toLocaleString('ar-SA') : '—'}</Descriptions.Item>
-        <Descriptions.Item label="سعر البيع">{item.sale_price != null ? Number(item.sale_price).toLocaleString('ar-SA') : '—'}</Descriptions.Item>
-        <Descriptions.Item label="سعر الجملة">{item.wholesale_price != null ? Number(item.wholesale_price).toLocaleString('ar-SA') : '—'}</Descriptions.Item>
+        <Descriptions.Item label="سعر التكلفة">{item.cost_price != null ? Number(item.cost_price).toLocaleString('en-US') : '—'}</Descriptions.Item>
+        <Descriptions.Item label="سعر البيع">{item.sale_price != null ? Number(item.sale_price).toLocaleString('en-US') : '—'}</Descriptions.Item>
+        <Descriptions.Item label="سعر الجملة">{item.wholesale_price != null ? Number(item.wholesale_price).toLocaleString('en-US') : '—'}</Descriptions.Item>
         <Descriptions.Item label="الضريبة">{item.tax_rate != null ? `${item.tax_rate}%` : '—'}</Descriptions.Item>
         <Descriptions.Item label="الحالة">
           <Tag color={item.is_active ? 'green' : 'red'}>{item.is_active ? 'نشط' : 'موقوف'}</Tag>

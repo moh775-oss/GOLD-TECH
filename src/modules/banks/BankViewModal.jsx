@@ -12,8 +12,8 @@ export default function BankViewModal({ open, onClose, bank }) {
         <Descriptions.Item label="رقم الحساب البنكي">{bank.account_number || '—'}</Descriptions.Item>
         <Descriptions.Item label="IBAN">{bank.iban || '—'}</Descriptions.Item>
         <Descriptions.Item label="رقم الحساب">{bank.acc_no || '—'}</Descriptions.Item>
-        <Descriptions.Item label="الرصيد الافتتاحي">{Number(bank.opening_balance || 0).toLocaleString('ar-SA')}</Descriptions.Item>
-        <Descriptions.Item label="الرصيد الحالي">{Number(bank.current_balance || 0).toLocaleString('ar-SA')}</Descriptions.Item>
+        <Descriptions.Item label="الرصيد الافتتاحي">{Number(bank.opening_balance || 0).toLocaleString('en-US')}</Descriptions.Item>
+        <Descriptions.Item label="الرصيد الحالي">{Number(bank.current_balance || 0).toLocaleString('en-US')}</Descriptions.Item>
         <Descriptions.Item label="الحالة"><Tag color={bank.is_active ? 'green' : 'red'}>{bank.is_active ? 'نشط' : 'موقوف'}</Tag></Descriptions.Item>
         <Descriptions.Item label="ملاحظات" span={2}>{bank.notes || '—'}</Descriptions.Item>
       </Descriptions>

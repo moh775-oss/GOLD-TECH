@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import { Card, Button, Space, Tag, Modal, Tooltip } from 'antd'
-import { PlusOutlined, EditOutlined, DeleteOutlined, LoginOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
+import { PlusOutlined, EditOutlined, DeleteOutlined, LoginOutlined, BarChartOutlined , ExclamationCircleOutlined } from '@ant-design/icons'
 import DataTable from '../../components/ReportGenerator'
 import notify from '../../lib/notify.jsx'
 import api from '../../lib/api'
@@ -118,6 +118,13 @@ export default function CompaniesPage() {
 
         return (
           <Space size={4}>
+            <Tooltip title="تقرير شامل">
+              <Button
+                size="small"
+                icon={<BarChartOutlined />}
+                onClick={() => navigate(`/companies/${row.id}/report`)}
+              />
+            </Tooltip>
             <Tooltip title="تعديل">
               <Button size="small" icon={<EditOutlined />} onClick={() => openEdit(row)} />
             </Tooltip>

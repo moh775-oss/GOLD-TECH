@@ -54,6 +54,9 @@ export default function ItemCategoriesPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+         إدارة مجموعات الأصناف
+        </div>
         <DataTable
           title="إدارة مجموعات الأصناف"
           columns={columns}

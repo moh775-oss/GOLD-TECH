@@ -287,7 +287,7 @@ export default function ItemFormModal({ open, onClose, item, onSaved }) {
                   <Form.Item name="karat_id" label="العيار" style={{ marginBottom: 6 }}>
                     <Select allowClear options={options.karats.map(k => ({
                       value: k.id,
-                      label: `${k.name} (${Number(k.the_value).toFixed(3)})`,
+                      label: `${k.name} `,
                     }))} />
                   </Form.Item>
                 </Col>

@@ -46,6 +46,9 @@ export default function BranchesPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+         إدارة الفروع
+        </div>
         <DataTable
           title="إدارة الفروع"
           columns={columns}

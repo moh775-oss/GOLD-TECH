@@ -49,8 +49,8 @@ export function buildSafeColumns({ onEdit, onDelete, onView }) {
     { key: 'name', label: 'الاسم', width: 200, sortable: true, align: 'center' },
     { key: 'code', label: 'الكود', width: 120, align: 'center' },
     { key: 'acc_no', label: 'رقم الحساب', width: 130, align: 'center' },
-    { key: 'opening_cash', label: 'رصيد افتتاحي نقدي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('ar-SA') : '—' },
-    { key: 'current_cash', label: 'الرصيد الحالي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('ar-SA') : '—' },
+    { key: 'opening_cash', label: 'رصيد افتتاحي نقدي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('en-US') : '—' },
+    { key: 'current_cash', label: 'الرصيد الحالي', width: 140, align: 'center', render: (v) => v != null ? Number(v).toLocaleString('en-US') : '—' },
     { key: 'opening_gold', label: 'رصيد افتتاحي ذهب', width: 140, align: 'center', render: (v) => v != null ? Number(v).toFixed(3) : '—' },
     { key: 'current_gold', label: 'الرصيد الحالي ذهب', width: 140, align: 'center', render: (v) => v != null ? Number(v).toFixed(3) : '—' },
     {

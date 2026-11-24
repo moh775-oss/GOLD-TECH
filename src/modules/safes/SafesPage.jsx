@@ -66,6 +66,9 @@ export default function SafesPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+         إدارة  الصناديق
+        </div>
         <DataTable
           title="إدارة الصناديق"
           columns={columns}

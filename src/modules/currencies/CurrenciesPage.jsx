@@ -46,6 +46,9 @@ export default function CurrenciesPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
+        <div className="page-header-banner" >
+         إدارة العملات
+        </div>
         <DataTable
           title="إدارة العملات"
           columns={columns}
