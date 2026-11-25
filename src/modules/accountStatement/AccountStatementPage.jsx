@@ -176,17 +176,17 @@ export default function AccountStatementPage() {
         align: 'center',
         render: (v) => <span style={{ fontWeight: 700 }}>{fmtDate(v)}</span>,
       },
-      {
-        key: 'doc_type_name',
-        label: 'نوع المستند',
-        width: 135,
-        align: 'center',
-        render: (v, row) => (
-          <Tag color="gold" style={{ fontWeight: 700 }}>
-            {v || row.doc_type_code || 'قيد'}
-          </Tag>
-        ),
-      },
+      // {
+      //   key: 'doc_type_name',
+      //   label: 'نوع المستند',
+      //   width: 135,
+      //   align: 'center',
+      //   render: (v, row) => (
+      //     <Tag color="gold" style={{ fontWeight: 700 }}>
+      //       {v || row.doc_type_code || 'قيد'}
+      //     </Tag>
+      //   ),
+      // },
       {
         key: 'doc_no',
         label: 'رقم المستند',
@@ -194,13 +194,13 @@ export default function AccountStatementPage() {
         align: 'center',
         render: (v) => <code style={{ color: '#8f6200', fontWeight: 800, fontSize: 12 }}>{v || '—'}</code>,
       },
-      {
-        key: 'branch_name',
-        label: 'الفرع',
-        width: 115,
-        align: 'center',
-        render: (v) => <span style={{ fontWeight: 600 }}>{v || '—'}</span>,
-      },
+      // {
+      //   key: 'branch_name',
+      //   label: 'الفرع',
+      //   width: 115,
+      //   align: 'center',
+      //   render: (v) => <span style={{ fontWeight: 600 }}>{v || '—'}</span>,
+      // },
     ]
 
     if (showCash) {
@@ -240,14 +240,14 @@ export default function AccountStatementPage() {
 
     if (showGold) {
       cols.push(
-        {
-          key: 'karat_name',
-          label: 'العيار',
-          width: 90,
-          align: 'center',
-          render: (v) =>
-            v ? <span style={{ fontWeight: 800, color: '#8f6200' }}>{v}</span> : <span style={{ color: '#ccc' }}>—</span>,
-        },
+        // {
+        //   key: 'karat_name',
+        //   label: 'العيار',
+        //   width: 90,
+        //   align: 'center',
+        //   render: (v) =>
+        //     v ? <span style={{ fontWeight: 800, color: '#8f6200' }}>{v}</span> : <span style={{ color: '#ccc' }}>—</span>,
+        // },
         {
           key: 'gold_debit',
           label: 'مدين ذهب (جم)',
@@ -419,7 +419,7 @@ export default function AccountStatementPage() {
         {filtersOpen && (
           <div style={{ marginBottom: 16 }}>
             <Row gutter={[8, 8]} align="middle">
-              <Col xs={24} md={6}>
+              <Col xs={12} md={6}>
                 <Select
                   allowClear
                   showSearch
@@ -435,7 +435,7 @@ export default function AccountStatementPage() {
                 />
               </Col>
 
-              <Col xs={12} md={4}>
+              {/* <Col xs={12} md={4}>
                 <Select
                   allowClear
                   placeholder="الفرع"
@@ -443,9 +443,9 @@ export default function AccountStatementPage() {
                   onChange={(v) => setFilters({ ...filters, branch_id: v })}
                   options={branches.map((b) => ({ value: b.id, label: b.name }))}
                 />
-              </Col>
+              </Col> */}
 
-              <Col xs={12} md={4}>
+              <Col xs={12} md={6}>
                 <Select
                   placeholder="النوع"
                   value={filters.transaction_type}
@@ -458,7 +458,7 @@ export default function AccountStatementPage() {
                 />
               </Col>
 
-              <Col xs={12} md={4}>
+              <Col xs={12} md={6}>
                 <DatePicker
                   placeholder="من تاريخ"
                   value={filters.from ? dayjs(filters.from) : null}
@@ -468,7 +468,7 @@ export default function AccountStatementPage() {
                 />
               </Col>
 
-              <Col xs={12} md={4}>
+              <Col xs={12} md={6}>
                 <DatePicker
                   placeholder="إلى تاريخ"
                   value={filters.to ? dayjs(filters.to) : null}

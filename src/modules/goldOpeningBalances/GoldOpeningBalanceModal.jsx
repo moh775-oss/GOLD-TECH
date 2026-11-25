@@ -29,6 +29,7 @@ export default function GoldOpeningBalanceModal({
     const priceVal = Form.useWatch('price', form)
     const calculatedTotal = Number(((Number(weightVal || 0)) * (Number(priceVal || 0))).toFixed(2))
 
+    // ✅ إعادة تعيين / تعبئة الحقول عند فتح المودال
     useEffect(() => {
         if (!open) return
 
@@ -49,13 +50,27 @@ export default function GoldOpeningBalanceModal({
                 store_id: undefined,
                 opening_date: dayjs(),
                 weight: undefined,
-                karat_id: undefined,
+                karat_id: karats[0]?.id ?? undefined,   // ✅ أول عيار تلقائياً
                 price: undefined,
                 description: '',
             })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [open, editingRecord, form])
+    }, [open, editingRecord, form, karats.length])
+
+    // ✅ ضمان اختيار أول عيار لو العيارات جاءت متأخرة (في وضع الإضافة فقط)
+    useEffect(() => {
+        if (!open) return
+        if (editingRecord) return
+        if (!karats.length) return
+
+        const currentKarat = form.getFieldValue('karat_id')
+        const stillValid = karats.some((k) => Number(k.id) === Number(currentKarat))
+        if (!currentKarat || !stillValid) {
+            form.setFieldsValue({ karat_id: karats[0].id })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [open, editingRecord, karats])
 
     const handleSubmit = async () => {
         try {

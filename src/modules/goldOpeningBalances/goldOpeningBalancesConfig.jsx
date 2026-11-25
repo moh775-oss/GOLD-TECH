@@ -5,6 +5,7 @@ import {
     DeleteOutlined,
     MoreOutlined,
 } from '@ant-design/icons'
+import { RiyalIcon } from 'riyal/react'
 import { confirmDelete } from '../../lib/confirmDelete.jsx'
 
 const fmtWeight = (v) => (v != null ? Number(v).toFixed(3) : '0.000')
@@ -12,6 +13,19 @@ const fmtMoney = (v) =>
     v != null
         ? Number(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
         : '0.00'
+
+const renderMoneyWithRiyal = (v, color = '#197fdd', bold = true) => (
+    <span style={{ color, fontWeight: bold ? 700 : 600, display: 'inline-flex', alignItems: 'center', gap: 4 }}>
+        {fmtMoney(v)}
+        <RiyalIcon width={14} height={14} />
+    </span>
+)
+
+const renderWeightWithGram = (v, color = '#d4a017', bold = true) => (
+    <span style={{ color, fontWeight: bold ? 700 : 600 }}>
+        {`${fmtWeight(v)} جم`}
+    </span>
+)
 
 export function buildGoldOpeningBalanceColumns({ onEdit, onDelete, onView }) {
     return [
@@ -77,32 +91,41 @@ export function buildGoldOpeningBalanceColumns({ onEdit, onDelete, onView }) {
                 )
             },
         },
-        { key: 'doc_no', label: 'رقم المستند', width: 120, sortable: true, align: 'center' },
+        {
+            key: 'doc_no',
+            label: 'رقم المستند',
+            width: 120,
+            sortable: true,
+            align: 'center',
+            render: (v) => <code style={{ color: '#b8860b', fontWeight: 700, fontSize: 12 }}>{v}</code>,
+        },
         { key: 'opening_date', label: 'التاريخ', width: 120, sortable: true, align: 'center' },
         { key: 'store_name', label: 'الخزينة', width: 140, sortable: true, align: 'center' },
         { key: 'karat_name', label: 'العيار', width: 110, align: 'center' },
         {
             key: 'weight',
             label: 'الوزن',
-            width: 120,
+            width: 125,
             align: 'center',
-            render: (v) => fmtWeight(v),
+            render: (v) =>
+                v != null && Number(v) > 0 ? renderWeightWithGram(v) : <span style={{ color: '#ccc' }}>—</span>,
         },
         {
             key: 'price',
             label: 'السعر',
-            width: 130,
+            width: 135,
             align: 'center',
-            render: (v) => fmtMoney(v),
+            render: (v) =>
+                v != null && Number(v) > 0 ? renderMoneyWithRiyal(v, '#374151', true) : <span style={{ color: '#ccc' }}>—</span>,
         },
         {
             key: 'total_amount',
             label: 'الإجمالي',
-            width: 140,
+            width: 145,
             align: 'center',
             render: (v, row) => {
                 const val = v != null ? Number(v) : Number(row.weight || 0) * Number(row.price || 0)
-                return fmtMoney(val)
+                return val > 0 ? renderMoneyWithRiyal(val, '#197fdd', true) : <span style={{ color: '#ccc' }}>—</span>
             },
         },
         { key: 'description', label: 'البيان', width: 220, align: 'right' },

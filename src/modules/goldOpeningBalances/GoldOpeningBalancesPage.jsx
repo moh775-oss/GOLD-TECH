@@ -9,6 +9,11 @@ import GoldOpeningBalanceModal from './GoldOpeningBalanceModal.jsx'
 import GoldOpeningBalanceViewModal from './GoldOpeningBalanceViewModal.jsx'
 import { buildGoldOpeningBalanceColumns } from './goldOpeningBalancesConfig.jsx'
 
+const getDefaultDateRange = () => ({
+    from: dayjs().startOf('month').format('YYYY-MM-DD'),
+    to: dayjs().format('YYYY-MM-DD'),
+})
+
 export default function GoldOpeningBalancesPage() {
     const [data, setData] = useState([])
     const [optionsData, setOptionsData] = useState({
@@ -22,12 +27,11 @@ export default function GoldOpeningBalancesPage() {
     const [viewing, setViewing] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const [filters, setFilters] = useState({
+    const [filters, setFilters] = useState(() => ({
         store_id: undefined,
         karat_id: undefined,
-        from: undefined,
-        to: undefined,
-    })
+        ...getDefaultDateRange(),
+    }))
 
     useEffect(() => {
         ; (async () => {
@@ -101,8 +105,7 @@ export default function GoldOpeningBalancesPage() {
         setFilters({
             store_id: undefined,
             karat_id: undefined,
-            from: undefined,
-            to: undefined,
+            ...getDefaultDateRange(),
         })
 
     const columns = useMemo(
@@ -111,7 +114,13 @@ export default function GoldOpeningBalancesPage() {
         []
     )
 
-    const hasFilters = Boolean(filters.store_id || filters.karat_id || filters.from || filters.to)
+    const defaults = getDefaultDateRange()
+    const hasFilters = Boolean(
+        filters.store_id ||
+        filters.karat_id ||
+        (filters.from && filters.from !== defaults.from) ||
+        (filters.to && filters.to !== defaults.to)
+    )
 
     return (
         <div style={{ padding: 24 }}>
