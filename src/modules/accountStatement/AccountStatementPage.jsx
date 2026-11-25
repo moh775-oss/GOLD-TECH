@@ -33,14 +33,14 @@ const renderRiyal = (v, color = '#1d4ed8', bold = true) => (
       direction: 'ltr',
     }}
   >
-    {fmtMoney(v)}
+    {fmtMoney(Math.abs(Number(v || 0)))}
     <RiyalIcon width={14} height={14} />
   </span>
 )
 
 const renderGold = (v, color = '#8f6200', bold = true) => (
   <span style={{ color, fontWeight: bold ? 800 : 700 }}>
-    {`${fmtWeight(v)} جم`}
+    {`${fmtWeight(Math.abs(Number(v || 0)))} جم`}
   </span>
 )
 
@@ -51,6 +51,12 @@ const balanceSideLabel = (val, isCreditNature) => {
     return num > 0 ? 'له' : 'عليه'
   }
   return num > 0 ? 'عليه' : 'له'
+}
+
+// ✅ label بين قوسين (له)/(عليه)
+const balanceSideLabelParens = (val, isCreditNature) => {
+  const label = balanceSideLabel(val, isCreditNature)
+  return label === 'متزن' ? label : `(${label})`
 }
 
 export default function AccountStatementPage() {
@@ -218,13 +224,13 @@ export default function AccountStatementPage() {
         {
           key: 'running_cash_balance',
           label: 'الرصيد النقدي',
-          width: 155,
+          width: 165,
           align: 'center',
           render: (v) => (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
               {renderRiyal(v, '#1d4ed8', true)}
               <span style={{ fontSize: 10.5, fontWeight: 800, color: '#4b5563' }}>
-                {balanceSideLabel(v, isCreditNature)}
+                {balanceSideLabelParens(v, isCreditNature)}
               </span>
             </div>
           ),
@@ -261,13 +267,13 @@ export default function AccountStatementPage() {
         {
           key: 'running_gold_balance',
           label: 'رصيد الذهب',
-          width: 155,
+          width: 165,
           align: 'center',
           render: (v) => (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
               {renderGold(v, '#7a5d00', true)}
               <span style={{ fontSize: 10.5, fontWeight: 800, color: '#7a5d00' }}>
-                {balanceSideLabel(v, isCreditNature)}
+                {balanceSideLabelParens(v, isCreditNature)}
               </span>
             </div>
           ),
@@ -275,7 +281,6 @@ export default function AccountStatementPage() {
       )
     }
 
-    // ✅ نقلنا عمود "البيان" ليكون آخر عمود في الجدول
     cols.push({
       key: 'description',
       label: 'البيان / التفاصيل',
@@ -323,7 +328,9 @@ export default function AccountStatementPage() {
       cards.push(
         {
           key: 'open_cash',
-          title: filters.with_opening ? 'رصيد نقدي قبل الفترة' : 'رصيد نقدي افتتاحي (بدون سابق)',
+          title: filters.with_opening
+            ? `رصيد نقدي قبل الفترة (${balanceSideLabel(opening.cash, isCreditNature)})`
+            : 'رصيد نقدي افتتاحي (بدون سابق)',
           bg: 'rgba(29, 78, 216, 0.06)',
           border: 'rgba(29, 78, 216, 0.35)',
           color: '#1e3a8a',
@@ -357,7 +364,9 @@ export default function AccountStatementPage() {
       cards.push(
         {
           key: 'open_gold',
-          title: filters.with_opening ? 'رصيد ذهب قبل الفترة' : 'رصيد ذهب افتتاحي (بدون سابق)',
+          title: filters.with_opening
+            ? `رصيد ذهب قبل الفترة (${balanceSideLabel(opening.gold, isCreditNature)})`
+            : 'رصيد ذهب افتتاحي (بدون سابق)',
           bg: 'rgba(184, 134, 11, 0.08)',
           border: 'rgba(184, 134, 11, 0.35)',
           color: '#7a5d00',
@@ -405,12 +414,7 @@ export default function AccountStatementPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card>
-        <div
-          className="page-header-banner"
-          
-        >
-          كشف حساب
-        </div>
+        <div className="page-header-banner">كشف حساب</div>
 
         {filtersOpen && (
           <div style={{ marginBottom: 16 }}>
@@ -454,21 +458,6 @@ export default function AccountStatementPage() {
                 />
               </Col>
 
-              {/* <Col xs={24} md={8}>
-                <Select
-                  allowClear
-                  showSearch
-                  optionFilterProp="label"
-                  placeholder="نوع المستند"
-                  value={filters.document_type_id}
-                  onChange={(v) => setFilters({ ...filters, document_type_id: v })}
-                  options={docTypes.map((d) => ({
-                    value: d.id,
-                    label: d.trans_code ? `${d.trans_code} — ${d.name}` : d.name,
-                  }))}
-                />
-              </Col> */}
-
               <Col xs={12} md={4}>
                 <DatePicker
                   placeholder="من تاريخ"
@@ -488,72 +477,9 @@ export default function AccountStatementPage() {
                   }
                 />
               </Col>
-
-              {/* <Col xs={24} md={4}>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '4px 10px',
-                    borderRadius: 8,
-                    border: '1px solid #e5e7eb',
-                    background: '#fafafa',
-                  }}
-                >
-                  <span style={{ fontSize: 12.5, fontWeight: 700, color: '#374151' }}>
-                    رصيد قبل الفترة:
-                  </span>
-                  <Switch
-                    size="small"
-                    checked={Boolean(filters.with_opening)}
-                    onChange={(checked) => setFilters({ ...filters, with_opening: checked })}
-                  />
-                </div>
-              </Col> */}
-
-              {/* <Col xs={24} md={6}>
-                <Space style={{ width: '100%', justifyContent: 'flex-end' }}>
-                  <Button
-                    type="primary"
-                    icon={<SearchOutlined />}
-                    onClick={fetchStatement}
-                    loading={loading}
-                  >
-                    عرض الكشف
-                  </Button>
-                  <Button icon={<ClearOutlined />} onClick={resetFilters} danger>
-                    إعادة ضبط
-                  </Button>
-                </Space>
-              </Col> */}
             </Row>
           </div>
         )}
-
-        {/* {accountInfo && (
-          <div
-            style={{
-              marginBottom: 14,
-              padding: '8px 14px',
-              borderRadius: 8,
-              background: 'rgba(184, 134, 11, 0.08)',
-              border: '1px solid rgba(184, 134, 11, 0.35)',
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 16,
-              fontSize: 13,
-              fontWeight: 800,
-              color: '#1f2937',
-            }}
-          >
-            <span>الحساب: {accountInfo.acc_no ? `${accountInfo.acc_no} — ` : ''}{accountInfo.name}</span>
-            <span>الطبيعة: {accountInfo.account_nature === 'credit' ? 'دائن (Credit)' : 'مدين (Debit)'}</span>
-            <span>رصيد قبل الفترة: {filters.with_opening ? 'مشمول' : 'غير مشمول'}</span>
-          </div>
-        )} */}
-
-        
 
         <DataTable
           title="تفاصيل كشف الحساب"
@@ -566,7 +492,7 @@ export default function AccountStatementPage() {
           onReload={fetchStatement}
           hideExportButton={true}
           extraActions={
-            <Button 
+            <Button
               icon={<PrinterOutlined />}
               disabled={!printPayload}
               onClick={() => setPrintOpen(true)}
@@ -576,7 +502,7 @@ export default function AccountStatementPage() {
           }
         />
         {summaryCards.length > 0 && (
-          <Row gutter={[10, 10]} align="stretch" style={{ marginBottom: 18 , marginTop:10 }}>
+          <Row gutter={[10, 10]} align="stretch" style={{ marginBottom: 18, marginTop: 10 }}>
             {summaryCards.map((card) => (
               <Col xs={24} sm={12} md={4} key={card.key} style={{ display: 'flex' }}>
                 <div

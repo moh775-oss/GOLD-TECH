@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import dayjs from 'dayjs'
+import { RiyalIcon } from 'riyal/react'
 import { Tafgeet } from 'tafgeet-arabic'
 import { useAuth } from '../../contexts/AuthContext.jsx'
 import PrintHeader from '../../components/PrintHeader.jsx'
@@ -32,15 +33,21 @@ function balanceSideLabel(val, isCreditNature) {
   return num > 0 ? 'عليه' : 'له'
 }
 
+// ✅ نلف الـ label بين قوسين (له)/(عليه) ونتعامل مع الفراغ
+function sideWithParens(val, isCreditNature) {
+  const label = balanceSideLabel(val, isCreditNature)
+  return label === '&nbsp;' ? '&nbsp;' : `(${label})`
+}
+
 function fmtGoldIfActive(val) {
-  const num = Number(val || 0)
-  if (Math.abs(num) < 0.0001) return '&nbsp;'
+  const num = Math.abs(Number(val || 0))
+  if (num < 0.0001) return '&nbsp;'
   return num.toFixed(2)
 }
 
 function fmtCashIfActive(val) {
-  const num = Number(val || 0)
-  if (Math.abs(num) < 0.0001) return '&nbsp;'
+  const num = Math.abs(Number(val || 0))
+  if (num < 0.0001) return '&nbsp;'
   return fmtMoney(num)
 }
 
@@ -96,12 +103,12 @@ export default function AccountStatementPrint({ open, onClose, payload }) {
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td class="num-bold">${fmtGoldIfActive(openingGold)}</td>
-        <td class="side-bold">${balanceSideLabel(openingGold, isCreditNature)}</td>
+        <td class="side-bold">${sideWithParens(openingGold, isCreditNature)}</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td>&nbsp;</td>
         <td class="num-bold">${fmtCashIfActive(openingCash)}</td>
-        <td class="side-bold">${balanceSideLabel(openingCash, isCreditNature)}</td>
+        <td class="side-bold">${sideWithParens(openingCash, isCreditNature)}</td>
         <td class="desc-full">${flt.with_opening ? 'رصيد قبل الفترة' : 'رصيد افتتاحي (بدون رصيد سابق)'}</td>
       </tr>
     `
@@ -124,13 +131,13 @@ export default function AccountStatementPrint({ open, onClose, payload }) {
             <td class="karat-bold">${hasGold && r.karat_name ? r.karat_name : '&nbsp;'}</td>
             <td>${fmtGoldIfActive(gDr)}</td>
             <td>${fmtGoldIfActive(gCr)}</td>
-            <td class="num-bold">${hasGold ? gBal.toFixed(2) : '&nbsp;'}</td>
-            <td class="side-bold">${hasGold ? balanceSideLabel(gBal, isCreditNature) : '&nbsp;'}</td>
+            <td class="num-bold">${hasGold ? Math.abs(gBal).toFixed(2) : '&nbsp;'}</td>
+            <td class="side-bold">${hasGold ? sideWithParens(gBal, isCreditNature) : '&nbsp;'}</td>
             <td>${hasCash ? 'ر.س' : '&nbsp;'}</td>
             <td>${fmtCashIfActive(cDr)}</td>
             <td>${fmtCashIfActive(cCr)}</td>
-            <td class="num-bold">${hasCash ? fmtMoney(cBal) : '&nbsp;'}</td>
-            <td class="side-bold">${hasCash ? balanceSideLabel(cBal, isCreditNature) : '&nbsp;'}</td>
+            <td class="num-bold">${hasCash ? fmtMoney(Math.abs(cBal)) : '&nbsp;'}</td>
+            <td class="side-bold">${hasCash ? sideWithParens(cBal, isCreditNature) : '&nbsp;'}</td>
             <td class="desc-full">${r.description || r.doc_type_name || '&nbsp;'}</td>
           </tr>
         `
@@ -139,7 +146,10 @@ export default function AccountStatementPrint({ open, onClose, payload }) {
       : `<tr><td colspan="12" style="color:#777;padding:14px;">لا توجد حركات ضمن الفترة المحددة</td></tr>`
 
     const cashWords = Math.abs(closingCash) > 0 ? amountToArabicWords(closingCash) : ''
-
+    const riyalIconHTML =
+      Math.abs(closingCash) >= 0.0001
+        ? ` <span style="display:inline-flex;vertical-align:middle;margin-right:4px;">${renderToStaticMarkup(<RiyalIcon width={14} height={14} />)}</span>`
+        : ''
     const bodyHTML = `
       <div class="print-sheet">
         ${headerHTML}
@@ -149,7 +159,7 @@ export default function AccountStatementPrint({ open, onClose, payload }) {
         <div class="account-pill">
           <span><strong>الرقم الحساب</strong> &nbsp;&nbsp; ${acc.acc_no || '&nbsp;'}</span>
           <span><strong>اسم الحساب</strong> &nbsp;&nbsp; ${acc.name || '&nbsp;'}</span>
-          <span class="period-meta">(${flt.from || 'البداية'} — ${flt.to || 'النهاية'})</span>
+          <span class="period-meta">(${flt.from || 'من تاريخ'} — ${flt.to || 'الى تاريخ'})</span>
         </div>
 
         <table class="stmt-table">
@@ -189,7 +199,7 @@ export default function AccountStatementPrint({ open, onClose, payload }) {
               </tr>
               <tr class="tot-bottom">
                 <td class="tot-unit">${Math.abs(closingGold) > 0 ? 'جرام' : '&nbsp;'}</td>
-                <td class="tot-side">${balanceSideLabel(closingGold, isCreditNature)}</td>
+                <td class="tot-side">${sideWithParens(closingGold, isCreditNature)}</td>
                 <td class="tot-val-strong">${fmtGoldIfActive(closingGold)}</td>
                 <td class="tot-lbl">الرصيد</td>
               </tr>
@@ -205,8 +215,8 @@ export default function AccountStatementPrint({ open, onClose, payload }) {
               </tr>
               <tr class="tot-bottom">
                 <td class="tot-unit">${Math.abs(closingCash) > 0 ? 'ر.س' : '&nbsp;'}</td>
-                <td class="tot-side">${balanceSideLabel(closingCash, isCreditNature)}</td>
-                <td class="tot-val-strong">${fmtCashIfActive(closingCash)}</td>
+                <td class="tot-side">${sideWithParens(closingCash, isCreditNature)}</td>
+                <td class="tot-val-strong">${fmtCashIfActive(closingCash)}${riyalIconHTML}</td>
                 <td class="tot-lbl">الرصيد</td>
               </tr>
             </tbody>
@@ -241,8 +251,8 @@ export default function AccountStatementPrint({ open, onClose, payload }) {
         padding: 7px 16px;
         margin: 8px 0 10px;
         border-radius: 10px;
-        background: rgba(184, 134, 11, 0.14);
-        border: 1.5px solid rgba(184, 134, 11, 0.45);
+  
+        border: 0.5px solid rgba(255, 236, 188, 0.97);
       }
       .account-pill {
         display: flex;
@@ -253,7 +263,7 @@ export default function AccountStatementPrint({ open, onClose, payload }) {
         margin: 8px 0 12px;
         background: rgba(184, 134, 11, 0.14);
         border: 1.5px solid rgba(184, 134, 11, 0.48);
-        border-radius: 999px;
+        border-radius: 10px;
         font-size: 13px;
         font-weight: 800;
         color: #5c4500;

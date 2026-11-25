@@ -168,17 +168,26 @@ export default function Navbar() {
                 <span className="mobile-company-name">جولد تاك</span>
               </Link>
 
-              <div className="mobile-icons" style={{ display: 'flex', alignItems: 'center' }}>
-                <NotificationsDropdown count={unreadCount} items={notifications} />
-                <button className="mobile-icon-btn" onClick={() => setSearchOpen(true)}>
+              <div className="mobile-icons" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <div className="mobile-notif-wrap">
+                  <NotificationsDropdown count={unreadCount} items={notifications} />
+                </div>
+
+                <button
+                  type="button"
+                  className="mobile-icon-btn"
+                  onClick={() => setSearchOpen(true)}
+                  style={{ width: 28, height: 28, fontSize: 13 }}
+                >
                   <SearchOutlined />
                 </button>
 
-                
-                
-
                 <Dropdown menu={accountMenu} placement="bottomLeft" trigger={['click']}>
-                  <div className="avatar-btn avatar-sm" title={session?.name}>
+                  <div
+                    className="avatar-btn avatar-sm"
+                    title={session?.name}
+                    style={{ width: 28, height: 28, fontSize: 12, lineHeight: '28px' }}
+                  >
                     {firstLetter}
                   </div>
                 </Dropdown>

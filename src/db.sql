@@ -460,6 +460,87 @@ INSERT INTO accounts_template
 
 
 
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `company_settings` (
+  `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `company_id` BIGINT UNSIGNED NOT NULL,
+
+  -- ============ 1. الافتراضيات المرتبطة بـ ID ============
+  `default_branch_id` BIGINT UNSIGNED NULL,
+  `default_user_id` BIGINT UNSIGNED NULL,
+  `default_store_id` BIGINT UNSIGNED NULL,
+  `default_pure_store_id` BIGINT UNSIGNED NULL,
+  `default_scrap_store_id` BIGINT UNSIGNED NULL,
+  `default_worked_store_id` BIGINT UNSIGNED NULL,
+  `default_item_id` BIGINT UNSIGNED NULL,
+  `default_karat_id` BIGINT UNSIGNED NULL,
+  `default_category_id` BIGINT UNSIGNED NULL,
+  `default_safe_id` BIGINT UNSIGNED NULL,
+  `default_bank_id` BIGINT UNSIGNED NULL,
+  `default_customer_id` BIGINT UNSIGNED NULL,
+  `default_supplier_id` BIGINT UNSIGNED NULL,
+  `base_currency_id` BIGINT UNSIGNED NULL,
+  `default_tax_id` BIGINT UNSIGNED NULL,
+  `default_fiscal_year_id` BIGINT UNSIGNED NULL,
+  `default_cost_center_id` BIGINT UNSIGNED NULL,
+
+  -- ============ 2. الافتراضيات النصية والأنواع والأسماء ============
+  `company_currency` VARCHAR(20) NOT NULL DEFAULT 'SAR',
+  `default_gold_type` VARCHAR(100) NULL,
+  `default_item_type` VARCHAR(100) NULL,
+  `default_category_name` VARCHAR(150) NULL,
+  `default_karat_name` VARCHAR(50) NULL,
+  `default_store_name` VARCHAR(150) NULL,
+  `default_item_name` VARCHAR(150) NULL,
+  `gold_price_source` VARCHAR(50) NOT NULL DEFAULT 'manual',
+  `invoice_prefix_sale` VARCHAR(30) NOT NULL DEFAULT 'INV',
+  `invoice_prefix_purchase` VARCHAR(30) NOT NULL DEFAULT 'PUR',
+  `voucher_prefix_receipt` VARCHAR(30) NOT NULL DEFAULT 'RCV',
+  `voucher_prefix_payment` VARCHAR(30) NOT NULL DEFAULT 'PAY',
+  `journal_prefix` VARCHAR(30) NOT NULL DEFAULT 'JV',
+
+  -- ============ 3. الضرائب والحسابات والطباعة ============
+  `tax_enabled` TINYINT(1) NOT NULL DEFAULT 1,
+  `default_tax_rate` DECIMAL(8,4) NOT NULL DEFAULT 15.0000,
+  `auto_assign_store_by_karat` TINYINT(1) NOT NULL DEFAULT 1,
+  `allow_negative_stock` TINYINT(1) NOT NULL DEFAULT 0,
+  `allow_negative_gold` TINYINT(1) NOT NULL DEFAULT 0,
+  `print_show_tax` TINYINT(1) NOT NULL DEFAULT 1,
+  `print_notes` TEXT NULL,
+
+  -- ============ 4. إعدادات الإشعارات وتنبيهات الأجور ============
+  `notifications_enabled` TINYINT(1) NOT NULL DEFAULT 1,
+  `wage_notifications_enabled` TINYINT(1) NOT NULL DEFAULT 1,
+  `wage_notify_after_days` INT NOT NULL DEFAULT 1,
+  `wage_notify_after_hours` INT NOT NULL DEFAULT 0,
+  `wage_notify_at_time` VARCHAR(20) NULL,
+  `wage_notify_rule_text` VARCHAR(255) NULL,
+  `wage_notify_message` TEXT NULL,
+  `invoice_notifications_enabled` TINYINT(1) NOT NULL DEFAULT 1,
+  `voucher_notifications_enabled` TINYINT(1) NOT NULL DEFAULT 1,
+
+  -- ============ 5. حقل نصي عام لأي إعدادات إضافية ============
+  `custom_note` TEXT NULL,
+
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+  UNIQUE KEY `uq_company_settings_company` (`company_id`),
+  KEY `idx_company_settings_branch` (`default_branch_id`),
+  KEY `idx_company_settings_user` (`default_user_id`),
+  KEY `idx_company_settings_store` (`default_store_id`),
+  KEY `idx_company_settings_item` (`default_item_id`),
+  KEY `idx_company_settings_karat` (`default_karat_id`),
+  KEY `idx_company_settings_category` (`default_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
 ALTER TABLE items ADD COLUMN gold_type VARCHAR(50) NULL AFTER item_type;
 
 
